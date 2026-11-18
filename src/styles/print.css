@@ -1,0 +1,44 @@
+@media print {
+  @page {
+    size: A4;
+    margin: 12mm 14mm;
+  }
+
+  body {
+    background: #ffffff !important;
+    color: #0b1320 !important;
+  }
+
+  .site-header,
+  .hero-stage,
+  #ventures,
+  #exvorta-web,
+  #pipeline,
+  .lens-bar,
+  .download-stack,
+  .site-footer,
+  .modal-backdrop,
+  .toast,
+  .crosshair {
+    display: none !important;
+  }
+
+  .folio-section {
+    background: #ffffff !important;
+    padding: 0 !important;
+    border: 0 !important;
+  }
+
+  .folio-grid {
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+  }
+
+  .folio-panel,
+  .timeline-item,
+  .skill-group {
+    border-color: #cbd5e1 !important;
+    box-shadow: none !important;
+    break-inside: avoid;
+  }
+}

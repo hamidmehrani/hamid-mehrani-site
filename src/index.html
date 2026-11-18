@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hamid Mehrani — AI Systems Architect &amp; Founder @ Exvorta</title>
+  <meta name="description" content="Personal portfolio &amp; systems observatory of Hamid Mehrani: shipping production SaaS platforms, multi-agent automation engines, and 6 live Exvorta Web global trade sites.">
+  <meta name="author" content="Hamid Mehrani">
+  <meta name="theme-color" content="#070A0F">
+  <link rel="canonical" href="https://hamidmehrani.pages.dev/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+  <!-- Open Graph / Social -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Hamid Mehrani — AI Systems Architect &amp; Founder @ Exvorta">
+  <meta property="og:description" content="8 years building web systems &amp; multi-agent engineering pipelines: Exvorta SaaS, LeadGen Engine (48,000+ leads), Firoza, Hamesu, and 6 Exvorta Web trade houses.">
+  <meta property="og:url" content="https://hamidmehrani.pages.dev/">
+  <meta property="og:image" content="https://hamidmehrani.pages.dev/og-card.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Hamid Mehrani — AI Systems Architect &amp; Founder @ Exvorta">
+  <meta name="twitter:description" content="Shipping production systems &amp; global brand worlds by directing AI agent teams.">
+
+  <!-- Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@600;700;800&family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="/styles/tokens.css">
+  <link rel="stylesheet" href="/styles/layout.css">
+  <link rel="stylesheet" href="/styles/components.css">
+  <link rel="stylesheet" href="/styles/print.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Hamid Mehrani",
+    "url": "https://hamidmehrani.pages.dev/",
+    "email": "mailto:hamid@exvorta.com",
+    "jobTitle": "AI Automation Engineer & Founder",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Exvorta",
+      "url": "https://exvorta.com"
+    },
+    "sameAs": [
+      "https://github.com/hamidmehrani",
+      "https://linkedin.com/in/hamidmehrani",
+      "https://exvorta.com",
+      "https://www.firoza.ir"
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content" data-i18n="skip">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#top" class="brand-anchor" aria-label="Hamid Mehrani Home">
+        <span class="brand-mark-box">
+          <svg viewBox="0 0 1000 1000" width="20" height="20" aria-hidden="true">
+            <path fill="#F3F6FA" fill-rule="evenodd" d="M 0 0 H 225 L 500 275 L 775 0 H 1000 V 225 L 725 500 L 1000 775 V 1000 H 775 L 500 725 L 225 1000 H 0 V 775 L 275 500 L 0 225 Z M 500 330 L 670 500 L 500 670 L 330 500 Z"/>
+            <circle cx="780" cy="780" r="105" fill="#070A0F"/>
+            <circle cx="780" cy="780" r="78" fill="#12B896"/>
+          </svg>
+        </span>
+        <span class="brand-wording">
+          <span class="brand-name" id="header-brand-name">Hamid Mehrani</span>
+        </span>
+      </a>
+
+      <div class="telemetry-pill" aria-live="off">
+        <span class="pulse-dot" aria-hidden="true"></span>
+        <span data-i18n="telemetryStatus">Remote · Async-First</span>
+        <span aria-hidden="true">·</span>
+        <span id="live-clock">UTC --:--</span>
+      </div>
+
+      <nav class="primary-nav" aria-label="Primary Navigation">
+        <a href="#ventures" class="nav-link" data-i18n="nav.ventures">Ventures</a>
+        <a href="#exvorta-web" class="nav-link" data-i18n="nav.exvortaWeb">Exvorta Web</a>
+        <a href="#pipeline" class="nav-link" data-i18n="nav.pipeline">Agent Pipeline</a>
+        <a href="#resume" class="nav-link" data-i18n="nav.resume">Career &amp; CV</a>
+        <a href="#contact" class="nav-link" data-i18n="nav.contact">Contact</a>
+      </nav>
+
+      <div class="header-controls">
+        <button type="button" class="hud-btn" id="open-cmd-btn" aria-label="Open Command Palette">
+          <span data-i18n="cmdBtn">Command</span>
+          <kbd>⌘K</kbd>
+        </button>
+
+        <div class="lang-toggle" role="group" aria-label="Language Switcher">
+          <button type="button" class="lang-btn is-active" id="lang-en" data-lang="en">EN</button>
+          <button type="button" class="lang-btn" id="lang-fa" data-lang="fa">فا</button>
+        </div>
+
+        <button type="button" class="hud-btn mobile-menu-btn" id="mobile-menu-btn" aria-expanded="false" aria-controls="mobile-drawer" aria-label="Menu">
+          ☰
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="mobile-drawer" id="mobile-drawer" hidden>
+    <a href="#ventures" data-mobile-link data-i18n="nav.ventures">Ventures</a>
+    <a href="#exvorta-web" data-mobile-link data-i18n="nav.exvortaWeb">Exvorta Web</a>
+    <a href="#pipeline" data-mobile-link data-i18n="nav.pipeline">Agent Pipeline</a>
+    <a href="#resume" data-mobile-link data-i18n="nav.resume">Career &amp; CV</a>
+    <a href="#contact" data-mobile-link data-i18n="nav.contact">Contact</a>
+  </div>
+
+  <main id="main-content">
+    <!-- HERO OBSERVATORY -->
+    <section id="top" class="hero-stage">
+      <div class="hero-backdrop-grid" aria-hidden="true"></div>
+      <canvas id="constellation-canvas" class="constellation-canvas" aria-hidden="true"></canvas>
+
+      <div class="container hero-content">
+        <div class="hero-kicker">
+          <span class="pulse-dot" aria-hidden="true"></span>
+          <span data-i18n="heroKicker">SYSTEMS OBSERVATORY · PORTFOLIO ARCHIVE 2018 — 2026</span>
+        </div>
+
+        <h1 class="hero-headline">
+          <span data-i18n="heroTitleBefore">Shipping </span><span class="hero-serif" data-i18n="heroTitleSerif">production systems</span><span data-i18n="heroTitleAfter"> &amp; global brand worlds by directing AI agent teams.</span>
+        </h1>
+
+        <p class="hero-thesis" data-i18n="heroThesis">
+          8 years of full-stack web engineering evolved into a disciplined multi-agent production pipeline: architectural blueprints, parallel agent execution, independent Playwright visual gates, and one-command edge deploys.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#ventures" class="btn btn-primary" data-i18n="heroCtaPrimary">Explore Shipped Systems</a>
+          <a href="#exvorta-web" class="btn btn-secondary" data-i18n="heroCtaSecondary">Exvorta Web (6 Live Sites)</a>
+          <a href="#resume" class="btn btn-ghost" data-i18n="heroCtaResume">Download Resume PDF</a>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="hero-telemetry-strip has-crosshairs" id="hero-stats-strip">
+          <span class="crosshair crosshair--tl" aria-hidden="true"></span>
+          <span class="crosshair crosshair--tr" aria-hidden="true"></span>
+          <span class="crosshair crosshair--bl" aria-hidden="true"></span>
+          <span class="crosshair crosshair--br" aria-hidden="true"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHAPTER 01: FLAGSHIP SYSTEMS & ENGINES -->
+    <section id="ventures" class="section">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <div class="chapter-index" data-i18n="ch1Index">CHAPTER 01 — FLAGSHIP SYSTEMS</div>
+            <h2 class="section-title">
+              <span data-i18n="ch1TitleA">Ventures &amp; </span><span class="serif-italic" data-i18n="ch1TitleSerif">Production Engines</span>
+            </h2>
+          </div>
+          <p class="section-lead" data-i18n="ch1Lead">
+            Every product built to run real operations: trade-file compliance SaaS, multi-tenant commerce, automated lead intelligence, and zero-defect verification harnesses.
+          </p>
+        </div>
+
+        <div class="ventures-toolbar">
+          <div class="filter-pills" id="venture-filters" role="group" aria-label="Filter systems"></div>
+          <div class="view-switcher" role="group" aria-label="Switch layout view">
+            <button type="button" class="view-btn is-active" id="view-exhibition" data-view="exhibition" data-i18n="viewExhibition">Exhibition Cards</button>
+            <button type="button" class="view-btn" id="view-ledger" data-view="ledger" data-i18n="viewLedger">Index Ledger</button>
+          </div>
+        </div>
+
+        <div id="ventures-container"></div>
+      </div>
+    </section>
+
+    <!-- CHAPTER 02: EXVORTA WEB 6 GLOBAL TRADE HOUSES -->
+    <section id="exvorta-web" class="section exvorta-web-section">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <div class="chapter-index" data-i18n="ch2Index">CHAPTER 02 — EXVORTA WEB STUDIO</div>
+            <h2 class="section-title">
+              <span data-i18n="ch2TitleA">Six Global </span><span class="serif-italic" data-i18n="ch2TitleSerif">B2B Trade Houses</span>
+            </h2>
+          </div>
+          <p class="section-lead" data-i18n="ch2Lead">
+            Powered by a unified Next.js + Payload multilingual exporter architecture and edge-deployed to Cloudflare Pages — bespoke brand systems engineered for global commodities.
+          </p>
+        </div>
+
+        <div class="exvorta-engine-banner has-crosshairs">
+          <span class="crosshair crosshair--tl" aria-hidden="true"></span>
+          <span class="crosshair crosshair--br" aria-hidden="true"></span>
+          <div>
+            <strong style="display:block;font-size:1.06rem;margin-bottom:4px;color:var(--accent-brass);" data-i18n="engineBannerTitle">Reusable Multilingual Export Engine · Cloudflare Pages Edge</strong>
+            <span style="font-size:0.9rem;color:var(--ink-secondary);" data-i18n="engineBannerDesc">Every trade house merges bespoke typography, cultural RTL/LTR precision (up to 5 languages), interactive product configurators, and structured RFQ document workflows.</span>
+          </div>
+          <a href="https://exvorta.com" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">exvorta.com ↗</a>
+        </div>
+
+        <div class="trade-houses-grid" id="trade-houses-grid"></div>
+      </div>
+    </section>
+
+    <!-- CHAPTER 03: AUTONOMOUS AGENT PIPELINE -->
+    <section id="pipeline" class="section">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <div class="chapter-index" data-i18n="ch3Index">CHAPTER 03 — PLAYABLE METHODOLOGY</div>
+            <h2 class="section-title">
+              <span data-i18n="ch3TitleA">The Autonomous </span><span class="serif-italic" data-i18n="ch3TitleSerif">Agent Pipeline</span>
+            </h2>
+          </div>
+          <p class="section-lead" data-i18n="ch3Lead">
+            I do not hand-type boilerplate. I orchestrate specialized architect, builder, visual QA, and audit agents behind deterministic quality gates.
+          </p>
+        </div>
+
+        <div class="pipeline-shell has-crosshairs">
+          <span class="crosshair crosshair--tl" aria-hidden="true"></span>
+          <span class="crosshair crosshair--tr" aria-hidden="true"></span>
+          <span class="crosshair crosshair--bl" aria-hidden="true"></span>
+          <span class="crosshair crosshair--br" aria-hidden="true"></span>
+
+          <div>
+            <div class="pipeline-steps" id="pipeline-steps" role="tablist" aria-label="Agent pipeline stages"></div>
+            <div style="margin-top:14px;">
+              <button type="button" class="hud-btn" id="pipeline-cycle-btn" data-i18n="autoCyclePlay">Auto-Cycle Pipeline</button>
+            </div>
+          </div>
+
+          <div class="pipeline-inspector" id="pipeline-inspector" role="tabpanel"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHAPTER 04: DAYLIGHT ARCHITECTURAL FOLIO (RESUME & TIMELINE) -->
+    <section id="resume" class="section folio-section">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <div class="chapter-index" data-i18n="ch4Index">CHAPTER 04 — DAYLIGHT ARCHITECTURAL FOLIO</div>
+            <h2 class="section-title">
+              <span data-i18n="ch4TitleA">8-Year Career Ledger &amp; </span><span class="serif-italic" data-i18n="ch4TitleSerif">Multi-Track CV</span>
+            </h2>
+          </div>
+          <p class="section-lead" data-i18n="ch4Lead">
+            Switch perspective lenses across AI orchestration, full-stack web engineering, and growth systems — or download the tailored 1-page A4 resumes directly.
+          </p>
+        </div>
+
+        <div class="lens-bar has-crosshairs">
+          <span class="crosshair crosshair--tl" aria-hidden="true"></span>
+          <span class="crosshair crosshair--tr" aria-hidden="true"></span>
+          <div class="lens-tabs" id="resume-lens-tabs" role="tablist" aria-label="Resume Perspective Lens"></div>
+          <span style="font-family:var(--font-mono);font-size:0.76rem;color:var(--ink-folio-muted);" data-i18n="factBankStamp">2018 — 2026 · VERIFIED FACT BANK</span>
+        </div>
+
+        <div class="folio-grid">
+          <div class="folio-panel has-crosshairs">
+            <span class="crosshair crosshair--bl" aria-hidden="true"></span>
+            <span class="crosshair crosshair--br" aria-hidden="true"></span>
+            <div class="resume-summary-box" id="resume-summary-box"></div>
+            <div class="timeline-list" id="timeline-list"></div>
+          </div>
+
+          <aside class="skills-sidebar">
+            <div class="skill-group">
+              <h3 data-i18n="downloadTitle">Export Verified 1-Page Resumes</h3>
+              <div class="download-stack">
+                <a href="/resumes/Hamid_Mehrani_AI_Automation_Engineer.pdf" download class="folio-btn">
+                  <span data-i18n="downloadTrackA">Track A · AI Automation Engineer (PDF)</span>
+                  <span>↓</span>
+                </a>
+                <a href="/resumes/Hamid_Mehrani_Web_Developer.pdf" download class="folio-btn is-outline">
+                  <span data-i18n="downloadTrackB">Track B · Web Developer Next.js / WP (PDF)</span>
+                  <span>↓</span>
+                </a>
+                <button type="button" id="print-folio-btn" class="folio-btn is-outline">
+                  <span data-i18n="printBtn">Print Clean Folio (A4)</span>
+                  <span>⎙</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="skill-group">
+              <h3 data-i18n="skillsTitle">Verified Technical Architecture</h3>
+              <div id="skills-matrix-list" style="display:flex;flex-direction:column;gap:16px;"></div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER + MONUMENTAL WORDMARK -->
+  <footer id="contact" class="site-footer">
+    <div class="container">
+      <div class="footer-deck">
+        <div>
+          <div class="chapter-index" data-i18n="footerIndex">OBSERVATORY CLOSE · ASYNC COLLABORATION</div>
+          <h2 class="footer-heading" data-i18n="footerHeading">Available for remote senior builds, AI agent pipelines &amp; bespoke web architecture.</h2>
+          <p class="footer-note" data-i18n="footerNote">
+            Remote-first and async-native across time zones. All project metrics and career records on this site map directly to live deployed endpoints and verified technical artifacts.
+          </p>
+          <div style="display:flex;flex-wrap:wrap;gap:12px;">
+            <button type="button" class="btn btn-primary" id="copy-email-btn" data-i18n="copyEmailBtn">Copy hamid@exvorta.com</button>
+            <a href="mailto:hamid@exvorta.com" class="btn btn-secondary">hamid@exvorta.com ↗</a>
+          </div>
+        </div>
+
+        <div class="footer-links-col">
+          <div>
+            <h3 class="footer-col-title" data-i18n="footerColWork">LIVE SYSTEMS</h3>
+            <ul class="footer-link-list">
+              <li><a href="https://exvorta.com" target="_blank" rel="noopener noreferrer">Exvorta — exvorta.com ↗</a></li>
+              <li><a href="https://www.firoza.ir" target="_blank" rel="noopener noreferrer">Firoza — firoza.ir ↗</a></li>
+              <li><a href="https://spicevo.exvorta.com" target="_blank" rel="noopener noreferrer">Spicevo — spicevo.exvorta.com ↗</a></li>
+              <li><a href="https://nutave.exvorta.com" target="_blank" rel="noopener noreferrer">Nutave — nutave.exvorta.com ↗</a></li>
+              <li><a href="https://stonvi.exvorta.com" target="_blank" rel="noopener noreferrer">Stonvi — stonvi.exvorta.com ↗</a></li>
+              <li><a href="https://aurum.exvorta.com" target="_blank" rel="noopener noreferrer">Aurum — aurum.exvorta.com ↗</a></li>
+              <li><a href="https://meridian.exvorta.com" target="_blank" rel="noopener noreferrer">Meridian — meridian.exvorta.com ↗</a></li>
+              <li><a href="https://vestra.exvorta.com" target="_blank" rel="noopener noreferrer">Vestra — vestra.exvorta.com ↗</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="footer-col-title" data-i18n="footerColConnect">NETWORK &amp; PROFILES</h3>
+            <ul class="footer-link-list">
+              <li><a href="https://github.com/hamidmehrani" target="_blank" rel="noopener noreferrer">GitHub (@hamidmehrani) ↗</a></li>
+              <li><a href="https://github.com/hamidmehrani/exvorta-main" target="_blank" rel="noopener noreferrer" data-i18n="footerRepoLink">Exvorta Public Repo ↗</a></li>
+              <li><a href="https://linkedin.com/in/hamidmehrani" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a></li>
+              <li><a href="/resumes/Hamid_Mehrani_AI_Automation_Engineer.pdf" download data-i18n="footerPdfA">Resume · AI Engineer (PDF) ↓</a></li>
+              <li><a href="/resumes/Hamid_Mehrani_Web_Developer.pdf" download data-i18n="footerPdfB">Resume · Web Dev (PDF) ↓</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="monumental-wordmark" aria-hidden="true">
+        <svg viewBox="0 0 1200 116" width="1200" height="116" dir="ltr">
+          <text x="600" y="96" text-anchor="middle" textLength="1150" lengthAdjust="spacingAndGlyphs" fill="#F3F6FA" fill-opacity="0.93" font-family="'Syne', sans-serif" font-weight="800" font-size="88">HAMID MEHRANI</text>
+        </svg>
+      </div>
+
+      <div class="footer-bottom-meta">
+        <span data-i18n="footerCopyLeft">© 2026 Hamid Mehrani · Tehran / Remote Any Time Zone</span>
+        <span data-i18n="footerCopyRight">Built with Pure ES2024 + Canvas + Cloudflare Pages Edge</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SYSTEM DOSSIER / LIVE PREVIEW MODAL -->
+  <div class="modal-backdrop" id="dossier-modal" hidden role="dialog" aria-modal="true" aria-labelledby="dossier-modal-title">
+    <div class="modal-panel">
+      <div class="modal-head">
+        <div>
+          <span id="dossier-modal-kicker" style="font-family:var(--font-mono);font-size:0.74rem;color:var(--signal-turquoise);">SYSTEM DOSSIER</span>
+          <h3 id="dossier-modal-title" style="margin:4px 0 0;font-family:var(--font-display);font-size:1.3rem;"></h3>
+        </div>
+        <button type="button" class="modal-close" id="dossier-modal-close" aria-label="Close">✕</button>
+      </div>
+      <div class="modal-body" id="dossier-modal-body"></div>
+    </div>
+  </div>
+
+  <!-- COMMAND PALETTE MODAL (⌘K) -->
+  <div class="modal-backdrop" id="cmd-modal" hidden role="dialog" aria-modal="true" aria-label="Command Palette">
+    <div class="modal-panel modal-panel--cmd">
+      <div class="cmd-input-row">
+        <span style="color:var(--signal-turquoise);font-family:var(--font-mono);font-weight:700;">⌘</span>
+        <input type="text" class="cmd-input" id="cmd-input" placeholder="Jump to any system, Exvorta Web site, resume track, or action..." autocomplete="off">
+        <button type="button" class="modal-close" id="cmd-close" aria-label="Close">✕</button>
+      </div>
+      <div class="cmd-results" id="cmd-results"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <noscript>
+    <div style="padding:32px;background:#0E141E;color:#F3F6FA;font-family:sans-serif;">
+      <h2>Hamid Mehrani — AI Automation Engineer &amp; Founder @ Exvorta</h2>
+      <p>8 years building production web systems, multi-agent pipelines, Exvorta (exvorta.com), Firoza (firoza.ir), and 6 Exvorta Web export houses (spicevo.exvorta.com, nutave.exvorta.com, stonvi.exvorta.com, aurum.exvorta.com, meridian.exvorta.com, vestra.exvorta.com).</p>
+      <p>Contact: hamid@exvorta.com | GitHub: github.com/hamidmehrani | LinkedIn: linkedin.com/in/hamidmehrani</p>
+    </div>
+  </noscript>
+
+  <script type="module" src="/app.mjs"></script>
+</body>
+</html>

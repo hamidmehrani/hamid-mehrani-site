@@ -1,0 +1,52 @@
+:root {
+  /* Observatory Dark Surface System */
+  --bg-obsidian: #070A0F;
+  --bg-deck: #0E141E;
+  --bg-card: #121A27;
+  --bg-card-elevated: #172132;
+  --line-dark: rgba(226, 234, 244, 0.10);
+  --line-dark-strong: rgba(226, 234, 244, 0.22);
+  --ink-primary: #F3F6FA;
+  --ink-secondary: #CBD5E1;
+  --ink-muted: #94A3B8;
+
+  /* Daylight Architectural Folio System */
+  --bg-folio: #EDF1F5;
+  --bg-folio-card: #F8FAFC;
+  --ink-folio: #0B1320;
+  --ink-folio-muted: #475569;
+  --line-folio: rgba(11, 19, 32, 0.12);
+  --line-folio-strong: rgba(11, 19, 32, 0.24);
+
+  /* Dual Signal Accents (Firoza Turquoise + Exvorta Brass) */
+  --signal-turquoise: #12B896;
+  --signal-turquoise-dim: rgba(18, 184, 150, 0.14);
+  --signal-turquoise-ink: #087A63;
+  --accent-brass: #C9A227;
+  --accent-brass-dim: rgba(201, 162, 39, 0.15);
+
+  /* Typography */
+  --font-serif: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+  --font-display: 'Syne', 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+
+  /* Motion & Layout */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+
+  --container-max: 1360px;
+  --header-h: 68px;
+}
+
+html[lang="fa"] {
+  --font-serif: 'Vazirmatn', Tahoma, sans-serif;
+  --font-display: 'Vazirmatn', Tahoma, sans-serif;
+  --font-sans: 'Vazirmatn', Tahoma, sans-serif;
+  --font-mono: 'Vazirmatn', Tahoma, sans-serif;
+}
