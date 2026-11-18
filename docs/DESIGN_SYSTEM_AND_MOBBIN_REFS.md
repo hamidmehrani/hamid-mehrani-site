@@ -6,7 +6,7 @@
 ## 1. Creative Direction: "The Sovereign Systems Monograph & Live Orchestration Theatre"
 Designed to win an Awwwards Site of the Day / Developer Award and make hiring Hamid Mehrani an undeniable executive decision for any CTO, Founder, or Hiring Director:
 
-- **13 Interconnected Long-Form Routes (Zero Dead Ends):**
+- **13 Interconnected Long-Form Routes:**
   1. `/` — **Flagship Exhibition & 3D Orbital Observatory** (8-act scroll-choreographed showcase)
   2. `/work/exvorta` — **Case 01: Exvorta · Sovereign Trade Business OS** (`exvorta.com`)
   3. `/work/firoza` — **Case 02: Firoza · Nishapur Turquoise Atelier** (`firoza.ir`)
@@ -56,3 +56,12 @@ Designed to win an Awwwards Site of the Day / Developer Award and make hiring Ha
 | 18 | Section | Pentagram | [`f4280a1b-8360-4d84-8247-086b9c6f8e5a`](https://mobbin.com/sites/sections/f4280a1b-8360-4d84-8247-086b9c6f8e5a) | Monumental edge-to-edge display wordmark footer |
 | 19 | Screen | Framer | [`34f26fbd-c019-4744-8556-2b131e691ac0`](https://mobbin.com/screens/34f26fbd-c019-4744-8556-2b131e691ac0) | Multi-pane orchestration workspace visual framing |
 | 20 | Screen | Subframe | [`3343e3b4-7217-4c52-86c8-46a1cdd9ee60`](https://mobbin.com/screens/3343e3b4-7217-4c52-86c8-46a1cdd9ee60) | Tactile segmented lens switcher for multi-track resume & role-fit views |
+
+## 13. Language & Rendering Notes (V2 fixes, 2026-11-18)
+- **SSR is English-only (accepted decision):** `build.mjs` pre-renders all 13 routes in English. Persian (`?lang=fa`, persisted in `localStorage` as `hm_lang`) is applied client-side after load. Full Persian pre-rendering would need a second route tree + `hreflang` — recorded as remaining work.
+- **Language-neutral engineering output:** terminal transcripts (`codeArtifact`, `PIPELINE_STAGES[].terminal`) and simulation agent codes are shown as-is in both languages; gates and simulation narratives are fully localised (`{en,fa}`).
+- **Deliberate English design codes:** route codes (`00 // OBSERVATORY`), chrome tags (`1440×900 VERIFIED`), Dev HUD telemetry labels (`FRAME RATE`, `FPS`), and the `Async` clock suffix stay in English by design in both languages.
+- **Dead-end policy:** unknown routes render a real 404 page with onward links; Repo buttons render only for public repositories (`repoPrivate`); cases without a visitable product use an `internal` badge instead of a `live` one; cases without a live URL keep the schematic SVG fallback instead of a faked screenshot.
+- **QA reports:** `node scripts/verify-live.mjs local` writes a timestamped report under `qa/` (never wiped, never under an agent brain directory).
+- **Typography:** all fonts are self-hosted woff2 under `src/public/fonts/` (YekanBakh VF + IRANYekanX VF + Instrument Serif + Plus Jakarta Sans variable + JetBrains Mono variable); no external font requests at runtime.
+- **OG card:** regenerate with `node scripts/render-og.mjs` (Playwright screenshot from V2 tokens/copy).

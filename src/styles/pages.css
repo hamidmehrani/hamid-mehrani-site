@@ -670,3 +670,14 @@ html[lang="fa"] .portal-code,
 html[lang="fa"] .cmd-item-meta {
   font-size: 0.78rem !important;
 }
+
+/* 404 — route not found */
+.notfound-section { padding: 120px 0 90px; }
+.notfound-inner { max-width: 780px; text-align: start; }
+.notfound-title { font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.15; margin: 18px 0 14px; }
+.notfound-body { color: var(--ink-secondary); font-size: 1.05rem; line-height: 1.7; }
+.notfound-actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 26px 0 34px; }
+.notfound-routes { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 22px; padding: 0; margin: 0; border-top: 1px solid var(--line-dark); padding-top: 22px; }
+.notfound-routes a { color: var(--ink-secondary); text-decoration: none; }
+.notfound-routes a:hover { color: var(--signal-turquoise); }
+@media (max-width: 640px) { .notfound-routes { grid-template-columns: 1fr; } }

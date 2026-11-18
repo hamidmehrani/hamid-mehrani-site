@@ -191,6 +191,12 @@ const TRACKS = [
     headline: 'WEB DEVELOPER — WORDPRESS & NEXT.JS · SEO-DRIVEN, AI-ASSISTED DELIVERY',
     summary: '8 years in web — 5 years freelance (e-commerce, WordPress, SEO), 2 years in-house, now founder. I build and own websites end-to-end: development, technical SEO, Core Web Vitals, content pipelines, and production operations. Live work includes exvorta.com (Next.js 15 + Payload CMS + Cloudflare Pages), firoza.ir, and 6 multilingual trade showcase sites. Remote-first, strong async writer across time zones.',
   },
+  {
+    filename: 'Hamid_Mehrani_Growth_SEO.pdf',
+    title: 'Hamid Mehrani — Growth & SEO Resume',
+    headline: 'TECHNICAL SEO & AI-DRIVEN B2B GROWTH SYSTEMS ENGINEER',
+    summary: 'Combining technical SEO, multilingual search architecture, and conversion diagnostics with custom engineering: I build the growth machines directly — processing 48,000+ B2B leads across 21 countries and compiling automated 14-page Lighthouse/UX proposal PDFs.',
+  },
 ];
 
 async function main() {

@@ -2,7 +2,15 @@ import { createRequire } from 'node:module';
 import fs from 'node:fs';
 
 const require = createRequire(import.meta.url);
-const { chromium } = require('/home/hamid/github/exvorta-main/node_modules/playwright');
+// Playwright is a dev-only QA dependency. Prefer a repo-local install
+// (npm i -D playwright) and fall back to the shared exvorta-main install,
+// which is the only copy on this machine today.
+let chromium;
+try {
+  ({ chromium } = require('playwright'));
+} catch {
+  ({ chromium } = require('/home/hamid/github/exvorta-main/node_modules/playwright'));
+}
 
 const CANDIDATE_BINS = [
   '/home/hamid/.cache/ms-playwright/chromium_headless_shell-1255/chrome-headless-shell-linux64/chrome-headless-shell',

@@ -30,7 +30,13 @@ export function getTradeBrandSvg(type) {
         <line x1="10" y1="32" x2="54" y2="32" stroke="#0F172A" stroke-width="3.5"/>
       </svg>`;
     case 'vestra':
+      return `<svg viewBox="0 0 64 64" width="24" height="24" aria-hidden="true">
+        <path d="M12 16 L32 50 L52 16" fill="none" stroke="#1E293B" stroke-width="6" stroke-linecap="square"/>
+        <path d="M22 16 L32 34 L42 16" fill="none" stroke="#9F1239" stroke-width="4"/>
+      </svg>`;
     default:
+      // Loud fallback: an unknown brand must never silently render Vestra's mark.
+      console.warn(`[diagrams] getTradeBrandSvg: unknown brand type "${type}" — falling back to vestra mark`);
       return `<svg viewBox="0 0 64 64" width="24" height="24" aria-hidden="true">
         <path d="M12 16 L32 50 L52 16" fill="none" stroke="#1E293B" stroke-width="6" stroke-linecap="square"/>
         <path d="M22 16 L32 34 L42 16" fill="none" stroke="#9F1239" stroke-width="4"/>
@@ -49,7 +55,7 @@ export function getVentureSchematicSvg(type) {
       <g font-family="JetBrains Mono, monospace" font-size="11">
         <rect x="38" y="138" width="170" height="124" rx="10" fill="#111926" stroke="#0EC49A" stroke-width="1.8"/>
         <text x="56" y="168" fill="#0EC49A" font-weight="700">TRADE FILE CORE</text>
-        <text x="56" y="194" fill="#F3F6FA">5,613 WCO HS Codes</text>
+        <text x="56" y="194" fill="#F3F6FA">5,600+ WCO HS Codes</text>
         <text x="56" y="216" fill="#94A3B8">7 Incoterms P&amp;L</text>
         <text x="56" y="238" fill="#D2A738">Copilot Score 0–100</text>
 
@@ -128,7 +134,7 @@ export function getVentureSchematicSvg(type) {
 
         <rect x="444" y="92" width="156" height="56" rx="8" fill="#121A27" stroke="#0EC49A"/>
         <text x="460" y="116" fill="#0EC49A">UNIBOX + CRM</text>
-        <text x="460" y="135" fill="#CBD5E1">81/81 Tests PASS</text>
+        <text x="460" y="135" fill="#CBD5E1">110/110 Tests PASS</text>
 
         <rect x="444" y="252" width="156" height="56" rx="8" fill="#121A27" stroke="#D2A738" stroke-opacity="0.8"/>
         <text x="460" y="276" fill="#D2A738">FREEZE SHIELD</text>
@@ -251,6 +257,11 @@ export function getVentureSchematicSvg(type) {
     </svg>`;
   }
 
+  // Loud fallback: 'jobhunt' is the designed default schematic (10 ATS boards);
+  // any other unknown type must never silently render it.
+  if (type !== 'jobhunt') {
+    console.warn(`[diagrams] getVentureSchematicSvg: unknown schematic type "${type}" — falling back to jobhunt schematic`);
+  }
   return `<svg dir="ltr" viewBox="0 0 640 400" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
     <rect width="640" height="400" fill="#090D14"/>
     <g font-family="JetBrains Mono, monospace" font-size="11">
@@ -310,10 +321,10 @@ export function renderInteractiveTopologySvg(nodes, activeIdx = 0, accent = '#0E
       const highlighted = a === activeIdx || b === activeIdx;
       const stroke = highlighted ? accent : 'rgba(203, 213, 225, 0.22)';
       return `
-        <path d="${d}" fill="none" stroke="${stroke}" stroke-width="${highlighted ? '2.2' : '1.2'}" stroke-dasharray="5 5" class="topo-edge ${highlighted ? 'is-hot' : ''}"/>
+        <path d="${d}" fill="none" stroke="${stroke}" stroke-width="${highlighted ? '2.2' : '1.2'}" stroke-dasharray="5 5"/>
         ${
           highlighted
-            ? `<circle r="3.4" fill="${accent}">
+            ? `<circle r="3.4" fill="${accent}" class="topo-pulse">
                  <animateMotion dur="${2.2 + idx * 0.35}s" repeatCount="indefinite" path="${d}"/>
                </circle>`
             : ''
@@ -332,7 +343,7 @@ export function renderInteractiveTopologySvg(nodes, activeIdx = 0, accent = '#0E
       const title = n.title[lang] || n.title.en;
       const shortTitle = title.length > 26 ? `${title.slice(0, 25)}…` : title;
       return `
-        <g class="topo-svg-node ${isAct ? 'is-active' : ''}" data-topo-idx="${idx}" tabindex="0" role="button" aria-label="${title}" style="cursor:pointer;">
+        <g class="${isAct ? 'is-active' : ''}" data-topo-idx="${idx}" tabindex="0" role="button" aria-label="${title}" style="cursor:pointer;">
           <rect x="${c.x}" y="${c.y}" width="${w}" height="${h}" rx="10" fill="${bg}" stroke="${border}" stroke-width="${isAct ? '2.2' : '1.2'}"/>
           <rect x="${c.x - 3}" y="${c.y - 3}" width="6" height="6" fill="${isAct ? accent : '#334155'}"/>
           <rect x="${c.x + w - 3}" y="${c.y + h - 3}" width="6" height="6" fill="${isAct ? accent : '#334155'}"/>
@@ -346,6 +357,7 @@ export function renderInteractiveTopologySvg(nodes, activeIdx = 0, accent = '#0E
 
   return `
     <svg dir="ltr" viewBox="0 0 700 340" width="700" class="interactive-topology-svg" role="group" aria-label="Interactive System Topology">
+      <style>@media (prefers-reduced-motion: reduce){.topo-pulse{display:none}}</style>
       <defs>
         <pattern id="topo-grid" width="28" height="28" patternUnits="userSpaceOnUse">
           <path d="M 28 0 L 0 0 0 28" fill="none" stroke="rgba(226,234,244,0.045)" stroke-width="1"/>

@@ -39,6 +39,12 @@ function crosshairsHtml() {
   `;
 }
 
+export function statusBadgeClass(statusType) {
+  if (statusType === 'frozen') return 'is-frozen';
+  if (statusType === 'internal') return 'is-internal';
+  return 'is-live';
+}
+
 export function renderNextPortal({ kicker, code, title, sub, route, accent = '#0EC49A', lang = 'en' }) {
   const cursorTxt = lang === 'fa' ? 'ورود به برگه' : 'ENTER PAGE ↗';
   return `
@@ -62,6 +68,10 @@ export function renderNextPortal({ kicker, code, title, sub, route, accent = '#0
     </section>
   `;
 }
+
+// Localised value: {en,fa} objects render in the active language;
+// plain strings pass through (terminal transcripts are language-neutral).
+const pickLang = (value, lang) => (value && typeof value === 'object' ? value[lang] ?? value.en : value);
 
 export function renderPipelineSimulatorWidget(state, showDeepLink = true) {
   const lang = state.lang;
@@ -95,7 +105,7 @@ export function renderPipelineSimulatorWidget(state, showDeepLink = true) {
     .slice(0, state.pipelineIdx + 1)
     .map(
       (s, idx) =>
-        `<div class="sim-log-line ${idx === state.pipelineIdx ? 'is-latest' : ''}"><span class="sim-log-tag">[0${idx + 1} · ${s.agent}]</span> <span>${escapeHtml(s.msg)}</span> <strong class="sim-log-metric">${escapeHtml(s.metric)}</strong></div>`,
+        `<div class="sim-log-line ${idx === state.pipelineIdx ? 'is-latest' : ''}"><span class="sim-log-tag">[0${idx + 1} · ${s.agent}]</span> <span>${escapeHtml(pickLang(s.msg, lang))}</span> <strong class="sim-log-metric">${escapeHtml(pickLang(s.metric, lang))}</strong></div>`,
     )
     .join('');
 
@@ -122,14 +132,14 @@ export function renderPipelineSimulatorWidget(state, showDeepLink = true) {
           <div class="stage-meter" aria-hidden="true">
             ${PIPELINE_STAGES.map((_, i) => `<span class="stage-meter-pip ${i === state.pipelineIdx ? 'is-current' : i < state.pipelineIdx ? 'is-done' : ''}"></span>`).join('')}
           </div>
-          <span class="inspector-meta" dir="ltr">${escapeHtml(sim.duration)} · ${escapeHtml(simStep.metric)}</span>
+          <span class="inspector-meta" dir="${lang === 'fa' ? 'rtl' : 'ltr'}">${escapeHtml(pickLang(sim.duration, lang))} · ${escapeHtml(pickLang(simStep.metric, lang))}</span>
         </div>
         <div class="inspector-body">
           <div>
             <h3 class="inspector-stage-title">${activeStage.title[lang]}</h3>
             <p class="inspector-stage-desc">${activeStage.desc[lang]}</p>
           </div>
-          <div class="sim-live-stream" dir="ltr">${logLines}</div>
+          <div class="sim-live-stream" dir="${lang === 'fa' ? 'rtl' : 'ltr'}">${logLines}</div>
           <pre class="inspector-code" dir="ltr"><code>${escapeHtml(activeStage.terminal)}</code></pre>
         </div>
       </div>
@@ -256,7 +266,7 @@ export function renderVenturesListWidget(state) {
           const visualHtml = item.previewImg
             ? `<img src="${item.previewImg}" alt="${escapeHtml(item.name[lang])}" loading="lazy" width="1440" height="900">`
             : getVentureSchematicSvg(item.schematicType);
-          const statusCls = item.statusType === 'frozen' ? 'is-frozen' : 'is-live';
+          const statusCls = statusBadgeClass(item.statusType);
           const stackList = lang === 'fa' && item.stackFa ? item.stackFa : item.stack;
 
           return `
@@ -326,7 +336,7 @@ export function renderTradeCinemaWidget(state) {
   }).join('');
 
   return `
-    <div class="trade-cinema-stage has-crosshairs" style="--brand-aura:${activeSite.aura}; --brand-c1:${activeSite.colors[0]}; --brand-c2:${activeSite.colors[1]};">
+    <div class="trade-cinema-stage has-crosshairs" style="--brand-aura:${activeSite.aura};">
       ${crosshairsHtml()}
       <div class="cinema-tabs-rail" role="tablist">${selectorTabs}</div>
 
@@ -558,7 +568,7 @@ export function renderHomeView(state) {
     </section>
 
     <!-- ACT 07: 2018 — 2026 CAREER TRAJECTORY -->
-    <section class="section trajectory-section">
+    <section class="section">
       <div class="container">
         <div class="trajectory-header-bar" data-reveal>
           <div>
@@ -614,7 +624,7 @@ export function renderCaseStudyStageMedia(venture, state) {
 
   if (mode === 'split') {
     return `
-      <div class="split-comparator" data-split-stage>
+      <div class="split-comparator" data-split-stage dir="ltr">
         <div class="split-base-layer">
           ${getVentureSchematicSvg(venture.schematicType)}
         </div>
@@ -732,7 +742,7 @@ export function renderCaseStudyView(ventureId, state) {
       <header class="case-hero-section">
         <div class="container">
           <div class="case-kicker-row">
-            <span class="venture-badge-inline ${venture.statusType === 'frozen' ? 'is-frozen' : 'is-live'}">${venture.status[lang]}</span>
+            <span class="venture-badge-inline ${statusBadgeClass(venture.statusType)}">${venture.status[lang]}</span>
             <span>${formatVentureYear(venture.year, lang)} · ${venture.role[lang]}</span>
           </div>
 
@@ -775,7 +785,7 @@ export function renderCaseStudyView(ventureId, state) {
                     : ''
                 }
                 ${
-                  venture.repoUrl
+                  venture.repoUrl && !venture.repoPrivate
                     ? `<a href="${venture.repoUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">${copy.repoVisit} ↗</a>`
                     : ''
                 }
@@ -787,7 +797,7 @@ export function renderCaseStudyView(ventureId, state) {
       </header>
 
       <!-- STICKY METADATA RAIL + LONG-FORM ENGINEERING MONOGRAPH -->
-      <section class="section case-body-section">
+      <section class="section">
         <div class="container case-body-grid">
           <aside class="case-meta-rail">
             <div class="meta-rail-card has-crosshairs">
@@ -865,8 +875,8 @@ export function renderCaseStudyView(ventureId, state) {
                   .map(
                     (g) => `
                   <div class="gate-row">
-                    <span class="gate-metric">${escapeHtml(g.metric)}</span>
-                    <span class="gate-status" dir="ltr">✓ ${escapeHtml(g.status)}</span>
+                    <span class="gate-metric">${escapeHtml(pickLang(g.metric, lang))}</span>
+                    <span class="gate-status" dir="auto">✓ ${escapeHtml(pickLang(g.status, lang))}</span>
                   </div>
                 `,
                   )
@@ -1428,7 +1438,32 @@ export function renderHireView(state) {
   `;
 }
 
+export function renderNotFoundView(state) {
+  const lang = state.lang;
+  const copy = UI_COPY[lang];
+  const caseLinks = VENTURES.map(
+    (v) =>
+      `<li><a href="${v.route}" data-route="${v.route}">${v.index} · ${escapeHtml(v.name[lang])}</a></li>`,
+  ).join('');
+  return `
+    <section class="section notfound-section">
+      <div class="container notfound-inner has-crosshairs">
+        ${crosshairsHtml()}
+        <div class="chapter-index" dir="ltr">404 // ROUTE NOT FOUND</div>
+        <h1 class="notfound-title">${copy.notFoundTitle}</h1>
+        <p class="notfound-body">${copy.notFoundBody}</p>
+        <div class="notfound-actions">
+          <a href="/" data-route="/" class="btn btn-primary">${copy.notFoundHomeBtn}</a>
+          <a href="/work/exvorta" data-route="/work/exvorta" class="btn btn-secondary">${copy.notFoundCasesBtn}</a>
+        </div>
+        <ul class="notfound-routes">${caseLinks}</ul>
+      </div>
+    </section>
+  `;
+}
+
 export function renderRouteContent(route, state) {
+  if (route === '/404') return renderNotFoundView(state);
   if (route === '/' || !route) return renderHomeView(state);
   if (route.startsWith('/work/')) {
     const slug = route.replace('/work/', '').replace(/\/$/, '');

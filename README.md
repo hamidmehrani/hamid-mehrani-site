@@ -1,11 +1,11 @@
 # Hamid Mehrani — Sovereign Systems Monograph & AI Engineering Studio (V2)
 
-Multi-page creative portfolio, 3D orbital systems observatory, interactive multi-agent pipeline lab, and 8-year career folio for **Hamid Mehrani** (AI Systems Architect & Founder @ Exvorta), engineered with zero-dependency isomorphic **ES2024**, hardware-accelerated **HTML5 Canvas**, **View Transitions**, self-hosted Persian variable fonts (**Yekan Bakh VF** + **IRANYekanX VF**), and deployed across **13 pre-rendered routes** on **Cloudflare Pages**.
+Multi-page creative portfolio, 3D orbital systems observatory, interactive multi-agent pipeline lab, and 8-year career folio for **Hamid Mehrani** (AI Systems Architect & Founder @ Exvorta), engineered with a zero-dependency runtime in isomorphic **ES2024**, hardware-accelerated **HTML5 Canvas**, **View Transitions**, self-hosted Persian variable fonts (**Yekan Bakh VF** + **IRANYekanX VF**), and deployed across **13 pre-rendered routes** on **Cloudflare Pages**.
 
 - **Live Production:** https://hamidmehrani.pages.dev
 - **Mobbin Design Collection:** `hamid-mehrani-observatory-v1` (20 verified section/screen references documented in [`docs/DESIGN_SYSTEM_AND_MOBBIN_REFS.md`](./docs/DESIGN_SYSTEM_AND_MOBBIN_REFS.md))
 
-## 13 Pre-Rendered Routes (Zero Dead Ends)
+## 13 Pre-Rendered Routes
 1. `/` — **3D Orbital Observatory & 8-Act Exhibition**
 2. `/work/exvorta` — **Case 01: Exvorta · Trade Business OS** (`exvorta.com`)
 3. `/work/firoza` — **Case 02: Firoza · Nishapur Turquoise Atelier** (`firoza.ir`)
@@ -25,4 +25,13 @@ Multi-page creative portfolio, 3D orbital systems observatory, interactive multi
 node scripts/build.mjs --portfolio-url https://hamidmehrani.pages.dev
 node scripts/verify-live.mjs local
 node scripts/verify-live.mjs https://hamidmehrani.pages.dev
+node scripts/render-og.mjs   # regenerate og-card.png from V2 tokens/copy
+node scripts/render-resumes.mjs --portfolio-url https://hamidmehrani.pages.dev  # regenerate the 3 A4 resume PDFs
 ```
+
+## Language & Rendering Notes
+- **SSR is English-only (accepted decision):** `build.mjs` pre-renders all 13 routes in English. Persian (`?lang=fa`, persisted in `localStorage` as `hm_lang`) is applied client-side after load, so crawlers and social previews see the English version. Full Persian pre-rendering would need a second route tree + `hreflang` — recorded as remaining work.
+- **Language-neutral engineering output:** terminal transcripts (`codeArtifact`, `PIPELINE_STAGES[].terminal`) and simulation agent codes are shown as-is in both languages; gates and simulation narratives are fully localised (`{en,fa}`).
+- **Deliberate English design codes:** route codes (`00 // OBSERVATORY`), chrome tags, Dev HUD telemetry labels, and the `Async` clock suffix stay in English by design in both languages.
+- **QA reports:** `node scripts/verify-live.mjs local` writes a timestamped report under `qa/` (never wiped, never under an agent brain directory).
+- **Typography:** all fonts are self-hosted woff2 under `src/public/fonts/` (YekanBakh VF + IRANYekanX VF + Instrument Serif + Plus Jakarta Sans variable + JetBrains Mono variable); no external font requests at runtime.

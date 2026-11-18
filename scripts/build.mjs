@@ -2,9 +2,9 @@ import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
 import { ROUTES_MANIFEST } from '../src/data/portfolio.mjs';
-import { renderRouteContent } from '../src/views/render-pages.mjs';
+import { renderRouteContent, renderNotFoundView } from '../src/views/render-pages.mjs';
 
-const ROOT = '/home/hamid/github/hamid-mehrani-site';
+const ROOT = process.env.PORTFOLIO_ROOT || '/home/hamid/github/hamid-mehrani-site';
 const SRC = path.join(ROOT, 'src');
 const DIST = path.join(ROOT, 'dist');
 
@@ -88,6 +88,29 @@ function main() {
     shellTemplate = shellTemplate.replaceAll(`"${rel}"`, `"${rel}?v=${h}"`);
   }
 
+  // Cache-bust every JS module: rewrite relative .mjs imports with ?v=<hash>.
+  const jsFiles = [];
+  (function walkJs(dir) {
+    for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+      const fp = path.join(dir, e.name);
+      if (e.isDirectory()) walkJs(fp);
+      else if (e.name.endsWith('.mjs')) jsFiles.push(fp);
+    }
+  })(DIST);
+  const jsHash = new Map(jsFiles.map((f) => [f, hashFile(f)]));
+  for (const f of jsFiles) {
+    const code = fs.readFileSync(f, 'utf8');
+    const rewritten = code.replace(
+      /((?:from\s+|import\()\s*['"])(\.{1,2}\/[^'"]+?\.mjs)(['"])/g,
+      (m, pre, spec, post) => {
+        const target = path.resolve(path.dirname(f), spec);
+        const h = jsHash.get(target);
+        return h ? `${pre}${spec}?v=${h}${post}` : m;
+      },
+    );
+    if (rewritten !== code) fs.writeFileSync(f, rewritten, 'utf8');
+  }
+
   // Pre-render all 13 routes into static HTML files
   const defaultSsrState = {
     route: '/',
@@ -126,6 +149,14 @@ function main() {
     fs.writeFileSync(outPath, pageHtml, 'utf8');
   }
 
+  // Custom 404 page (Cloudflare Pages serves dist/404.html for unknown paths)
+  const notFoundHtml = shellTemplate
+    .replaceAll('{{PAGE_TITLE}}', escapeAttr('Page Not Found · Hamid Mehrani'))
+    .replaceAll('{{PAGE_DESC}}', escapeAttr('This route does not exist in the Hamid Mehrani monograph.'))
+    .replaceAll('{{CANONICAL_HREF}}', escapeAttr(`${CANONICAL_URL}/`))
+    .replace('{{SSR_MAIN}}', renderNotFoundView({ ...defaultSsrState, route: '/404' }));
+  fs.writeFileSync(path.join(DIST, '404.html'), notFoundHtml, 'utf8');
+
   // Security + Immutable Cache headers for Cloudflare Pages
   const headers = `/*
   X-Frame-Options: SAMEORIGIN
@@ -150,10 +181,11 @@ function main() {
     'utf8',
   );
 
+  const today = new Date().toISOString().slice(0, 10);
   const sitemapUrls = ROUTES_MANIFEST.map((r) => {
-    const loc = r.path === '/' ? `${CANONICAL_URL}/` : `${CANONICAL_URL}${r.path}`;
+    const loc = r.path === '/' ? `${CANONICAL_URL}/` : `${CANONICAL_URL}${r.path}/`;
     const prio = r.path === '/' ? '1.0' : r.path.startsWith('/work/') ? '0.9' : '0.85';
-    return `  <url>\n    <loc>${loc}</loc>\n    <lastmod>2026-11-18</lastmod>\n    <priority>${prio}</priority>\n  </url>`;
+    return `  <url>\n    <loc>${loc}</loc>\n    <lastmod>${today}</lastmod>\n    <priority>${prio}</priority>\n  </url>`;
   }).join('\n');
 
   fs.writeFileSync(
@@ -165,6 +197,7 @@ function main() {
   // Verify core artifacts exist
   for (const required of [
     'index.html',
+    '404.html',
     'work/exvorta/index.html',
     'work/firoza/index.html',
     'work/hamesu/index.html',
@@ -184,6 +217,7 @@ function main() {
     'og-card.png',
     'resumes/Hamid_Mehrani_AI_Automation_Engineer.pdf',
     'resumes/Hamid_Mehrani_Web_Developer.pdf',
+    'resumes/Hamid_Mehrani_Growth_SEO.pdf',
   ]) {
     if (!fs.existsSync(path.join(DIST, required))) {
       throw new Error(`Missing required build output: dist/${required}`);

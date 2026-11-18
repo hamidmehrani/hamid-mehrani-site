@@ -284,7 +284,11 @@ export function initConstellation(canvas, onNavigate) {
         ctx.fillStyle = 'rgba(6, 8, 12, 0.94)';
         ctx.strokeStyle = 'rgba(14, 196, 154, 0.75)';
         ctx.beginPath();
-        ctx.roundRect(bx, by, badgeW, badgeH, 5);
+        if (typeof ctx.roundRect === 'function') {
+          ctx.roundRect(bx, by, badgeW, badgeH, 5);
+        } else {
+          ctx.rect(bx, by, badgeW, badgeH);
+        }
         ctx.fill();
         ctx.stroke();
         ctx.textAlign = 'center';
@@ -319,9 +323,26 @@ export function initConstellation(canvas, onNavigate) {
   };
 
   const onStageClick = (ev) => {
-    if (!hoveredNode || typeof onNavigate !== 'function') return;
+    if (typeof onNavigate !== 'function') return;
     if (ev.target.closest('a, button, input, .hero-telemetry-strip')) return;
-    const match = projectedCache.find((n) => n.id === hoveredNode.id);
+    // Compact (<980px): no hover state exists, so hit-test the tap point directly.
+    let node = hoveredNode;
+    if (!node) {
+      const rect = canvas.getBoundingClientRect();
+      const x = ev.clientX - rect.left;
+      const y = ev.clientY - rect.top;
+      let bestDist = 30;
+      for (const p of projectedCache) {
+        if (isOccluded(p.x, p.y)) continue;
+        const d = Math.hypot(x - p.x, y - p.y);
+        if (d < bestDist) {
+          bestDist = d;
+          node = p;
+        }
+      }
+    }
+    if (!node) return;
+    const match = projectedCache.find((n) => n.id === node.id);
     if (match) {
       onNavigate(match.route);
     }

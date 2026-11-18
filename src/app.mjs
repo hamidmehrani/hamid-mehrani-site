@@ -59,7 +59,7 @@ function normalizeRoute(rawPath) {
   if (!rawPath || rawPath === '/' || rawPath === '/index.html') return '/';
   const cleaned = rawPath.replace(/\/index\.html$/, '').replace(/\/+$/, '');
   const found = ROUTES_MANIFEST.find((r) => r.path === cleaned);
-  return found ? found.path : '/';
+  return found ? found.path : '/404';
 }
 
 function getPathValue(obj, path) {
@@ -91,7 +91,7 @@ function updateLiveClock() {
   } catch {
     tehran = utc;
   }
-  const raw = state.lang === 'fa' ? `تهران ${tehran} · Async` : `UTC ${utc} · THR ${tehran}`;
+  const raw = state.lang === 'fa' ? `تهران ${tehran} · غیرهمزمان` : `UTC ${utc} · THR ${tehran}`;
   clockEl.textContent = formatValue(raw, state.lang);
 }
 
@@ -101,7 +101,12 @@ function syncDocumentMeta() {
 
   document.documentElement.lang = state.lang;
   document.documentElement.dir = state.lang === 'fa' ? 'rtl' : 'ltr';
-  document.title = routeEntry.title[state.lang];
+  document.title =
+    state.route === '/404'
+      ? state.lang === 'fa'
+        ? 'برگه پیدا نشد · حمید مهرآنی'
+        : 'Page Not Found · Hamid Mehrani'
+      : routeEntry.title[state.lang];
 
   const brandName = document.getElementById('header-brand-name');
   if (brandName) {
@@ -184,7 +189,8 @@ function buildUrlForRoute(routePath) {
 
 export function navigateTo(targetPath, { push = true } = {}) {
   const nextRoute = normalizeRoute(targetPath);
-  const routeEntry = ROUTES_MANIFEST.find((r) => r.path === nextRoute) || ROUTES_MANIFEST[0];
+  const routeEntry =
+    ROUTES_MANIFEST.find((r) => r.path === nextRoute) || (nextRoute === '/404' ? { code: '404 // NOT FOUND' } : ROUTES_MANIFEST[0]);
 
   window.clearInterval(simTimer);
   state.simRunning = false;
@@ -284,7 +290,7 @@ function getCommandItems() {
   const copy = UI_COPY[state.lang];
   const routeCmds = ROUTES_MANIFEST.map((r) => ({
     id: `route:${r.path}`,
-    title: r.title[state.lang].split(' | ')[0],
+    title: r.title[state.lang].split(/ \| | — | · /)[0],
     meta: r.code,
     run: () => navigateTo(r.path),
   }));
@@ -317,15 +323,21 @@ function getCommandItems() {
     },
     {
       id: 'act:pdfA',
-      title: 'Download Resume · Track A (AI Automation PDF)',
+      title: copy.pdfTrackA,
       meta: 'PDF A4',
       run: () => window.open('/resumes/Hamid_Mehrani_AI_Automation_Engineer.pdf', '_blank'),
     },
     {
       id: 'act:pdfB',
-      title: 'Download Resume · Track B (Web Developer PDF)',
+      title: copy.pdfTrackB,
       meta: 'PDF A4',
       run: () => window.open('/resumes/Hamid_Mehrani_Web_Developer.pdf', '_blank'),
+    },
+    {
+      id: 'act:pdfC',
+      title: copy.pdfTrackC,
+      meta: 'PDF A4',
+      run: () => window.open('/resumes/Hamid_Mehrani_Growth_SEO.pdf', '_blank'),
     },
   ];
 
@@ -631,6 +643,11 @@ function initDelegatedInteractions() {
 
   window.addEventListener('popstate', () => {
     state.route = normalizeRoute(window.location.pathname);
+    const langParam = new URLSearchParams(window.location.search).get('lang');
+    if ((langParam === 'en' || langParam === 'fa') && langParam !== state.lang) {
+      setLanguage(langParam);
+      return;
+    }
     renderMainStage();
   });
 }

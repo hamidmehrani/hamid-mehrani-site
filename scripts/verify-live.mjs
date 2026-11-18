@@ -4,10 +4,10 @@ import path from 'node:path';
 import { launchPlaywrightBrowser } from './browser-helper.mjs';
 
 const RAW_TARGET = process.argv[2] || 'local';
-const QA_DIR = '/home/hamid/.gemini/antigravity/brain/0ddc6eac-bbd6-4e4f-9527-0e7e4fa8a172/scratch/qa-v2';
+const ROOT_DIR = '/home/hamid/github/hamid-mehrani-site';
+const QA_DIR = path.join(ROOT_DIR, 'qa', new Date().toISOString().replace(/[:.]/g, '-'));
 const DIST_DIR = '/home/hamid/github/hamid-mehrani-site/dist';
 
-fs.rmSync(QA_DIR, { recursive: true, force: true });
 fs.mkdirSync(QA_DIR, { recursive: true });
 
 const MIME = {
@@ -76,6 +76,19 @@ async function forceLoadImages(page) {
       ),
     );
   });
+}
+
+async function gotoSettled(page, url) {
+  // First try: full network idle (strictest). On timeout (slow proxy / fonts),
+  // retry once with domcontentloaded + a settled wait instead of failing the run.
+  try {
+    return await page.goto(url, { waitUntil: 'networkidle', timeout: 30000 });
+  } catch (err) {
+    const resp = await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 });
+    await page.waitForTimeout(1800);
+    await page.evaluate(() => document.fonts?.ready).catch(() => {});
+    return resp;
+  }
 }
 
 async function measurePageHealth(page) {
@@ -214,8 +227,12 @@ async function main() {
     { slug: 'home', path: '/' },
     { slug: 'case-exvorta', path: '/work/exvorta' },
     { slug: 'case-firoza', path: '/work/firoza' },
+    { slug: 'case-hamesu', path: '/work/hamesu' },
+    { slug: 'case-cvly', path: '/work/cvly' },
     { slug: 'case-leadgen', path: '/work/leadgen' },
+    { slug: 'case-audit', path: '/work/audit' },
     { slug: 'case-daftaryar', path: '/work/daftaryar' },
+    { slug: 'case-jobhunt', path: '/work/jobhunt' },
     { slug: 'studio-exvorta-web', path: '/exvorta-web' },
     { slug: 'lab-pipeline', path: '/pipeline' },
     { slug: 'folio-resume', path: '/resume' },
@@ -248,7 +265,7 @@ async function main() {
         pageErrors.length = 0;
 
         const fullUrl = `${targetUrl}${rt.path}${vp.query}`;
-        const resp = await page.goto(fullUrl, { waitUntil: 'networkidle', timeout: 30000 });
+        const resp = await gotoSettled(page, fullUrl);
         await page.evaluate(() => document.fonts?.ready).catch(() => {});
         await page.waitForTimeout(350);
         await forceLoadImages(page);
@@ -305,7 +322,7 @@ async function main() {
 
       // Interactive E2E verification on desktop-en
       if (vp.label === 'desktop-en') {
-        await page.goto(`${targetUrl}/`, { waitUntil: 'networkidle' });
+        await gotoSettled(page, `${targetUrl}/`);
         await page.waitForTimeout(300);
 
         // 1. Switch Trade Cinema to Aurum
@@ -353,7 +370,7 @@ async function main() {
       }
 
       if (vp.label === 'desktop-en' || vp.label === 'desktop-fa') {
-        await page.goto(`${targetUrl}/${vp.query}`, { waitUntil: 'networkidle' });
+        await gotoSettled(page, `${targetUrl}/${vp.query}`);
         const sweep = [];
         for (const hvp of HEADER_SWEEP_VIEWPORTS) {
           await page.setViewportSize(hvp);
@@ -371,7 +388,8 @@ async function main() {
     if (localSrv) localSrv.server.close();
   }
 
-  // Summarize overall pass/fail
+  // Summarize overall pass/fail (runs even after a mid-run throw: the
+  // report is the evidence, and a missing report hid the last 36/36 run).
   const routeEntries = Object.entries(report.routesChecked);
   const failures = routeEntries
     .filter(
@@ -382,9 +400,11 @@ async function main() {
         !v.zeroOverflow ||
         v.brokenImgs.length > 0 ||
         v.sub12Fa.length > 0 ||
+        !v.dirMatch ||
+        !v.langMatch ||
         !v.hasNextPortal,
     )
-    .map(([k, v]) => ({ key: k, status: v.httpStatus, overflowPx: v.overflowPx, offenders: v.offenders, brokenImgs: v.brokenImgs, sub12Fa: v.sub12Fa, consoleErrors: v.consoleErrors, pageErrors: v.pageErrors }));
+    .map(([k, v]) => ({ key: k, status: v.httpStatus, overflowPx: v.overflowPx, offenders: v.offenders, brokenImgs: v.brokenImgs, sub12Fa: v.sub12Fa, dirMatch: v.dirMatch, langMatch: v.langMatch, consoleErrors: v.consoleErrors, pageErrors: v.pageErrors }));
 
   const headerOverlaps = [
     ...(report.headerSweep.en || []).filter((x) => x.overlaps.length > 0),
@@ -408,7 +428,30 @@ async function main() {
   }
 }
 
-main().catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
+const __origMain = main;
+main = async () => {
+  try {
+    await __origMain();
+  } catch (err) {
+    console.error(err);
+    try {
+      fs.mkdirSync(QA_DIR, { recursive: true });
+      fs.writeFileSync(
+        path.join(QA_DIR, 'qa-report.json'),
+        JSON.stringify(
+          {
+            targetUrl: RAW_TARGET,
+            runError: String(err && err.message ? err.message : err),
+            summary: { totalChecks: 0, failureCount: 1, failures: [{ key: 'run', runError: String(err && err.message ? err.message : err) }], headerOverlapCount: 0, headerOverlaps: [] },
+          },
+          null,
+          2,
+        ),
+        'utf8',
+      );
+      console.log(`Wrote partial report to ${path.join(QA_DIR, 'qa-report.json')}`);
+    } catch {}
+    process.exit(1);
+  }
+};
+main();

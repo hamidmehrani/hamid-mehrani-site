@@ -40,17 +40,17 @@ export const MONOGRAPHS = {
         'At the same time, the UAE Federal Tax Authority PINT-AE electronic invoicing mandate requires businesses to appoint an Accredited Service Provider ahead of strict 2027 enforcement penalties. Existing generic ERP tools either ignore GCC corridor compliance (UAE PINT-AE, Saudi SABER, Egypt ACID) or force traders out of their natural WhatsApp-first negotiation rhythm.',
       ],
       fa: [
-        'شرکت‌های واردات و صادرات مجدد در دبی، شارجه و کریدورهای خاورمیانه هنوز محموله‌های چندصد هزار دلاری را با فایل‌های پراکنده اکسل و چت‌های واتس‌اپ مدیریت می‌کنند؛ در حالی که یک تراکنش استاندارد بین‌المللی نیازمند ۳۶ سند مختلف است و بیش از ۶۰٪ اسناد بار اول به خطای مغایرت برمی‌خورند.',
+        'شرکت‌های واردات و صادرات مجدد در دبی، شارجه و کریدورهای خاورمیانه هنوز محموله‌های چندصد هزار دلاری را با فایل‌های پراکنده اکسل و چت‌های واتس‌اپ مدیریت می‌کنند؛ در حالی که یک تراکنش استاندارد بین‌المللی نیازمند ۳۶ سند مختلف و ۲۴۰ نسخه است و ۶۰ تا ۷۰٪ اسناد بار اول به خطای مغایرت برمی‌خورند.',
         'هم‌زمان، الزام قانونی فاکتور الکترونیکی امارات <bdi dir="ltr">(UAE PINT-AE)</bdi> کسب‌وکارها را ملزم به استانداردسازی اسناد تا پیش از ضرب‌الاجل ۲۰۲۷ می‌کند. نرم‌افزارهای حسابداری عمومی نه چک‌های گمرکی منطقه <bdi dir="ltr">(PINT-AE, SABER, Egypt ACID)</bdi> را می‌شناسند و نه با ریتم کاری واقعی تاجران همخوانی دارند.',
       ],
     },
     solutionNarrative: {
       en: [
-        'Exvorta was architected as a modular Payload CMS + Next.js 15 Trade Business OS centered on a single canonical record: the Trade File. Entering line items, HS 2022 commodity codes (5,613 indexed subheadings), and Incoterms 2020 responsibilities once automatically derives Proforma Invoices, PINT-AE XML-ready Commercial Invoices, Packing Lists, and Certificate of Origin payloads rendered via Gotenberg.',
+        'Exvorta was architected as a modular Payload CMS + Next.js 15 Trade Business OS centered on a single canonical record: the Trade File. Entering line items, HS 2022 commodity codes (5,600+ indexed subheadings), and Incoterms 2020 responsibilities once automatically derives Proforma Invoices, PINT-AE XML-ready Commercial Invoices, Packing Lists, and Certificate of Origin payloads rendered via Gotenberg.',
         'Around the core Trade File sit an Executive Trade Copilot (scoring operational health 0–100, surfacing unbilled shipments and margin erosion below 8%), a Smart Quote Desk with reverse-margin pricing across all 7 Incoterms (EXW to DDP), a SHA-256 Bank Deal Dossier exporter, and crypto-native billing (NOWPayments + BTCPay, USDT on TRON).',
       ],
       fa: [
-        'پلتفرم <bdi dir="ltr">Exvorta</bdi> بر پایه معماری ماژولار <bdi dir="ltr">Next.js 15 + Payload CMS + PostgreSQL</bdi> حول یک هسته واحد طراحی شد: «پرونده معامله» <bdi dir="ltr">(Trade File)</bdi>. با یک‌بار ثبت اقلام، کد تعرفه از میان ۵٬۶۱۳ زیرفصل <bdi dir="ltr">WCO HS 2022</bdi> و اینکوترمز، هر چهار سند اصلی (پیش‌فاکتور، فاکتور تجاری منطبق با <bdi dir="ltr">PINT-AE</bdi>، پکینگ‌لیست و گواهی مبدأ) توسط سرویس <bdi dir="ltr">Gotenberg</bdi> تولید می‌شوند.',
+        'پلتفرم <bdi dir="ltr">Exvorta</bdi> بر پایه معماری ماژولار <bdi dir="ltr">Next.js 15 + Payload CMS + PostgreSQL</bdi> حول یک هسته واحد طراحی شد: «پرونده معامله» <bdi dir="ltr">(Trade File)</bdi>. با یک‌بار ثبت اقلام، کد تعرفه از میان ۵٬۶۰۰+ زیرفصل <bdi dir="ltr">WCO HS 2022</bdi> و اینکوترمز، هر چهار سند اصلی (پیش‌فاکتور، فاکتور تجاری منطبق با <bdi dir="ltr">PINT-AE</bdi>، پکینگ‌لیست و گواهی مبدأ) توسط سرویس <bdi dir="ltr">Gotenberg</bdi> تولید می‌شوند.',
         'در کنار هسته اسناد، دستیار هوشمند مدیرعامل <bdi dir="ltr">(Trade Copilot)</bdi> برای پایش نشت درآمدی و حاشیه سود زیر ۸٪، میز قیمت‌گذاری معکوس روی هر ۷ اینکوترمز <bdi dir="ltr">(EXW → DDP)</bdi>، خروجی پرونده بانکی با امضای <bdi dir="ltr">SHA-256</bdi> و درگاه پرداخت کریپتویی <bdi dir="ltr">(USDT / TRON)</bdi> پیاده‌سازی شده‌اند.',
       ],
     },
@@ -71,7 +71,7 @@ export const MONOGRAPHS = {
         title: { en: 'Trade File & Copilot Engine', fa: 'هسته پرونده معامله و دستیار هوشمند' },
         tech: 'Next.js 15 · Payload CMS · TypeScript',
         detail: {
-          en: 'Tenant-scoped Trade File state machine, True Seller P&L calculator, CBM container planner, and 5,613-code WCO HS lookup.',
+          en: 'Tenant-scoped Trade File state machine, True Seller P&L calculator, CBM container planner, and 5,600+-code WCO HS lookup.',
           fa: 'ماشین وضعیت چندمستاجره پرونده تجاری، محاسبه‌گر دقیق سود خالص، برنامه‌ریز حجم کانتینر <bdi dir="ltr">(CBM)</bdi> و جستجوی آنی کدهای گمرکی.',
         },
       },
@@ -92,7 +92,7 @@ export const MONOGRAPHS = {
         tech: 'NOWPayments · BTCPay · USDT (TRC-20)',
         detail: {
           en: 'Crypto-native subscription & per-file credit ledger ($0 Starter, $99 Core, $249 Compliance, $399 Unlimited) plus AR/AP tracking.',
-          fa: 'سیستم اعتبار پرونده و اشتراک مبتنی بر <bdi dir="ltr">USDT</bdi> روی شبکه ترون به همراه مدیریت حساب‌های دریافتنی و پرداختنی <bdi dir="ltr">(AR/AP)</bdi>.',
+          fa: 'سیستم اعتبار پرونده و اشتراک مبتنی بر <bdi dir="ltr">USDT</bdi> روی شبکه ترون (استارتر ۰ دلار، کور ۹۹ دلار، کامپلاینس ۲۴۹ دلار، نامحدود ۳۹۹ دلار) به همراه مدیریت حساب‌های دریافتنی و پرداختنی <bdi dir="ltr">(AR/AP)</bdi>.',
         },
       },
       {
@@ -139,13 +139,13 @@ export const MONOGRAPHS = {
     codeArtifact: `$ pnpm tsc --noEmit && pnpm vitest run
  ✓ 110 test files passed (1,152 assertions · 0 failures)
  ✓ Migrations #01..#22 verified (bos_v2_trader_os: products, trade_files, counterparties)
- ✓ WCO HS 2022 index loaded: 5,613 subheadings | Incoterms 2020 P&L solver: PASS
+ ✓ WCO HS 2022 index loaded: 5,600+ subheadings | Incoterms 2020 P&L solver: PASS
 $ curl -sI https://exvorta.com -> HTTP/2 200 (Cloudflare Pages Edge · LH 100/100/100/100)`,
     gates: [
-      { metric: 'Live Marketing Shell', status: 'HTTP/2 200 · 141 Routes (EN/FA/AR)', pass: true },
-      { metric: 'Unit & Integration Suite', status: '110 Files · 1,152 Vitest Assertions PASS', pass: true },
-      { metric: 'Playwright Visual Gate', status: '1440×900 & 390×844 · 0px Overflow', pass: true },
-      { metric: 'Public Source Proof', status: 'github.com/hamidmehrani/exvorta-main (515+ commits)', pass: true },
+      { metric: { en: 'Live Marketing Shell', fa: 'پوسته بازاریابی زنده' }, status: { en: 'HTTP/2 200 · 141 Routes (EN/FA/AR)', fa: 'HTTP/2 200 · ۱۴۱ مسیر (EN/FA/AR)' }, pass: true },
+      { metric: { en: 'Unit & Integration Suite', fa: 'سوئیت تست واحد و یکپارچه' }, status: { en: '110 Files · 1,152 Vitest Assertions PASS', fa: '۱۱۰ فایل · ۱٬۱۵۲ گزاره Vitest پاس‌شده' }, pass: true },
+      { metric: { en: 'Playwright Visual Gate', fa: 'گیت بصری Playwright' }, status: { en: '1440×900 & 390×844 · 0px Overflow', fa: '۱۴۴۰×۹۰۰ و ۳۹۰×۸۴۴ · بدون سرریز' }, pass: true },
+      { metric: { en: 'Public Source Proof', fa: 'اثبات منبع عمومی' }, status: { en: 'github.com/hamidmehrani/exvorta-main (Nov 2026 snapshot)', fa: 'github.com/hamidmehrani/exvorta-main (اسنپ‌شات نوامبر ۲۰۲۶)' }, pass: true },
     ],
     relatedIds: ['firoza', 'leadgen', 'audit'],
   },
@@ -277,14 +277,14 @@ $ curl -sI https://exvorta.com -> HTTP/2 200 (Cloudflare Pages Edge · LH 100/10
       },
     ],
     codeArtifact: `$ next build (output: 'export') -> 239 static pages generated across 10 locales
- ✓ Claims audit (verification/claims.json): 0 violations across 230 HTML files
+ ✓ Claims audit (verification/claims.json): 0 violations across audited HTML files (Nov 2026)
  ✓ Edge Function test: POST /api/inquiry -> 200 OK | GET /api/inquiry -> 405
  ✓ Playwright Live QA (https://www.firoza.ir): 1440×900 & 390×844 -> 0 broken images, 0 console errors`,
     gates: [
-      { metric: 'Global Edge Production', status: 'https://www.firoza.ir · HTTP 200 Verified', pass: true },
-      { metric: 'Multilingual Footprint', status: '239 Static Routes · 10 Languages', pass: true },
-      { metric: 'Provenance Integrity', status: '46 Real sRGB Photos · 0 Synthetic Assets', pass: true },
-      { metric: 'Viewport & Console Gate', status: 'Desktop 1440px & Mobile 390px · 0 Errors', pass: true },
+      { metric: { en: 'Global Edge Production', fa: 'پروداکشن زنده روی لبه' }, status: { en: 'https://www.firoza.ir · HTTP 200 Verified', fa: 'https://www.firoza.ir · تایید HTTP 200' }, pass: true },
+      { metric: { en: 'Multilingual Footprint', fa: 'پوشش چندزبانه' }, status: { en: '239 Static Routes · 10 Languages', fa: '۲۳۹ مسیر استاتیک · ۱۰ زبان' }, pass: true },
+      { metric: { en: 'Provenance Integrity', fa: 'یکپارچگی اصالت' }, status: { en: '46 Real sRGB Photos · 0 Synthetic Assets', fa: '۴۶ عکس واقعی sRGB · بدون دارایی مصنوعی' }, pass: true },
+      { metric: { en: 'Viewport & Console Gate', fa: 'گیت ویوپورت و کنسول' }, status: { en: 'Desktop 1440px & Mobile 390px · 0 Errors', fa: 'دسکتاپ ۱۴۴۰px و موبایل ۳۹۰px · بدون خطا' }, pass: true },
     ],
     relatedIds: ['exvorta', 'hamesu', 'daftaryar'],
   },
@@ -315,11 +315,11 @@ $ curl -sI https://exvorta.com -> HTTP/2 200 (Cloudflare Pages Edge · LH 100/10
     },
     startingPoint: {
       en: [
-        'Over 130,000 Iranian social sellers take orders manually inside Instagram DMs via card-to-card screenshots, losing buyers at checkout and failing the technical requirements needed to list on high-intent price-comparison engines like Torob and Emalls.',
+        'An estimated 130,000+ Iranian social sellers (market estimate, Nov 2026) take orders manually inside Instagram DMs via card-to-card screenshots, losing buyers at checkout and failing the technical requirements needed to list on high-intent price-comparison engines like Torob and Emalls.',
         'Meanwhile, jewelry and gold merchants require dynamic real-time gram pricing tied to market rates and Article 26 VAT formulas — capabilities missing from generic store builders.',
       ],
       fa: [
-        'بیش از ۱۳۰ هزار فروشنده جدی اینستاگرامی در ایران سفارش‌ها را دستی در دایرکت و با عکس فیش کارت‌به‌کارت ثبت می‌کنند؛ روشی که هم باعث ریزش خریدار می‌شود و هم امکان اتصال به موتورهای مقایسه قیمت پرمخاطب مثل ترب و ایمالز را از آن‌ها می‌گیرد.',
+        'برآورد می‌شود بیش از ۱۳۰ هزار فروشنده اینستاگرامی در ایران سفارش‌ها را دستی در دایرکت و با عکس فیش کارت‌به‌کارت ثبت می‌کنند؛ روشی که هم باعث ریزش خریدار می‌شود و هم امکان اتصال به موتورهای مقایسه قیمت پرمخاطب مثل ترب و ایمالز را از آن‌ها می‌گیرد.',
         'از سوی دیگر، اصناف تخصصی مثل طلا و جواهر نیازمند محاسبه لحظه‌ای قیمت بر اساس نرخ روز گرم طلا و فرمول مالیات بر ارزش افزوده ماده ۲۶ هستند که در فروشگاه‌سازهای معمولی وجود ندارد.',
       ],
     },
@@ -360,8 +360,8 @@ $ curl -sI https://exvorta.com -> HTTP/2 200 (Cloudflare Pages Edge · LH 100/10
         title: { en: 'Medusa 2.22 Core & Payment Rails', fa: 'هسته Medusa و درگاه‌های پرداخت' },
         tech: 'Medusa 2.22.1 · Zarinpal · Card-to-Card · COD',
         detail: {
-          en: 'Handles 20k-SKU catalog imports, Zarinpal gateway, structured Card-to-Card receipt verification, and COD reconciliation.',
-          fa: 'پشتیبانی از ایمپورت ۲۰ هزار کالا، درگاه زرین‌پال، تایید هوشمند رسید کارت‌به‌کارت و تسویه پرداخت در محل.',
+          en: 'Handles large-catalog imports (20k-SKU resumable-import contract), Zarinpal gateway, structured Card-to-Card receipt verification, and COD reconciliation.',
+          fa: 'پشتیبانی از ایمپورت کاتالوگ‌های بزرگ (قرارداد ایمپورت ۲۰ هزار کالا)، درگاه زرین‌پال، تایید هوشمند رسید کارت‌به‌کارت و تسویه پرداخت در محل.',
         },
       },
       {
@@ -415,15 +415,15 @@ $ curl -sI https://exvorta.com -> HTTP/2 200 (Cloudflare Pages Edge · LH 100/10
         },
       },
     ],
-    codeArtifact: `$ bash scripts/gate-all.sh (Hamesu main @ 75dde490)
+    codeArtifact: `$ bash scripts/agent/gate.sh (Hamesu main @ 05fa3e17, verified 2026-11-18)
  ✓ .medusa/server compiled | storefront: 30 routes | console: 43 routes (0 stub pages)
  ✓ Visual QA Playwright: 26 slices @ 1440px & 390px -> overflowPx: 0, consoleErrors: 0
  ✓ Live systemd check: hamesu-backend (active) · hamesu-storefront (active) · https://hamesu.ir -> 200`,
     gates: [
-      { metric: 'Live Storefront Endpoint', status: 'https://hamesu.ir · HTTP 200 Active', pass: true },
-      { metric: 'Compiled Application Surface', status: '30 Storefront + 43 Console Routes', pass: true },
-      { metric: 'RTL Typography & Visual QA', status: '26 Slices · 0px Overflow · 0 External Fonts', pass: true },
-      { metric: 'Multi-Tenant Infra', status: 'Postgres RLS + 2× Redis Containers Active', pass: true },
+      { metric: { en: 'Live Storefront Endpoint', fa: 'اندپوینت زنده فروشگاه' }, status: { en: 'https://hamesu.ir · HTTP 200 Active', fa: 'https://hamesu.ir · فعال HTTP 200' }, pass: true },
+      { metric: { en: 'Compiled Application Surface', fa: 'سطح اپلیکیشن کامپایل‌شده' }, status: { en: '30 Storefront + 43 Console Routes', fa: '۳۰ مسیر ویترین + ۴۳ مسیر کنسول' }, pass: true },
+      { metric: { en: 'RTL Typography & Visual QA', fa: 'تایپوگرافی RTL و QA بصری' }, status: { en: '26 Slices · 0px Overflow · 0 External Fonts', fa: '۲۶ اسلایس · بدون سرریز · بدون فونت خارجی' }, pass: true },
+      { metric: { en: 'Multi-Tenant Infra', fa: 'زیرساخت چندمستاجره' }, status: { en: 'Postgres RLS + 2× Redis Containers Active', fa: 'Postgres RLS + ۲ کانتینر Redis فعال' }, pass: true },
     ],
     relatedIds: ['daftaryar', 'exvorta', 'cvly'],
   },
@@ -454,21 +454,21 @@ $ curl -sI https://exvorta.com -> HTTP/2 200 (Cloudflare Pages Edge · LH 100/10
     },
     startingPoint: {
       en: [
-        'Job seekers in Iran jump across fragmented boards (Jobvision, IranTalent, Quera, Jobinja, Karboom, Estekhdam24) sending identical generic resumes — yielding ~2.6% interview rates versus ~9.3% for tailored applications.',
+        'Job seekers in Iran jump across fragmented boards (Jobeelo, JobVision, IranTalent, EEstekhdam, Quera, Karboom, Estekhdam24) sending identical generic resumes — yielding an estimated ~2.6% interview rate versus ~9.3% for tailored applications (industry estimates, Nov 2026).',
         'At the same time, naive LLM resume rewriters hallucinate employers, dates, or skills the candidate never had, destroying credibility in technical interviews.',
       ],
       fa: [
-        'کارجویان بازار ایران بین چندین سایت پراکنده (جاب‌ویژن، ایران‌تلنت، کوئرا، کاربوم، استخدام۲۴ و ...) سرگردان‌اند و یک رزومه ثابت را برای همه می‌فرستند؛ در حالی که نرخ مصاحبه اپلای هدفمند بیش از ۳ برابر ارسال انبوه است.',
+        'کارجویان بازار ایران بین چندین سایت پراکنده (جوبیلو، جاب‌ویژن، ایران‌تلنت، ای‌استخدام، کوئرا، کاربوم و استخدام۲۴) سرگردان‌اند و یک رزومه ثابت را برای همه می‌فرستند؛ در حالی که نرخ مصاحبه اپلای هدفمند بیش از ۳ برابر ارسال انبوه است.',
         'از طرفی ابزارهای هوش مصنوعی معمولی هنگام بازنویسی رزومه، سابقه یا مهارت خیالی می‌سازند که اعتبار کارجو را در جلسه مصاحبه از بین می‌برد.',
       ],
     },
     solutionNarrative: {
       en: [
-        'Cvly (deployed on R22 @ `3c3e158`) indexes 6,577 live listings across 7 sources into a tuned SQLite WAL engine (`busy_timeout=30000`, shared inter-worker `PrivateTmp` caches, sub-second loopback response) behind FastAPI, RTL Jinja2, and HTMX/Alpine.',
+        'Cvly (live on R23.2 @ `98a9ea0`, verified 2026-11-18) indexes 6,577 live listings (Nov 2026 snapshot) across 7 sources into a tuned SQLite WAL engine (`busy_timeout=30000`, shared inter-worker `PrivateTmp` caches, sub-second loopback response) behind FastAPI, RTL Jinja2, and HTMX/Alpine.',
         'Users can run a zero-signup Instant Fit Check (`POST /api/instant-check`), explore 832 real salary benchmarks on `/salaries`, generate per-job tailored resumes guarded by a deterministic anti-fabrication validator ported from JobHunt, and export crisp Persian PDFs.',
       ],
       fa: [
-        'پلتفرم **سی‌ولی (Cvly)** در نسخه <bdi dir="ltr">R22</bdi> بیش از ۶٬۵۷۷ آگهی واقعی را از ۷ منبع کاریابی در دیتابیس بهینه‌شده <bdi dir="ltr">SQLite WAL</bdi> با کش بین‌ورکری ایندکس می‌کند تا صفحات اصلی زیر ۱ ثانیه روی لوپ‌بک پاسخ دهند.',
+        'پلتفرم **سی‌ولی (Cvly)** در نسخه <bdi dir="ltr">R23.2</bdi> بیش از ۶٬۵۷۷ آگهی واقعی (اسنپ‌شات نوامبر ۲۰۲۶) را از ۷ منبع کاریابی در دیتابیس بهینه‌شده <bdi dir="ltr">SQLite WAL</bdi> با کش بین‌ورکری ایندکس می‌کند تا صفحات اصلی زیر ۱ ثانیه روی لوپ‌بک پاسخ دهند.',
         'کارجو بدون نیاز به ثبت‌نام اولیه می‌تواند در صفحه خانه امتیاز تطابق رزومه خود را بسنجد، در بخش <bdi dir="ltr">/salaries</bdi> حقوق واقعی بازار را بر پایه ۸۳۲ سیگنال ببیند و رزومه شخصی‌سازی‌شده بدون هیچ‌گونه جعل فکت را در قالب PDF فارسی تحویل بگیرد.',
       ],
     },
@@ -556,13 +556,13 @@ $ curl -sI https://exvorta.com -> HTTP/2 200 (Cloudflare Pages Edge · LH 100/10
     ],
     codeArtifact: `$ curl -w "%{http_code} %{time_total}s\\n" -o /dev/null https://cvly.ir/
  200 1.18s (loopback: 0.99s | /score: 0.98s | /login: 0.97s)
- ✓ Live SQLite index: 6,577 active job listings across 7 boards (0 mock_* rows)
- ✓ Salary intelligence: 832 verified signals active on /salaries | registered users: 331+`,
+ ✓ Live SQLite index: 6,577 active job listings across 7 boards (0 mock_* rows) — Nov 2026 snapshot
+ ✓ Salary intelligence: 832 verified signals active on /salaries | registered users: 331+ (Nov 2026 snapshot)`,
     gates: [
-      { metric: 'Live Job Index', status: '6,577 Real Listings · 7 Sources · 0 Mock', pass: true },
-      { metric: 'Salary Explorer', status: '832 Disclosed Compensation Signals', pass: true },
-      { metric: 'Anti-Fabrication Engine', status: 'Strict Source-Fact Resume Validator', pass: true },
-      { metric: 'Edge & Service Health', status: 'cvly-web.service Active · <1.2s Warm TTFB', pass: true },
+      { metric: { en: 'Live Job Index', fa: 'ایندکس زنده آگهی‌ها' }, status: { en: '6,577 Real Listings · 7 Sources · 0 Mock', fa: '۶٬۵۷۷ آگهی واقعی · ۷ منبع · بدون داده ساختگی' }, pass: true },
+      { metric: { en: 'Salary Explorer', fa: 'کاوشگر حقوق' }, status: { en: '832 Disclosed Compensation Signals', fa: '۸۳۲ سیگنال حقوق اعلام‌شده' }, pass: true },
+      { metric: { en: 'Anti-Fabrication Engine', fa: 'موتور ضدجعل' }, status: { en: 'Strict Source-Fact Resume Validator', fa: 'ولیدیتور سخت‌گیرانه منع جعل رزومه' }, pass: true },
+      { metric: { en: 'Edge & Service Health', fa: 'سلامت سرویس و لبه' }, status: { en: 'cvly-web.service Active · <1.2s Warm TTFB', fa: 'cvly-web.service فعال · TTFB گرم زیر ۱٫۲ ثانیه' }, pass: true },
     ],
     relatedIds: ['jobhunt', 'hamesu', 'leadgen'],
   },
@@ -583,8 +583,8 @@ $ curl -sI https://exvorta.com -> HTTP/2 200 (Cloudflare Pages Edge · LH 100/10
         label: { en: 'Isolated Python Discovery, Scoring & Safety Suite', fa: 'ماژول تخصصی پایتون برای کشف، امتیازدهی و ایمنی' },
       },
       {
-        val: { en: '81/81', fa: '۸۱/۸۱' },
-        label: { en: 'Outreach Studio + Cockpit Automated Tests Passing', fa: 'تست خودکار پاس‌شده در استودیو اوتریچ و کاکپیت' },
+        val: { en: '110/110', fa: '۱۱۰/۱۱۰' },
+        label: { en: 'Outreach Studio + Cockpit + Pishro Automated Tests Passing', fa: 'تست خودکار پاس‌شده در استودیو اوتریچ، کاکپیت و پیشرو' },
       },
     ],
     tagline: {
@@ -594,20 +594,20 @@ $ curl -sI https://exvorta.com -> HTTP/2 200 (Cloudflare Pages Edge · LH 100/10
     startingPoint: {
       en: [
         'Scaling B2B customer acquisition across international export corridors and domestic industrial manufacturers requires two things off-the-shelf SaaS tools rarely combine: deep domain-specific lead enrichment (checking whether an exporter actually needs a website upgrade or corridor compliance) and ruthless sender-reputation protection.',
-        'Following early automated runs that processed 48,000+ leads across 21 countries (62,062 total records in `master.db`), market review showed raw high-volume cold outreach yielded low reply rates (~0.08% vs. 3.43% benchmark) — prompting an immediate owner-ordered outbound freeze on Nov 6, 2026 (`0` sends) and a ground-up architectural evolution toward precision quality.',
+        'Following early automated runs that processed 48,000+ leads across 21 countries (62,062 total records in `master.db`), internal review of early runs showed raw high-volume cold outreach yielded low reply rates (~0.08% observed vs. a ~3.43% industry benchmark estimate) — prompting an immediate owner-ordered outbound freeze on Nov 6, 2026 (`0` sends) and a ground-up architectural evolution toward precision quality.',
       ],
       fa: [
         'جذب مشتری B2B در کریدورهای صادراتی و کارخانه‌های صنعتی نیازمند ترکیب دو قابلیت است که ابزارهای آماده به‌ندرت کنار هم دارند: ارزیابی فنی واقعی هر سرنخ (مثلاً اسکن ۹گانه وب‌سایت شرکت هدف) و حفاظت بی‌رحمانه از اعتبار دامنه‌های اصلی برند.',
-        'پس از پردازش بیش از ۴۸٬۰۰۰ لید در ۲۱ کشور، بازبینی داده‌ها نشان داد ارسال انبوه نرخ پاسخ پایینی دارد؛ به همین دلیل از تاریخ ۶ نوامبر ۲۰۲۶ با دستور مستقیم مالک **فریز کامل ارسال (صفر ارسال)** اعمال شد و معماری سیستم به سمت دقت بالا و پلتفرم کنترل‌شده داخلی ارتقا یافت.',
+        'پس از پردازش بیش از ۴۸٬۰۰۰ لید در ۲۱ کشور (۶۲٬۰۶۲ رکورد کل در master.db)، بازبینی داده‌ها نشان داد ارسال انبوه نرخ پاسخ پایینی دارد (حدود ۰٫۰۸٪ در برابر بنچمارک تخمینی ۳٫۴۳٪)؛ به همین دلیل از تاریخ ۶ نوامبر ۲۰۲۶ با دستور مستقیم مالک **فریز کامل ارسال (صفر ارسال)** اعمال شد و معماری سیستم به سمت دقت بالا و پلتفرم کنترل‌شده داخلی ارتقا یافت.',
       ],
     },
     solutionNarrative: {
       en: [
-        'The LeadGen repository (`hamidmehrani/leadgen-machine`, 441-module test discipline) now encompasses three verified engineering pillars while keeping live production sending strictly locked at `0`: (1) the 30+ module discovery & 85-query-matrix qualification core, (2) **Pishro AI (`LG-PISHRO-IRAN-V1`)** featuring Iranian 11-digit national ID checksum validation, 31 provincial area codes, 12 industrial sector scorers, and a 12-page read-only insights cockpit (`p95 = 12.64ms`), and (3) **Exvorta Outreach Studio (`LG-OUTREACH-STUDIO-V1`)**.',
+        'The LeadGen repository (`hamidmehrani/leadgen-machine`, 492-module test discipline) now encompasses three verified engineering pillars while keeping live production sending strictly locked at `0`: (1) the 30+ module discovery & 85-query-matrix qualification core, (2) **Pishro AI (`LG-PISHRO-IRAN-V1`)** featuring Iranian 11-digit national ID checksum validation, 31 provincial area codes, 12 industrial sector scorers, and a 12-page read-only insights cockpit (`p95 = 12.64ms`), and (3) **Exvorta Outreach Studio (`LG-OUTREACH-STUDIO-V1`)**.',
         'Exvorta Outreach Studio is a pure-white internal Instantly.ai replacement featuring a 9-signal Website Redesign Scanner (`Redesign Need 0–100`), sister-domain DNS doctor (`SPF/DKIM/DMARC`), stepped warmup engine, `NEVER-CLAIM` fact validator reading each tenant’s `FACTS.md`, 3-pane Unibox, and a hard `SenderFreezeError` lock ensuring zero accidental live dispatches.',
       ],
       fa: [
-        'مخزن <bdi dir="ltr">leadgen-machine</bdi> با حفظ قفل کامل ارسال روی سرور پروداکشن، اکنون سه ستون مهندسی تست‌شده دارد: (۱) هسته کشف ۳۰+ ماژوله با ۸۵ ماتریس جستجو در ۲۱ کشور، (۲) زیرسیستم **پیشرو (Pishro AI)** ویژه بازار B2B ایران شامل کنترل رقم کنترلی شناسه ملی ۱۱ رقمی، ۳۱ پیش‌شماره استانی و کاکپیت ۱۲ صفحه‌ای با زمان پاسخ <bdi dir="ltr">12.64ms</bdi>، و (۳) پلتفرم **Exvorta Outreach Studio**.',
+        'مخزن <bdi dir="ltr">leadgen-machine</bdi> با ۴۹۲ ماژول و حفظ قفل کامل ارسال روی سرور پروداکشن، اکنون سه ستون مهندسی تست‌شده دارد: (۱) هسته کشف ۳۰+ ماژوله با ۸۵ ماتریس جستجو در ۲۱ کشور، (۲) زیرسیستم **پیشرو (Pishro AI)** ویژه بازار B2B ایران شامل کنترل رقم کنترلی شناسه ملی ۱۱ رقمی، ۳۱ پیش‌شماره استانی، ۱۲ امتیازدهنده بخشی صنعتی و کاکپیت ۱۲ صفحه‌ای با زمان پاسخ <bdi dir="ltr">12.64ms</bdi>، و (۳) پلتفرم **Exvorta Outreach Studio**.',
         'استودیو اوتریچ یک جایگزین بومی برای <bdi dir="ltr">Instantly.ai</bdi> است که شامل اسکنر ۹گانه تشخیص نیاز به بازطراحی وب‌سایت، پزشک رکوردهای <bdi dir="ltr">SPF/DKIM/DMARC</bdi> روی دامنه‌های خواهر، بررسی خودکار قوانین <bdi dir="ltr">NEVER-CLAIM</bdi>، صندوق پیام ۳ ستونه <bdi dir="ltr">Unibox</bdi> و قفل سخت‌افزاری <bdi dir="ltr">SenderFreezeError</bdi> در حالت پیش‌فرض است.',
       ],
     },
@@ -693,15 +693,15 @@ $ curl -sI https://exvorta.com -> HTTP/2 200 (Cloudflare Pages Edge · LH 100/10
         },
       },
     ],
-    codeArtifact: `$ CARD_RISK=R1 bash scripts/agent/gate.sh (leadgen-machine @ 53ed7920)
+    codeArtifact: `$ CARD_RISK=R1 bash scripts/agent/gate.sh (leadgen-machine @ 53ed7920, verified 2026-11-18)
  ✓ Outreach Studio unit suite: 19/19 PASS | Cockpit suite: 62/62 PASS (p95 = 12.64 ms)
  ✓ Iran B2B Pishro suite: 29/29 PASS | SenderBridge default: SenderFreezeError [LOCKED]
  ✓ Live server check (hamesu-new): leadgen-exvorta=inactive · leadgen-firoza=inactive · 0 sends`,
     gates: [
-      { metric: 'Historical Scale Processed', status: '48,000+ B2B Leads · 21 Countries', pass: true },
-      { metric: 'Live Outbound Freeze Gate', status: 'Inactive Since 2026-11-06 · 0 Live Sends', pass: true },
-      { metric: 'Outreach + Cockpit Tests', status: '19/19 + 62/62 + 29/29 Automated PASS', pass: true },
-      { metric: 'Playwright UI Audit', status: '15 Screens @ 1440px & 390px · 0px Overflow', pass: true },
+      { metric: { en: 'Historical Scale Processed', fa: 'مقیاس تاریخی پردازش‌شده' }, status: { en: '48,000+ B2B Leads · 21 Countries', fa: '+۴۸٬۰۰۰ لید B2B · ۲۱ کشور' }, pass: true },
+      { metric: { en: 'Live Outbound Freeze Gate', fa: 'گیت فریز ارسال زنده' }, status: { en: 'Inactive Since 2026-11-06 · 0 Live Sends', fa: 'غیرفعال از ۲۰۲۶-۱۱-۰۶ · صفر ارسال زنده' }, pass: true },
+      { metric: { en: 'Outreach + Cockpit Tests', fa: 'تست‌های اوتریچ و کاکپیت' }, status: { en: '19/19 + 62/62 + 29/29 Automated PASS', fa: '۱۹/۱۹ + ۶۲/۶۲ + ۲۹/۲۹ خودکار پاس‌شده' }, pass: true },
+      { metric: { en: 'Playwright UI Audit', fa: 'ممیزی UI با Playwright' }, status: { en: '15 Screens @ 1440px & 390px · 0px Overflow', fa: '۱۵ صفحه در ۱۴۴۰px و ۳۹۰px · بدون سرریز' }, pass: true },
     ],
     relatedIds: ['audit', 'exvorta', 'cvly'],
   },
@@ -837,10 +837,10 @@ $ curl -sI https://exvorta.com -> HTTP/2 200 (Cloudflare Pages Edge · LH 100/10
  ✓ Output artifact: 14-page A4 Proposal PDF (annotated desktop + mobile captures embedded)
  ✓ Visual page-break check: 0 clipped tables · 0 orphan headings`,
     gates: [
-      { metric: 'Inspection Depth', status: '7 Automated Stages (Perf/A11y/Sec/SEO/Vision)', pass: true },
-      { metric: 'Deliverable Format', status: '14-Page Executive Branded A4 PDF', pass: true },
-      { metric: 'Regression Test Suite', status: '83/83 Pipeline Tests Passing', pass: true },
-      { metric: 'Concurrency Safety', status: 'Inter-Process Lock Verified', pass: true },
+      { metric: { en: 'Inspection Depth', fa: 'عمق بازرسی' }, status: { en: '7 Automated Stages (Perf/A11y/Sec/SEO/Vision)', fa: '۷ مرحله خودکار (سرعت/دسترس‌پذیری/امنیت/سئو/ویژن)' }, pass: true },
+      { metric: { en: 'Deliverable Format', fa: 'فرمت خروجی' }, status: { en: '14-Page Executive Branded A4 PDF', fa: 'PDF برنددار ۱۴ صفحه‌ای A4' }, pass: true },
+      { metric: { en: 'Regression Test Suite', fa: 'سوئیت تست رگرسیون' }, status: { en: '83/83 Pipeline Tests Passing', fa: '۸۳/۸۳ تست پایپ‌لاین پاس‌شده' }, pass: true },
+      { metric: { en: 'Concurrency Safety', fa: 'ایمنی همروندی' }, status: { en: 'Inter-Process Lock Verified', fa: 'قفل بین‌فرایندی تاییدشده' }, pass: true },
     ],
     relatedIds: ['exvorta', 'leadgen', 'jobhunt'],
   },
@@ -872,11 +872,11 @@ $ curl -sI https://exvorta.com -> HTTP/2 200 (Cloudflare Pages Edge · LH 100/10
     startingPoint: {
       en: [
         'Iranian WooCommerce store owners struggle with fragile accounting plugins that break on modern WooCommerce Checkout Blocks, leak unauthenticated guest invoices, or lock essential Sepidar ERP sync behind confusing fragmented add-ons.',
-        'Auditing the Iranian WordPress marketplace (7,349+ products across RTL-Theme and Zhaket) revealed a massive quality gap: plugins rarely ship automated test suites, one-click demo data, or native block-checkout compatibility.',
+        'Auditing the Iranian WordPress marketplace (thousands of products across RTL-Theme and Zhaket) revealed a massive quality gap: plugins rarely ship automated test suites, one-click demo data, or native block-checkout compatibility.',
       ],
       fa: [
         'مدیران فروشگاه‌های ووکامرسی در ایران سال‌هاست با افزونه‌های مالی شکننده‌ای درگیرند که با چک‌اوت بلوکی جدید ووکامرس ناسازگارند، امنیت لینک فاکتور مهمان را رعایت نمی‌کنند یا امکانات اصلی را پشت نسخه‌های قفل‌شده پنهان می‌کنند.',
-        'تحلیل بازار افزونه‌های وردپرس ایران (بیش از ۷٬۳۴۹ محصول) شکاف بزرگ کیفیت مهندسی را آشکار کرد: نبود تست خودکار، نبود داده آزمایشی یک‌کلیکی و خطاهای مکرر در فایل لاگ وردپرس.',
+        'تحلیل بازار افزونه‌های وردپرس ایران (هزاران محصول) شکاف بزرگ کیفیت مهندسی را آشکار کرد: نبود تست خودکار، نبود داده آزمایشی یک‌کلیکی و خطاهای مکرر در فایل لاگ وردپرس.',
       ],
     },
     solutionNarrative: {
@@ -974,12 +974,12 @@ $ curl -sI https://exvorta.com -> HTTP/2 200 (Cloudflare Pages Edge · LH 100/10
     codeArtifact: `$ vendor/bin/phpunit (daftaryar-1.0-rtltheme-release @ d657346)
  OK (2,645 tests, 15,501 assertions · 0 failures · 0 risky)
  ✓ E2E WordPress + WooCommerce Checkout Blocks: PASS | wp-content/debug.log: 0 lines
- ✓ LDD Release Gate: 397/397 assertions PASS -> dist/daftaryar-1.0.0-rtltheme-ready.zip`,
+ ✓ LDD Release Gate: 397/397 assertions PASS -> dist/daftaryar-1.0.0-rtltheme-ready.zip (local build artifact, Nov 2026)`,
     gates: [
-      { metric: 'PHPUnit Test Coverage', status: '2,645 Tests · 15,501 Assertions PASS', pass: true },
-      { metric: 'Release Gate Standard', status: '397/397 LDD Gate Checks · 0 FAIL', pass: true },
-      { metric: 'WordPress Runtime Hygiene', status: '0 Warnings/Errors in debug.log', pass: true },
-      { metric: 'Checkout Compatibility', status: 'Classic + WooCommerce Blocks Verified', pass: true },
+      { metric: { en: 'PHPUnit Test Coverage', fa: 'پوشش تست PHPUnit' }, status: { en: '2,645 Tests · 15,501 Assertions PASS', fa: '۲٬۶۴۵ تست · ۱۵٬۵۰۱ گزاره پاس‌شده' }, pass: true },
+      { metric: { en: 'Release Gate Standard', fa: 'استاندارد گیت انتشار' }, status: { en: '397/397 LDD Gate Checks · 0 FAIL', fa: '۳۹۷/۳۹۷ چک گیت LDD · بدون خطا' }, pass: true },
+      { metric: { en: 'WordPress Runtime Hygiene', fa: 'بهداشت زمان‌اجرای وردپرس' }, status: { en: '0 Warnings/Errors in debug.log', fa: 'بدون هشدار/خطا در debug.log' }, pass: true },
+      { metric: { en: 'Checkout Compatibility', fa: 'سازگاری تسویه حساب' }, status: { en: 'Classic + WooCommerce Blocks Verified', fa: 'کلاسیک + بلوک‌های ووکامرس تاییدشده' }, pass: true },
     ],
     relatedIds: ['hamesu', 'firoza', 'exvorta'],
   },
@@ -1115,10 +1115,10 @@ $ curl -sI https://exvorta.com -> HTTP/2 200 (Cloudflare Pages Edge · LH 100/10
  ✓ Track B (Web Developer Next.js/WP): scrollHeight=618px <= 1040px -> 1 page A4 (34.7 KB)
  ✓ Truth-bank consistency check against 80-owner-resume.md: PASS (0 unverified claims)`,
     gates: [
-      { metric: 'ATS Board Connectors', status: '10 Remote Engineering Boards Indexed', pass: true },
-      { metric: 'Truth-Bank Validator', status: '0 Unverified Employers, Dates, or Numbers', pass: true },
-      { metric: 'Track A & B Resume PDFs', status: '1-Page A4 Verified · HTTP 200 Live', pass: true },
-      { metric: 'Audio R&D Prototype', status: 'Virtual-Mic FA⇄EN Stream Rig Engineered', pass: true },
+      { metric: { en: 'ATS Board Connectors', fa: 'اتصال‌دهنده‌های ATS' }, status: { en: '10 Remote Engineering Boards Indexed', fa: '۱۰ برد مهندسی ریموت ایندکس‌شده' }, pass: true },
+      { metric: { en: 'Truth-Bank Validator', fa: 'ولیدیتور بانک حقیقت' }, status: { en: '0 Unverified Employers, Dates, or Numbers', fa: 'بدون کارفرما، تاریخ یا عدد تاییدنشده' }, pass: true },
+      { metric: { en: 'Track A & B Resume PDFs', fa: 'PDF رزومه مسیر A و B' }, status: { en: '1-Page A4 Verified · HTTP 200 Live', fa: 'یک‌صفحه A4 تاییدشده · زنده HTTP 200' }, pass: true },
+      { metric: { en: 'Audio R&D Prototype', fa: 'پروتوتایپ تحقیق صوتی' }, status: { en: 'Virtual-Mic FA⇄EN Stream Rig Engineered', fa: 'ریگ استریم میکروفون مجازی فارسی⇄انگلیسی' }, pass: true },
     ],
     relatedIds: ['cvly', 'audit', 'exvorta'],
   },
@@ -1128,148 +1128,148 @@ export const LIVE_SIMULATIONS = [
   {
     id: 'sim-exvorta',
     label: { en: 'Mission 01 · Exvorta PINT-AE Release', fa: 'ماموریت ۰۱ · انتشار ماژول کامپلاینس Exvorta' },
-    duration: '4m 18s simulated · 1,152 tests',
+    duration: { en: '4m 18s simulated · 1,152 tests', fa: '۴ دقیقه و ۱۸ ثانیه شبیه‌سازی‌شده · ۱٬۱۵۲ تست' },
     steps: [
       {
         stageIdx: 0,
         agent: 'CURATOR',
-        msg: 'Locked 12 Mobbin B2B fintech & workspace references -> docs/blueprint.md approved.',
-        metric: '12 refs · 0 ambiguity',
+        msg: { en: 'Locked 12 Mobbin B2B fintech & workspace references -> docs/blueprint.md approved.', fa: '۱۲ رفرنس B2B فین‌تک و فضای کاری Mobbin قفل شد و docs/blueprint.md تایید شد.' },
+        metric: { en: '12 refs · 0 ambiguity', fa: '۱۲ رفرنس · بدون ابهام' },
       },
       {
         stageIdx: 1,
         agent: 'ARCHITECT',
-        msg: 'Defined Payload migration #22 (bos_v2_trader_os) + WCO HS 2022 5,613-code contract.',
-        metric: 'Schema + Types PASS',
+        msg: { en: 'Defined Payload migration #22 (bos_v2_trader_os) + WCO HS 2022 5,600+-code contract.', fa: 'مایگریشن #۲۲ Payload (bos_v2_trader_os) و قرارداد ۵٬۶۰۰+ کد WCO HS 2022 تعریف شد.' },
+        metric: { en: 'Schema + Types PASS', fa: 'اسکیما + تایپ‌ها پاس شد' },
       },
       {
         stageIdx: 2,
         agent: 'BUILDERS (×3)',
-        msg: 'Parallel worktrees landed Trade Copilot, Reverse-Margin Solver (7 Incoterms), and SHA-256 Deal Dossier.',
-        metric: '110 Vitest files · 1,152 PASS',
+        msg: { en: 'Parallel worktrees landed Trade Copilot, Reverse-Margin Solver (7 Incoterms), and SHA-256 Deal Dossier.', fa: 'ورک‌تری‌های موازی Trade Copilot، حل‌کننده حاشیه معکوس (۷ اینکوترمز) و پرونده معامله SHA-256 را لند کردند.' },
+        metric: { en: '110 Vitest files · 1,152 PASS', fa: '۱۱۰ فایل Vitest · ۱٬۱۵۲ پاس‌شده' },
       },
       {
         stageIdx: 3,
         agent: 'VISUAL CRITIC',
-        msg: 'Independent Chromium gate inspected 1440×900 & 390×844 across EN/FA/AR -> 0px overflow.',
-        metric: 'LH 100/100/100/100 · GO',
+        msg: { en: 'Independent Chromium gate inspected 1440×900 & 390×844 across EN/FA/AR -> 0px overflow.', fa: 'گیت مستقل کرومیوم صفحات را در ۱۴۴۰×۹۰۰ و ۳۹۰×۸۴۴ برای EN/FA/AR بررسی کرد؛ بدون سرریز.' },
+        metric: { en: 'LH 100/100/100/100 · GO', fa: 'LH ۱۰۰/۱۰۰/۱۰۰/۱۰۰ · GO' },
       },
       {
         stageIdx: 4,
         agent: 'EDGE LAND',
-        msg: 'Deployed 141 static edge routes to Cloudflare Pages + synced Vault project ledger.',
-        metric: 'HTTP/2 200 · exvorta.com',
+        msg: { en: 'Deployed 141 static edge routes to Cloudflare Pages + synced Vault project ledger.', fa: '۱۴۱ مسیر استاتیک روی لبه کلودفلر دیپلوی و لجر پروژه والت همگام شد.' },
+        metric: { en: 'HTTP/2 200 · exvorta.com', fa: 'HTTP/2 200 · exvorta.com' },
       },
     ],
   },
   {
     id: 'sim-firoza',
     label: { en: 'Mission 02 · Firoza 10-Locale Static Atelier', fa: 'ماموریت ۰۲ · بیلد استاتیک ۱۰ زبانه Firoza' },
-    duration: '3m 05s simulated · 239 pages',
+    duration: { en: '3m 05s simulated · 239 pages', fa: '۳ دقیقه و ۵ ثانیه شبیه‌سازی‌شده · ۲۳۹ صفحه' },
     steps: [
       {
         stageIdx: 0,
         agent: 'CURATOR',
-        msg: 'Curated 13 luxury atelier & auction references into Mobbin collection firoza-v5-atelier.',
-        metric: '13 keepers locked',
+        msg: { en: 'Curated 13 luxury atelier & auction references into Mobbin collection firoza-v5-atelier.', fa: '۱۳ رفرنس آتلیه لوکس و حراجی در کالکشن Mobbin با نام firoza-v5-atelier ثبت شد.' },
+        metric: { en: '13 keepers locked', fa: '۱۳ رفرنس قفل‌شده' },
       },
       {
         stageIdx: 1,
         agent: 'ARCHITECT',
-        msg: 'Replaced CMS dependency with static JSON lot schemas (NIS-2026-001..008) + claims.json truth gate.',
-        metric: '0 synthetic stone rule',
+        msg: { en: 'Replaced CMS dependency with static JSON lot schemas (NIS-2026-001..008) + claims.json truth gate.', fa: 'وابستگی CMS با اسکیماهای استاتیک JSON لات‌ها (NIS-2026-001 تا 008) و گیت حقیقت claims.json جایگزین شد.' },
+        metric: { en: '0 synthetic stone rule', fa: 'قانون بدون سنگ مصنوعی' },
       },
       {
         stageIdx: 2,
         agent: 'BUILDERS (×2)',
-        msg: 'Built 2.5x optical stone loupe, 7-hub air-freight matrix, and Cloudflare Pages Function inquiry API.',
-        metric: '239 static routes built',
+        msg: { en: 'Built 2.5x optical stone loupe, 7-hub air-freight matrix, and Cloudflare Pages Function inquiry API.', fa: 'ذره‌بین اپتیکال ۲٫۵ برابری سنگ، ماتریس ۷ هاب حمل هوایی و API استعلام Cloudflare Pages Function ساخته شد.' },
+        metric: { en: '239 static routes built', fa: '۲۳۹ مسیر استاتیک ساخته شد' },
       },
       {
         stageIdx: 3,
         agent: 'VISUAL CRITIC',
-        msg: 'Audited 230 HTML files for zero forbidden claims + verified YekanBakh/IRANYekanX RTL rendering.',
-        metric: '0 violations · 0 errors',
+        msg: { en: 'Audited built HTML files for zero forbidden claims + verified YekanBakh/IRANYekanX RTL rendering.', fa: 'فایل‌های HTML ساخته‌شده برای صفر ادعای ممنوعه ممیزی و رندر RTL فونت‌های YekanBakh و IRANYekanX تایید شد.' },
+        metric: { en: '0 violations · 0 errors', fa: '۰ تخلف · ۰ خطا' },
       },
       {
         stageIdx: 4,
         agent: 'EDGE LAND',
-        msg: 'Published atomic bundle to Cloudflare Pages edge -> POST /api/inquiry 200 verified.',
-        metric: 'HTTP 200 · www.firoza.ir',
+        msg: { en: 'Published atomic bundle to Cloudflare Pages edge -> POST /api/inquiry 200 verified.', fa: 'باندل اتمیک روی لبه کلودفلر منتشر شد و POST /api/inquiry با 200 تایید شد.' },
+        metric: { en: 'HTTP 200 · www.firoza.ir', fa: 'HTTP 200 · www.firoza.ir' },
       },
     ],
   },
   {
     id: 'sim-daftaryar',
     label: { en: 'Mission 03 · Daftaryar 15,501-Assertion Gate', fa: 'ماموریت ۰۳ · گیت ۱۵٬۵۰۱ تستی افزونه دفتریار' },
-    duration: '5m 12s simulated · 2,645 tests',
+    duration: { en: '5m 12s simulated · 2,645 tests', fa: '۵ دقیقه و ۱۲ ثانیه شبیه‌سازی‌شده · ۲٬۶۴۵ تست' },
     steps: [
       {
         stageIdx: 0,
         agent: 'CURATOR',
-        msg: 'Audited 7,349 Iranian WP marketplace listings -> scoped 10 unlocked WooCommerce finance modules.',
-        metric: 'SPEC.md locked',
+        msg: { en: 'Audited thousands of Iranian WP marketplace listings -> scoped 10 unlocked WooCommerce finance modules.', fa: 'هزاران لیستینگ بازار وردپرس ایران ممیزی شد و ۱۰ ماژول مالی ووکامرس قفل‌شده شناسایی شد.' },
+        metric: { en: 'SPEC.md locked', fa: 'SPEC.md قفل شد' },
       },
       {
         stageIdx: 1,
         agent: 'ARCHITECT',
-        msg: 'Designed HMAC-SHA256 guest invoice URLs, Sepidar ERP adapter contract, and Checkout Blocks schema.',
-        metric: 'Zero global namespace leak',
+        msg: { en: 'Designed HMAC-SHA256 guest invoice URLs, Sepidar ERP adapter contract, and Checkout Blocks schema.', fa: 'لینک‌های مهمان HMAC-SHA256 برای فاکتور، قرارداد آداپتور ERP سپیدار و اسکیمای Checkout Blocks طراحی شد.' },
+        metric: { en: 'Zero global namespace leak', fa: 'بدون نشت فضای نام سراسری' },
       },
       {
         stageIdx: 2,
         agent: 'BUILDERS (×3)',
-        msg: 'Implemented 5-step RTL wizard, 4 Elementor widgets, Post/Tipax tracking, and 2,645 PHPUnit tests.',
-        metric: '15,501 assertions PASS',
+        msg: { en: 'Implemented 5-step RTL wizard, 4 Elementor widgets, Post/Tipax tracking, and 2,645 PHPUnit tests.', fa: 'ویزارد RTL پنج‌مرحله‌ای، ۴ ویجت المنتور، رهگیری پست/تیپاکس و ۲٬۶۴۵ تست PHPUnit پیاده شد.' },
+        metric: { en: '15,501 assertions PASS', fa: '۱۵٬۵۰۱ گزاره پاس‌شده' },
       },
       {
         stageIdx: 3,
         agent: 'VISUAL CRITIC',
-        msg: 'Ran live WordPress + WooCommerce E2E suite -> debug.log = 0 bytes, LDD gate = 397/397 PASS.',
-        metric: '397/397 PASS · 0 FAIL',
+        msg: { en: 'Ran live WordPress + WooCommerce E2E suite -> debug.log = 0 bytes, LDD gate = 397/397 PASS.', fa: 'سوئیت E2E زنده وردپرس + ووکامرس اجرا شد؛ debug.log صفر بایت و گیت LDD با ۳۹۷/۳۹۷ پاس شد.' },
+        metric: { en: '397/397 PASS · 0 FAIL', fa: '۳۹۷/۳۹۷ پاس‌شده · ۰ خطا' },
       },
       {
         stageIdx: 4,
         agent: 'RELEASE PACK',
-        msg: 'Compiled single-zip release + 10-page illustrated Persian PDF guide (SHA-256 verified).',
-        metric: 'daftaryar-1.0.0 READY',
+        msg: { en: 'Compiled single-zip release + 10-page illustrated Persian PDF guide (SHA-256 verified).', fa: 'ریلیز تک‌زیپ و راهنمای مصور فارسی ۱۰ صفحه‌ای PDF کامپایل شد (با تایید SHA-256).' },
+        metric: { en: 'daftaryar-1.0.0 READY', fa: 'daftaryar-1.0.0 آماده است' },
       },
     ],
   },
   {
     id: 'sim-outreach',
     label: { en: 'Mission 04 · Outreach Studio + Freeze Shield', fa: 'ماموریت ۰۴ · ساخت Outreach Studio با سپر فریز' },
-    duration: '3m 44s simulated · 110 tests',
+    duration: { en: '3m 44s simulated · 110 tests', fa: '۳ دقیقه و ۴۴ ثانیه شبیه‌سازی‌شده · ۱۱۰ تست' },
     steps: [
       {
         stageIdx: 0,
         agent: 'CURATOR',
-        msg: 'Collected Attio, Unify, Customer.io & Klaviyo references -> pure-white studio spec.',
-        metric: 'Mobbin refs saved',
+        msg: { en: 'Collected Attio, Unify, Customer.io & Klaviyo references -> pure-white studio spec.', fa: 'رفرنس‌های Attio، Unify، Customer.io و Klaviyo جمع‌آوری و اسپک استودیوی سفید خالص نوشته شد.' },
+        metric: { en: 'Mobbin refs saved', fa: 'رفرنس‌های Mobbin ذخیره شد' },
       },
       {
         stageIdx: 1,
         agent: 'ARCHITECT',
-        msg: 'Enforced out-of-repo 0600 secret storage, root-domain shield, and mandatory SenderFreezeError lock.',
-        metric: '0 live-send guarantee',
+        msg: { en: 'Enforced out-of-repo 0600 secret storage, root-domain shield, and mandatory SenderFreezeError lock.', fa: 'ذخیره سیکرت خارج از ریپو با دسترسی 0600، سپر دامنه اصلی و قفل اجباری SenderFreezeError اعمال شد.' },
+        metric: { en: '0 live-send guarantee', fa: 'تضمین صفر ارسال زنده' },
       },
       {
         stageIdx: 2,
         agent: 'BUILDERS (×3)',
-        msg: 'Built 9-signal Website Redesign Scanner, SPF/DKIM doctor, NEVER-CLAIM checker, and 3-pane Unibox.',
-        metric: '19/19 + 62/62 tests PASS',
+        msg: { en: 'Built 9-signal Website Redesign Scanner, SPF/DKIM doctor, NEVER-CLAIM checker, and 3-pane Unibox.', fa: 'اسکنر ۹ سیگناله بازطراحی سایت، دکتر SPF/DKIM، چکر NEVER-CLAIM و یونی‌باکس سه‌پنلی ساخته شد.' },
+        metric: { en: '19/19 + 62/62 tests PASS', fa: '۱۹/۱۹ + ۶۲/۶۲ تست پاس‌شده' },
       },
       {
         stageIdx: 3,
         agent: 'VISUAL CRITIC',
-        msg: 'Captured 15 Playwright screens @ 1440px & 390px EN/FA -> p95 API latency = 12.64 ms.',
-        metric: '0px overflow · PASS (GO)',
+        msg: { en: 'Captured 15 Playwright screens @ 1440px & 390px EN/FA -> p95 API latency = 12.64 ms.', fa: '۱۵ اسکرین Playwright در ۱۴۴۰px و ۳۹۰px برای EN/FA گرفته شد؛ p95 تاخیر API برابر ۱۲٫۶۴ میلی‌ثانیه.' },
+        metric: { en: '0px overflow · PASS (GO)', fa: 'بدون سرریز · پاس‌شده (GO)' },
       },
       {
         stageIdx: 4,
         agent: 'REPO LAND',
-        msg: 'Merged cleanly to main @ 53ed7920 while preserving production outbound freeze (0 sends).',
-        metric: 'GATE OK · Freeze intact',
+        msg: { en: 'Merged cleanly to main @ 53ed7920 while preserving production outbound freeze (0 sends).', fa: 'به‌صورت تمیز در main با کامیت 53ed7920 مرج شد و فریز ارسال پروداکشن (۰ ارسال) حفظ شد.' },
+        metric: { en: 'GATE OK · Freeze intact', fa: 'GATE OK · فریز برقرار است' },
       },
     ],
   },
@@ -1357,8 +1357,8 @@ export const HIRING_ROLES = [
         'طراحی وب‌سایت‌های صادراتی نتیجه‌گرا (اثبات‌شده در ۶ برند زنده Exvorta Web)',
       ],
     },
-    pdfHref: '/resumes/Hamid_Mehrani_AI_Automation_Engineer.pdf',
-    pdfLabel: { en: 'Download Track A · Systems Resume (PDF)', fa: 'دانلود رزومه مهندسی سیستم‌ها (PDF)' },
+    pdfHref: '/resumes/Hamid_Mehrani_Growth_SEO.pdf',
+    pdfLabel: { en: 'Download Track C · Growth & SEO Resume (PDF)', fa: 'دانلود رزومه مسیر C · رشد و سئو (PDF)' },
   },
 ];
 

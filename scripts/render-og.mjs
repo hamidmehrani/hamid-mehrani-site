@@ -19,7 +19,7 @@ const html = `<!DOCTYPE html>
   body {
     width: 1200px;
     height: 630px;
-    background: #070A0F;
+    background: #06080C;
     color: #F3F6FA;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
     position: relative;
@@ -29,8 +29,8 @@ const html = `<!DOCTYPE html>
     justify-content: space-between;
     padding: 56px 68px;
     background-image:
-      radial-gradient(ellipse 65% 60% at 85% 20%, rgba(18, 184, 150, 0.22), transparent 70%),
-      radial-gradient(ellipse 50% 45% at 15% 85%, rgba(201, 162, 39, 0.14), transparent 70%),
+      radial-gradient(ellipse 65% 60% at 85% 20%, rgba(14, 196, 154, 0.22), transparent 70%),
+      radial-gradient(ellipse 50% 45% at 15% 85%, rgba(210, 167, 56, 0.14), transparent 70%),
       linear-gradient(to right, rgba(226, 234, 244, 0.04) 1px, transparent 1px),
       linear-gradient(to bottom, rgba(226, 234, 244, 0.04) 1px, transparent 1px);
     background-size: 100% 100%, 100% 100%, 60px 60px, 60px 60px;
@@ -46,8 +46,8 @@ const html = `<!DOCTYPE html>
     gap: 10px;
     padding: 8px 16px;
     border-radius: 999px;
-    border: 1px solid rgba(18, 184, 150, 0.45);
-    background: rgba(18, 184, 150, 0.12);
+    border: 1px solid rgba(14, 196, 154, 0.45);
+    background: rgba(14, 196, 154, 0.12);
     color: #6EE7CE;
     font-family: monospace;
     font-size: 15px;
@@ -57,7 +57,7 @@ const html = `<!DOCTYPE html>
     width: 9px;
     height: 9px;
     border-radius: 50%;
-    background: #12B896;
+    background: #0EC49A;
   }
   .mid h1 {
     font-size: 74px;
@@ -67,7 +67,7 @@ const html = `<!DOCTYPE html>
     margin-bottom: 18px;
   }
   .mid h1 span {
-    color: #12B896;
+    color: #0EC49A;
     font-style: italic;
     font-family: Georgia, serif;
     font-weight: 400;
@@ -89,7 +89,7 @@ const html = `<!DOCTYPE html>
     color: #94A3B8;
   }
   .bottom strong {
-    color: #C9A227;
+    color: #D2A738;
   }
 </style>
 </head>
@@ -97,13 +97,13 @@ const html = `<!DOCTYPE html>
   <div class="top">
     <svg viewBox="0 0 1000 1000" width="46" height="46">
       <path fill="#F3F6FA" fill-rule="evenodd" d="M 0 0 H 225 L 500 275 L 775 0 H 1000 V 225 L 725 500 L 1000 775 V 1000 H 775 L 500 725 L 225 1000 H 0 V 775 L 275 500 L 0 225 Z M 500 330 L 670 500 L 500 670 L 330 500 Z"/>
-      <circle cx="780" cy="780" r="105" fill="#070A0F"/>
-      <circle cx="780" cy="780" r="78" fill="#12B896"/>
+      <circle cx="780" cy="780" r="105" fill="#06080C"/>
+      <circle cx="780" cy="780" r="78" fill="#0EC49A"/>
     </svg>
-    <div class="pill"><span class="dot"></span> SYSTEMS OBSERVATORY · 2018 – 2026</div>
+    <div class="pill"><span class="dot"></span> SOVEREIGN SYSTEMS MONOGRAPH · 2018 – 2026</div>
   </div>
   <div class="mid">
-    <h1>Hamid Mehrani — <span>AI &amp; Web Architect</span></h1>
+    <h1>Hamid Mehrani — <span>Sovereign Systems Monograph</span></h1>
     <p>Shipping production SaaS platforms, multi-agent automation engines &amp; 6 Exvorta Web global trade houses.</p>
   </div>
   <div class="bottom">

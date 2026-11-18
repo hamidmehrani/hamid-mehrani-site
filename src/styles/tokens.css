@@ -16,6 +16,40 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'Instrument Serif';
+  src: url('/fonts/instrument-serif-400.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Instrument Serif';
+  src: url('/fonts/instrument-serif-400-italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('/fonts/plus-jakarta-sans-variable.woff2') format('woff2-variations'),
+       url('/fonts/plus-jakarta-sans-variable.woff2') format('woff2');
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/fonts/jetbrains-mono-variable.woff2') format('woff2-variations'),
+       url('/fonts/jetbrains-mono-variable.woff2') format('woff2');
+  font-weight: 100 800;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   /* Sovereign Observatory Dark Surface System */
   --bg-obsidian: #06080C;
@@ -38,10 +72,8 @@
 
   /* Dual Signal Accents (Nishapur Verdigris + Sovereign Bullion) */
   --signal-turquoise: #0EC49A;
-  --signal-turquoise-dim: rgba(14, 196, 154, 0.14);
   --signal-turquoise-ink: #077A5F;
   --accent-brass: #D2A738;
-  --accent-brass-dim: rgba(210, 167, 56, 0.15);
 
   /* Typography */
   --font-serif: 'Instrument Serif', Georgia, 'Times New Roman', serif;
@@ -51,8 +83,6 @@
 
   /* Motion & Geometry */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
-  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
-  --radius-xs: 4px;
   --radius-sm: 8px;
   --radius-md: 14px;
   --radius-lg: 20px;
@@ -66,6 +96,6 @@ html[lang="fa"] {
   --font-serif: 'YekanBakh', 'IRANYekanX', Tahoma, sans-serif;
   --font-display: 'YekanBakh', 'IRANYekanX', Tahoma, sans-serif;
   --font-sans: 'IRANYekanX', 'YekanBakh', Tahoma, sans-serif;
-  --font-mono: 'IRANYekanX', Tahoma, sans-serif;
+  --font-mono: 'JetBrains Mono', 'IRANYekanX', Tahoma, monospace;
   font-synthesis: none;
 }

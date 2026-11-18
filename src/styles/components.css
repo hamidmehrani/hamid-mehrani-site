@@ -204,6 +204,14 @@ html[lang="fa"] .venture-badge-inline {
   border-radius: 50%;
   background: var(--accent-brass);
 }
+.venture-badge-float.is-internal::before,
+.venture-badge-inline.is-internal::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #94A3B8;
+}
 
 .venture-index-stamp {
   position: absolute;

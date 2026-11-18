@@ -12,6 +12,7 @@ fs.mkdirSync(TMP_DIR, { recursive: true });
 
 const TARGETS = [
   { name: 'exvorta', url: 'https://exvorta.com', fallback: null },
+  { name: 'cvly', url: 'https://cvly.ir', fallback: null },
   { name: 'firoza', url: 'https://www.firoza.ir/en/', fallback: null },
   { name: 'hamesu', url: 'https://hamesu.ir', fallback: null },
   { name: 'spicevo', url: 'https://spicevo.exvorta.com', fallback: null },
@@ -24,7 +25,8 @@ const TARGETS = [
 
 const MOBILE_TARGETS = [
   { name: 'exvorta-mobile', url: 'https://exvorta.com' },
-  { name: 'firoza-mobile', url: 'https://firoza-7jw-1ev.pages.dev/en/' },
+  { name: 'cvly-mobile', url: 'https://cvly.ir' },
+  { name: 'firoza-mobile', url: 'https://www.firoza.ir/en/' },
   { name: 'hamesu-mobile', url: 'https://hamesu.ir' },
   { name: 'spicevo-mobile', url: 'https://spicevo.exvorta.com' },
   { name: 'nutave-mobile', url: 'https://nutave.exvorta.com' },
@@ -64,7 +66,8 @@ async function main() {
     for (const target of TARGETS) {
       const pngPath = path.join(TMP_DIR, `${target.name}.png`);
       const webpPath = path.join(OUT_DIR, `${target.name}.webp`);
-      if (fs.existsSync(webpPath) && fs.statSync(webpPath).size > 5000 && !target.refresh && !process.argv.includes('--force')) {
+      // SKIP-if-exists is deliberate: re-capture with --force after a redesign.
+      if (fs.existsSync(webpPath) && fs.statSync(webpPath).size > 5000 && !process.argv.includes('--force')) {
         console.log(`  SKIP existing ${target.name}.webp`);
         continue;
       }
@@ -104,7 +107,7 @@ async function main() {
     for (const target of MOBILE_TARGETS) {
       const pngPath = path.join(TMP_DIR, `${target.name}.png`);
       const webpPath = path.join(OUT_DIR, `${target.name}.webp`);
-      if (fs.existsSync(webpPath) && fs.statSync(webpPath).size > 5000 && !target.refresh && !process.argv.includes('--force')) {
+      if (fs.existsSync(webpPath) && fs.statSync(webpPath).size > 5000 && !process.argv.includes('--force')) {
         console.log(`  SKIP existing ${target.name}.webp`);
         continue;
       }
@@ -118,6 +121,8 @@ async function main() {
         await page.screenshot({ path: pngPath, fullPage: false });
         const bytes = encodeWebp(pngPath, webpPath, false, 390);
         console.log(`  OK ${target.name}.webp (${status}) -> ${(bytes / 1024).toFixed(1)} KB`);
+      } catch (err) {
+        console.warn(`  WARN mobile capture failed for ${target.name}: ${err.message}`);
       } finally {
         await page.close();
       }
