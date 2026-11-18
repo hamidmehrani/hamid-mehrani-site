@@ -6,14 +6,18 @@
 
   body {
     background: #ffffff !important;
-    color: #0b1320 !important;
+    color: #0a111c !important;
   }
 
   .site-header,
-  .hero-stage,
-  #ventures,
-  #exvorta-web,
-  #pipeline,
+  .scroll-progress-track,
+  .route-shutter,
+  .case-subnav-bar,
+  .next-portal-section,
+  .quick-dock,
+  .dev-hud-panel,
+  .architectural-grid-overlay,
+  .cursor-reticle,
   .lens-bar,
   .download-stack,
   .site-footer,
@@ -21,6 +25,11 @@
   .toast,
   .crosshair {
     display: none !important;
+  }
+
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
   }
 
   .folio-section {

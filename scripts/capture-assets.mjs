@@ -12,7 +12,8 @@ fs.mkdirSync(TMP_DIR, { recursive: true });
 
 const TARGETS = [
   { name: 'exvorta', url: 'https://exvorta.com', fallback: null },
-  { name: 'firoza', url: 'https://www.firoza.ir/en', fallback: null },
+  { name: 'firoza', url: 'https://www.firoza.ir/en/', fallback: null },
+  { name: 'hamesu', url: 'https://hamesu.ir', fallback: null },
   { name: 'spicevo', url: 'https://spicevo.exvorta.com', fallback: null },
   { name: 'nutave', url: 'https://nutave.exvorta.com', fallback: '/home/hamid/github/nutave-site/nutave-final-verified.png' },
   { name: 'stonvi', url: 'https://stonvi.exvorta.com', fallback: '/home/hamid/github/stonvi-site/en-home.png' },
@@ -22,6 +23,9 @@ const TARGETS = [
 ];
 
 const MOBILE_TARGETS = [
+  { name: 'exvorta-mobile', url: 'https://exvorta.com' },
+  { name: 'firoza-mobile', url: 'https://firoza-7jw-1ev.pages.dev/en/' },
+  { name: 'hamesu-mobile', url: 'https://hamesu.ir' },
   { name: 'spicevo-mobile', url: 'https://spicevo.exvorta.com' },
   { name: 'nutave-mobile', url: 'https://nutave.exvorta.com' },
   { name: 'stonvi-mobile', url: 'https://stonvi.exvorta.com' },
@@ -60,7 +64,7 @@ async function main() {
     for (const target of TARGETS) {
       const pngPath = path.join(TMP_DIR, `${target.name}.png`);
       const webpPath = path.join(OUT_DIR, `${target.name}.webp`);
-      if (fs.existsSync(webpPath) && fs.statSync(webpPath).size > 5000 && !process.argv.includes('--force')) {
+      if (fs.existsSync(webpPath) && fs.statSync(webpPath).size > 5000 && !target.refresh && !process.argv.includes('--force')) {
         console.log(`  SKIP existing ${target.name}.webp`);
         continue;
       }
@@ -100,6 +104,10 @@ async function main() {
     for (const target of MOBILE_TARGETS) {
       const pngPath = path.join(TMP_DIR, `${target.name}.png`);
       const webpPath = path.join(OUT_DIR, `${target.name}.webp`);
+      if (fs.existsSync(webpPath) && fs.statSync(webpPath).size > 5000 && !target.refresh && !process.argv.includes('--force')) {
+        console.log(`  SKIP existing ${target.name}.webp`);
+        continue;
+      }
       const page = await mobileCtx.newPage();
       try {
         console.log(`Capturing mobile ${target.url} ...`);

@@ -1,37 +1,55 @@
+@font-face {
+  font-family: 'YekanBakh';
+  src: url('/fonts/YekanBakh-VF.woff2') format('woff2-variations'),
+       url('/fonts/YekanBakh-VF.woff2') format('woff2');
+  font-weight: 100 950;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IRANYekanX';
+  src: url('/fonts/IRANYekanXVF.woff2') format('woff2-variations'),
+       url('/fonts/IRANYekanXVF.woff2') format('woff2');
+  font-weight: 100 1000;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
-  /* Observatory Dark Surface System */
-  --bg-obsidian: #070A0F;
-  --bg-deck: #0E141E;
-  --bg-card: #121A27;
-  --bg-card-elevated: #172132;
+  /* Sovereign Observatory Dark Surface System */
+  --bg-obsidian: #06080C;
+  --bg-deck: #0D1219;
+  --bg-card: #111823;
+  --bg-card-elevated: #162030;
   --line-dark: rgba(226, 234, 244, 0.10);
   --line-dark-strong: rgba(226, 234, 244, 0.22);
-  --ink-primary: #F3F6FA;
+  --ink-primary: #F4F7FB;
   --ink-secondary: #CBD5E1;
   --ink-muted: #94A3B8;
 
   /* Daylight Architectural Folio System */
-  --bg-folio: #EDF1F5;
+  --bg-folio: #EEF1F5;
   --bg-folio-card: #F8FAFC;
-  --ink-folio: #0B1320;
+  --ink-folio: #0A111C;
   --ink-folio-muted: #475569;
-  --line-folio: rgba(11, 19, 32, 0.12);
-  --line-folio-strong: rgba(11, 19, 32, 0.24);
+  --line-folio: rgba(10, 17, 28, 0.12);
+  --line-folio-strong: rgba(10, 17, 28, 0.24);
 
-  /* Dual Signal Accents (Firoza Turquoise + Exvorta Brass) */
-  --signal-turquoise: #12B896;
-  --signal-turquoise-dim: rgba(18, 184, 150, 0.14);
-  --signal-turquoise-ink: #087A63;
-  --accent-brass: #C9A227;
-  --accent-brass-dim: rgba(201, 162, 39, 0.15);
+  /* Dual Signal Accents (Nishapur Verdigris + Sovereign Bullion) */
+  --signal-turquoise: #0EC49A;
+  --signal-turquoise-dim: rgba(14, 196, 154, 0.14);
+  --signal-turquoise-ink: #077A5F;
+  --accent-brass: #D2A738;
+  --accent-brass-dim: rgba(210, 167, 56, 0.15);
 
   /* Typography */
   --font-serif: 'Instrument Serif', Georgia, 'Times New Roman', serif;
-  --font-display: 'Syne', 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-display: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
 
-  /* Motion & Layout */
+  /* Motion & Geometry */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
   --radius-xs: 4px;
@@ -45,8 +63,9 @@
 }
 
 html[lang="fa"] {
-  --font-serif: 'Vazirmatn', Tahoma, sans-serif;
-  --font-display: 'Vazirmatn', Tahoma, sans-serif;
-  --font-sans: 'Vazirmatn', Tahoma, sans-serif;
-  --font-mono: 'Vazirmatn', Tahoma, sans-serif;
+  --font-serif: 'YekanBakh', 'IRANYekanX', Tahoma, sans-serif;
+  --font-display: 'YekanBakh', 'IRANYekanX', Tahoma, sans-serif;
+  --font-sans: 'IRANYekanX', 'YekanBakh', Tahoma, sans-serif;
+  --font-mono: 'IRANYekanX', Tahoma, sans-serif;
+  font-synthesis: none;
 }

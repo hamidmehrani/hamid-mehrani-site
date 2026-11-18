@@ -1,29 +1,66 @@
 import { initConstellation } from './canvas/constellation.mjs';
 import {
+  ROUTES_MANIFEST,
   UI_COPY,
   VENTURES,
   EXVORTA_WEB_SITES,
   PIPELINE_STAGES,
-  RESUME_TRACKS,
-  EXPERIENCE,
-  SKILLS_MATRIX,
   formatValue,
-  formatVentureYear,
 } from './data/portfolio.mjs';
-import { getTradeBrandSvg, getVentureSchematicSvg } from './graphics/diagrams.mjs';
+import { MONOGRAPHS } from './data/monographs.mjs';
+import {
+  SoundEngine,
+  initMagneticCursor,
+  initKineticTicker,
+  refreshScrollChoreography,
+  initSplitComparators,
+  initDevHud,
+} from './motion/fx.mjs';
+import {
+  renderRouteContent,
+  renderVenturesListWidget,
+  renderTradeCinemaWidget,
+  renderPipelineSimulatorWidget,
+  renderRoleFitEngineWidget,
+  renderCaseStudyStageMedia,
+  renderCaseTopologyInspector,
+  renderResumeFolioInner,
+  renderHireBriefGenerator,
+  buildExecutiveBriefText,
+} from './views/render-pages.mjs';
+
+const sound = new SoundEngine();
 
 const state = {
+  route: '/',
   lang: 'en',
   filter: 'all',
-  view: 'exhibition',
+  view: 'editorial',
+  activeTradeId: 'spicevo',
+  simId: 'sim-exvorta',
   pipelineIdx: 0,
-  autoCycle: false,
+  simRunning: false,
+  hireRole: 'ai-architect',
+  hireEngagement: 'trial',
+  hireCustomNote: '',
+  caseMediaMode: 'desktop',
+  topoIdx: 0,
   resumeTrack: 'all',
-  previewMode: 'desktop',
   cmdQuery: '',
 };
 
-let cycleTimer = null;
+let cleanupConstellation = () => {};
+let cleanupTicker = () => {};
+let cleanupScroll = () => {};
+let simTimer = null;
+let devHud = { toggle: () => {}, refresh: () => {} };
+
+function normalizeRoute(rawPath) {
+  if (!rawPath || rawPath === '/' || rawPath === '/index.html') return '/';
+  const cleaned = rawPath.replace(/\/index\.html$/, '').replace(/\/+$/, '');
+  const found = ROUTES_MANIFEST.find((r) => r.path === cleaned);
+  return found ? found.path : '/';
+}
 
 function getPathValue(obj, path) {
   return path.split('.').reduce((acc, part) => (acc ? acc[part] : undefined), obj);
@@ -54,15 +91,17 @@ function updateLiveClock() {
   } catch {
     tehran = utc;
   }
-  const raw = state.lang === 'fa' ? `تهران ${tehran}` : `UTC ${utc}`;
+  const raw = state.lang === 'fa' ? `تهران ${tehran} · Async` : `UTC ${utc} · THR ${tehran}`;
   clockEl.textContent = formatValue(raw, state.lang);
 }
 
-function applyTranslations() {
+function syncDocumentMeta() {
   const copy = UI_COPY[state.lang];
+  const routeEntry = ROUTES_MANIFEST.find((r) => r.path === state.route) || ROUTES_MANIFEST[0];
+
   document.documentElement.lang = state.lang;
   document.documentElement.dir = state.lang === 'fa' ? 'rtl' : 'ltr';
-  document.title = copy.pageTitle;
+  document.title = routeEntry.title[state.lang];
 
   const brandName = document.getElementById('header-brand-name');
   if (brandName) {
@@ -72,10 +111,13 @@ function applyTranslations() {
   document.querySelectorAll('[data-i18n]').forEach((el) => {
     const key = el.getAttribute('data-i18n');
     const val = getPathValue(copy, key);
-    if (typeof val === 'string') {
-      el.textContent = val;
-    }
+    if (typeof val === 'string') el.textContent = val;
   });
+
+  const soundLabel = document.getElementById('sound-btn-label');
+  if (soundLabel) {
+    soundLabel.textContent = sound.enabled ? copy.soundOn : copy.soundOff;
+  }
 
   const cmdInput = document.getElementById('cmd-input');
   if (cmdInput) cmdInput.placeholder = copy.cmdPlaceholder;
@@ -83,411 +125,214 @@ function applyTranslations() {
   document.getElementById('lang-en')?.classList.toggle('is-active', state.lang === 'en');
   document.getElementById('lang-fa')?.classList.toggle('is-active', state.lang === 'fa');
 
-  const cycleBtn = document.getElementById('pipeline-cycle-btn');
-  if (cycleBtn) {
-    cycleBtn.textContent = state.autoCycle ? copy.autoCyclePause : copy.autoCyclePlay;
-  }
+  // Highlight active header nav & floating quick-dock items
+  document.querySelectorAll('[data-nav-match]').forEach((el) => {
+    const pat = el.getAttribute('data-nav-match');
+    const active = pat === '/' ? state.route === '/' : state.route.startsWith(pat);
+    if (active) el.setAttribute('aria-current', 'page');
+    else el.removeAttribute('aria-current');
+  });
+
+  document.querySelectorAll('[data-dock-match]').forEach((el) => {
+    const pat = el.getAttribute('data-dock-match');
+    const active = pat === '/' ? state.route === '/' : state.route.startsWith(pat);
+    el.classList.toggle('is-active', active);
+  });
 }
 
-function renderHeroStats() {
-  const container = document.getElementById('hero-stats-strip');
-  if (!container) return;
-  const copy = UI_COPY[state.lang];
-  const crosshairs = `
-    <span class="crosshair crosshair--tl" aria-hidden="true"></span>
-    <span class="crosshair crosshair--tr" aria-hidden="true"></span>
-    <span class="crosshair crosshair--bl" aria-hidden="true"></span>
-    <span class="crosshair crosshair--br" aria-hidden="true"></span>
-  `;
-  container.innerHTML =
-    crosshairs +
-    copy.stats
-      .map(
-        (s) => `
-      <div class="telemetry-cell">
-        <div class="telemetry-val"><span class="accent">${s.value}</span></div>
-        <div class="telemetry-label">${s.label}</div>
-        <div class="telemetry-sub">${s.sub}</div>
-      </div>
-    `,
-      )
-      .join('');
+function teardownRouteVisuals() {
+  cleanupConstellation();
+  cleanupConstellation = () => {};
+  cleanupTicker();
+  cleanupTicker = () => {};
+  cleanupScroll();
+  cleanupScroll = () => {};
 }
 
-function renderVenturesSection() {
-  const copy = UI_COPY[state.lang];
-  const filtersEl = document.getElementById('venture-filters');
-  const container = document.getElementById('ventures-container');
-  if (!filtersEl || !container) return;
+function mountRouteVisuals() {
+  teardownRouteVisuals();
 
-  filtersEl.innerHTML = copy.filters
-    .map((f) => {
-      const count = f.id === 'all' ? VENTURES.length : VENTURES.filter((v) => v.category === f.id).length;
-      const activeClass = state.filter === f.id ? 'is-active' : '';
-      return `
-        <button type="button" class="pill-btn ${activeClass}" data-filter="${f.id}">
-          <span>${f.label}</span>
-          <span class="pill-count">${formatValue(count, state.lang)}</span>
-        </button>
-      `;
-    })
-    .join('');
-
-  document.getElementById('view-exhibition')?.classList.toggle('is-active', state.view === 'exhibition');
-  document.getElementById('view-ledger')?.classList.toggle('is-active', state.view === 'ledger');
-
-  const items = state.filter === 'all' ? VENTURES : VENTURES.filter((v) => v.category === state.filter);
-
-  if (state.view === 'exhibition') {
-    container.innerHTML = `<div class="ventures-grid">${items
-      .map((item) => {
-        const sizeCls =
-          state.filter === 'all' && item.featured
-            ? 'is-featured'
-            : state.filter === 'all' && item.secondaryWide
-              ? 'is-secondary-wide'
-              : '';
-        const visualHtml = item.previewImg
-          ? `<img src="${item.previewImg}" alt="${item.name[state.lang]}" loading="lazy" width="1440" height="900">`
-          : getVentureSchematicSvg(item.schematicType);
-        const statusCls = item.statusType === 'frozen' ? 'is-frozen' : 'is-live';
-        const stackItems = state.lang === 'fa' && item.stackFa ? item.stackFa : item.stack;
-        const stackHtml = stackItems.map((t) => `<span class="chip">${t}</span>`).join('');
-        const liveBtn = item.liveUrl
-          ? `<a href="${item.liveUrl}" target="_blank" rel="noopener noreferrer" class="card-ext-link">${copy.liveVisit} ↗</a>`
-          : '';
-
-        return `
-          <article class="venture-card ${sizeCls}">
-            <div class="venture-visual">
-              ${visualHtml}
-              <span class="venture-badge-float ${statusCls}">${item.status[state.lang]}</span>
-            </div>
-            <div class="venture-body">
-              <div class="venture-meta-row">
-                <span>${formatVentureYear(item.year, state.lang)}</span>
-                <span>${item.role[state.lang]}</span>
-              </div>
-              <div class="venture-title-row">
-                <h3 class="venture-title">${item.name[state.lang]}</h3>
-              </div>
-              <p class="venture-summary">${item.summary[state.lang]}</p>
-              <div class="venture-proof">${item.proof[state.lang]}</div>
-              <div class="chip-row">${stackHtml}</div>
-              <div class="card-actions">
-                <button type="button" class="card-action-btn" data-open-venture="${item.id}">${copy.inspectBtn}</button>
-                ${liveBtn}
-              </div>
-            </div>
-          </article>
-        `;
-      })
-      .join('')}</div>`;
-  } else {
-    container.innerHTML = `
-      <div class="ledger-wrap">
-        <table class="ledger-table">
-          <thead>
-            <tr>${copy.ledgerHeaders.map((h) => `<th>${h}</th>`).join('')}</tr>
-          </thead>
-          <tbody>
-            ${items
-              .map(
-                (item) => `
-              <tr class="ledger-row" data-open-venture="${item.id}">
-                <td style="font-family:var(--font-mono);color:var(--ink-muted);">${formatVentureYear(item.year, state.lang)}</td>
-                <td><strong>${item.name[state.lang]}</strong></td>
-                <td style="color:var(--ink-secondary);">${item.role[state.lang]}</td>
-                <td>${(state.lang === 'fa' && item.stackFa ? item.stackFa : item.stack).slice(0, 3).map((s) => `<span class="chip">${s}</span>`).join(' ')}</td>
-                <td style="font-size:0.82rem;color:#7EEAD4;">${item.proof[state.lang]}</td>
-                <td><button type="button" class="card-action-btn" data-open-venture="${item.id}">${copy.inspectBtn}</button></td>
-              </tr>
-            `,
-              )
-              .join('')}
-          </tbody>
-        </table>
-      </div>
-    `;
-  }
-}
-
-function renderTradeHouses() {
-  const grid = document.getElementById('trade-houses-grid');
-  if (!grid) return;
-  const copy = UI_COPY[state.lang];
-
-  grid.innerHTML = EXVORTA_WEB_SITES.map(
-    (site) => {
-      const wrapModifier =
-        site.logoType === 'aurum'
-          ? 'trade-logo-wrap--dark'
-          : site.logoType === 'stonvi'
-            ? 'trade-logo-wrap--slate'
-            : '';
-      const specsTxt = typeof site.specs === 'string' ? site.specs : site.specs[state.lang];
-      return `
-    <article class="trade-card">
-      <div class="trade-preview-box">
-        <img src="${site.previewImg}" alt="${site.name} live preview" loading="lazy" width="1440" height="900">
-      </div>
-      <div class="trade-card-body">
-        <div class="trade-card-head">
-          <div class="trade-brand-lockup">
-            <span class="trade-logo-wrap ${wrapModifier}">${getTradeBrandSvg(site.logoType)}</span>
-            <div>
-              <h3 class="trade-name">${site.name}</h3>
-              <div class="trade-sector">${site.sector[state.lang]}</div>
-            </div>
-          </div>
-          <span class="swatch-pair" title="Brand Palette">
-            <span class="swatch-dot" style="background:${site.colors[0]}"></span>
-            <span class="swatch-dot" style="background:${site.colors[1]}"></span>
-          </span>
-        </div>
-        <p class="trade-desc">${site.desc[state.lang]}</p>
-        <div class="trade-specs">${formatValue(specsTxt, state.lang)}</div>
-        <div class="card-actions">
-          <button type="button" class="card-action-btn" data-open-preview="${site.id}">${copy.livePreviewBtn}</button>
-          <a href="${site.url}" target="_blank" rel="noopener noreferrer" class="card-ext-link">${site.url.replace('https://', '')} ↗</a>
-        </div>
-      </div>
-    </article>
-  `;
-    },
-  ).join('');
-}
-
-function renderPipeline() {
-  const stepsEl = document.getElementById('pipeline-steps');
-  const inspectorEl = document.getElementById('pipeline-inspector');
-  if (!stepsEl || !inspectorEl) return;
-
-  stepsEl.innerHTML = PIPELINE_STAGES.map((st, idx) => {
-    const active = idx === state.pipelineIdx ? 'is-active' : '';
-    return `
-      <button type="button" class="pipeline-step-btn ${active}" role="tab" aria-selected="${idx === state.pipelineIdx}" data-stage-idx="${idx}">
-        <span class="step-num">${formatValue(st.num, state.lang)}</span>
-        <span class="step-title">${st.title[state.lang]}</span>
-        <span class="step-role">${state.lang === 'fa' ? st.roleFa || st.role : st.role}</span>
-      </button>
-    `;
-  }).join('');
-
-  const activeStage = PIPELINE_STAGES[state.pipelineIdx];
-  const stageBadge =
-    state.lang === 'fa'
-      ? `مرحله ${formatValue(activeStage.num, 'fa')} · ${activeStage.roleFa || activeStage.role}`
-      : `STAGE ${activeStage.num} · ${activeStage.role}`;
-  const meterPips = PIPELINE_STAGES.map((_, i) => {
-    const cls = i === state.pipelineIdx ? 'is-current' : i < state.pipelineIdx ? 'is-done' : '';
-    return `<span class="stage-meter-pip ${cls}"></span>`;
-  }).join('');
-  inspectorEl.innerHTML = `
-    <div class="inspector-topbar">
-      <div class="stage-meter" aria-hidden="true">${meterPips}</div>
-      <span style="font-family:var(--font-mono);font-size:0.78rem;color:var(--ink-muted);">${stageBadge}</span>
-    </div>
-    <div class="inspector-body">
-      <div>
-        <h3 style="margin:0 0 8px;font-family:var(--font-display);font-size:1.35rem;">${activeStage.title[state.lang]}</h3>
-        <p style="margin:0;color:var(--ink-secondary);font-size:0.96rem;">${activeStage.desc[state.lang]}</p>
-      </div>
-      <pre class="inspector-code"><code>${activeStage.terminal}</code></pre>
-    </div>
-  `;
-}
-
-function renderResumeFolio() {
-  const tabsEl = document.getElementById('resume-lens-tabs');
-  const summaryEl = document.getElementById('resume-summary-box');
-  const timelineEl = document.getElementById('timeline-list');
-  const skillsEl = document.getElementById('skills-matrix-list');
-  if (!tabsEl || !summaryEl || !timelineEl || !skillsEl) return;
-
-  const track = RESUME_TRACKS[state.resumeTrack] || RESUME_TRACKS.all;
-
-  tabsEl.innerHTML = Object.values(RESUME_TRACKS)
-    .map((t) => {
-      const active = t.id === state.resumeTrack ? 'is-active' : '';
-      return `<button type="button" class="lens-tab ${active}" role="tab" aria-selected="${t.id === state.resumeTrack}" data-track="${t.id}">${t.label[state.lang]}</button>`;
-    })
-    .join('');
-
-  summaryEl.innerHTML = `
-    <div class="resume-track-headline">${track.headline[state.lang]}</div>
-    <p style="margin:0;color:#1e293b;font-size:0.98rem;line-height:1.68;">${track.summary[state.lang]}</p>
-  `;
-
-  timelineEl.innerHTML = EXPERIENCE.map((role) => {
-    const highlighted = track.highlightRoles.includes(role.id) ? 'is-highlighted' : '';
-    const companyName = typeof role.company === 'string' ? role.company : role.company[state.lang];
-    return `
-      <article class="timeline-item ${highlighted}">
-        <div class="timeline-head">
-          <div class="timeline-role">${role.role[state.lang]} — <span class="company">${companyName}</span></div>
-          <div class="timeline-period">${role.period[state.lang]}</div>
-        </div>
-        <ul class="timeline-bullets">
-          ${role.bullets[state.lang].map((b) => `<li>${b}</li>`).join('')}
-        </ul>
-      </article>
-    `;
-  }).join('');
-
-  skillsEl.innerHTML = SKILLS_MATRIX.map(
-    (grp) => `
-    <div>
-      <div style="font-size:0.78rem;font-weight:800;color:var(--signal-turquoise-ink);margin-bottom:7px;">${grp.title[state.lang]}</div>
-      <div class="skill-tags">${grp.items.map((item) => `<span class="skill-tag">${item}</span>`).join('')}</div>
-    </div>
-  `,
-  ).join('');
-}
-
-function openDossierModal(ventureId) {
-  const item = VENTURES.find((v) => v.id === ventureId);
-  if (!item) return;
-  const copy = UI_COPY[state.lang];
-  const modal = document.getElementById('dossier-modal');
-  const titleEl = document.getElementById('dossier-modal-title');
-  const kickerEl = document.getElementById('dossier-modal-kicker');
-  const bodyEl = document.getElementById('dossier-modal-body');
-
-  kickerEl.textContent = `${formatVentureYear(item.year, state.lang)} · ${item.status[state.lang]}`;
-  titleEl.textContent = item.name[state.lang];
-
-  const visual = item.previewImg
-    ? `<div style="border-radius:10px;overflow:hidden;border:1px solid var(--line-dark);margin-bottom:20px;"><img src="${item.previewImg}" alt="${item.name[state.lang]}" style="width:100%;max-height:360px;object-fit:cover;object-position:top;"></div>`
-    : `<div style="border-radius:10px;overflow:hidden;border:1px solid var(--line-dark);margin-bottom:20px;aspect-ratio:16/10;">${getVentureSchematicSvg(item.schematicType)}</div>`;
-
-  const actions = [
-    item.liveUrl ? `<a href="${item.liveUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-primary">${copy.liveVisit} ↗</a>` : '',
-    item.repoUrl ? `<a href="${item.repoUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">${copy.repoVisit} ↗</a>` : '',
-  ]
-    .filter(Boolean)
-    .join('');
-
-  const stackItems = state.lang === 'fa' && item.stackFa ? item.stackFa : item.stack;
-  bodyEl.innerHTML = `
-    ${visual}
-    <div style="display:grid;gap:16px;">
-      <div>
-        <h4 style="margin:0 0 6px;color:var(--signal-turquoise);font-size:0.84rem;">${copy.dossierLabels.overview}</h4>
-        <p style="margin:0;color:var(--ink-secondary);">${item.summary[state.lang]}</p>
-      </div>
-      <div>
-        <h4 style="margin:0 0 6px;color:var(--signal-turquoise);font-size:0.84rem;">${copy.dossierLabels.architecture}</h4>
-        <p style="margin:0;color:var(--ink-secondary);">${item.architecture[state.lang]}</p>
-      </div>
-      <div>
-        <h4 style="margin:0 0 6px;color:var(--accent-brass);font-size:0.84rem;">${copy.dossierLabels.verified}</h4>
-        <div class="venture-proof" style="margin:0;">${item.proof[state.lang]}</div>
-      </div>
-      <div>
-        <h4 style="margin:0 0 8px;color:var(--ink-muted);font-size:0.84rem;">${copy.dossierLabels.stack}</h4>
-        <div class="chip-row" style="margin:0;">${stackItems.map((s) => `<span class="chip">${s}</span>`).join('')}</div>
-      </div>
-      ${actions ? `<div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:6px;">${actions}</div>` : ''}
-    </div>
-  `;
-  modal.hidden = false;
-  document.getElementById('dossier-modal-close')?.focus();
-}
-
-function openTradePreviewModal(siteId) {
-  const site = EXVORTA_WEB_SITES.find((s) => s.id === siteId);
-  if (!site) return;
-  const copy = UI_COPY[state.lang];
-  const modal = document.getElementById('dossier-modal');
-  const titleEl = document.getElementById('dossier-modal-title');
-  const kickerEl = document.getElementById('dossier-modal-kicker');
-  const bodyEl = document.getElementById('dossier-modal-body');
-
-  const localesTxt = state.lang === 'fa' ? site.localesFa || site.locales : site.locales;
-  kickerEl.textContent = `${site.sector[state.lang]} · ${localesTxt}`;
-  titleEl.textContent = `${site.name} — ${site.url.replace('https://', '')}`;
-
-  // Preload mobile preview immediately so switching tabs never flashes 2x2px
-  if (site.mobilePreviewImg) {
-    const pre = new Image();
-    pre.src = site.mobilePreviewImg;
-  }
-
-  const renderBody = () => {
-    const isMob = state.previewMode === 'mobile';
-    const imgSrc = isMob && site.mobilePreviewImg ? site.mobilePreviewImg : site.previewImg;
-    const imgW = isMob ? 390 : 1440;
-    const imgH = isMob ? 844 : 900;
-    bodyEl.innerHTML = `
-      <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;">
-        <div class="view-switcher">
-          <button type="button" class="view-btn ${!isMob ? 'is-active' : ''}" data-preview-mode="desktop">${copy.desktopLabel}</button>
-          <button type="button" class="view-btn ${isMob ? 'is-active' : ''}" data-preview-mode="mobile">${copy.mobileLabel}</button>
-        </div>
-        <a href="${site.url}" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="height:38px;">${copy.liveVisit} ↗</a>
-      </div>
-      <div class="preview-device-frame ${isMob ? 'is-mobile' : ''}">
-        <img src="${imgSrc}" width="${imgW}" height="${imgH}" decoding="sync" alt="${site.name} screenshot">
-      </div>
-      <p style="margin:14px 0 0;color:var(--ink-secondary);font-size:0.92rem;">${site.desc[state.lang]}</p>
-    `;
-    bodyEl.querySelectorAll('[data-preview-mode]').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        state.previewMode = btn.getAttribute('data-preview-mode');
-        renderBody();
-      });
+  const orbCanvas = document.getElementById('constellation-canvas');
+  if (orbCanvas) {
+    cleanupConstellation = initConstellation(orbCanvas, (targetRoute) => {
+      navigateTo(targetRoute);
     });
+  }
+
+  const tickerCanvas = document.getElementById('kinetic-ticker-canvas');
+  if (tickerCanvas) {
+    cleanupTicker = initKineticTicker(tickerCanvas, () => UI_COPY[state.lang].marqueeItems);
+  }
+
+  initSplitComparators(document);
+  cleanupScroll = refreshScrollChoreography();
+  devHud.refresh();
+}
+
+function renderMainStage() {
+  const main = document.getElementById('main-content');
+  if (!main) return;
+  main.innerHTML = renderRouteContent(state.route, state);
+  syncDocumentMeta();
+  updateLiveClock();
+  mountRouteVisuals();
+}
+
+function buildUrlForRoute(routePath) {
+  return state.lang === 'fa' ? `${routePath}?lang=fa` : routePath;
+}
+
+export function navigateTo(targetPath, { push = true } = {}) {
+  const nextRoute = normalizeRoute(targetPath);
+  const routeEntry = ROUTES_MANIFEST.find((r) => r.path === nextRoute) || ROUTES_MANIFEST[0];
+
+  window.clearInterval(simTimer);
+  state.simRunning = false;
+  state.caseMediaMode = 'desktop';
+  state.topoIdx = 0;
+  state.route = nextRoute;
+
+  if (push) {
+    window.history.pushState({ route: nextRoute }, '', buildUrlForRoute(nextRoute));
+  }
+
+  sound.warp();
+
+  const shutter = document.getElementById('route-shutter');
+  const shutterCode = document.getElementById('route-shutter-code');
+  if (shutterCode) shutterCode.textContent = routeEntry.code;
+
+  const commitDom = () => {
+    renderMainStage();
+    window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
-  renderBody();
-  modal.hidden = false;
-  document.getElementById('dossier-modal-close')?.focus();
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduced && typeof document.startViewTransition === 'function') {
+    if (shutter) {
+      shutter.classList.add('is-flashing');
+      window.setTimeout(() => shutter.classList.remove('is-flashing'), 360);
+    }
+    document.startViewTransition(() => {
+      commitDom();
+    });
+  } else {
+    if (!reduced && shutter) {
+      shutter.classList.add('is-flashing');
+      window.setTimeout(() => shutter.classList.remove('is-flashing'), 340);
+    }
+    commitDom();
+  }
+}
+
+function setLanguage(lang) {
+  state.lang = lang === 'fa' ? 'fa' : 'en';
+  try {
+    localStorage.setItem('hm_lang', state.lang);
+  } catch {
+    // Ignore storage restriction
+  }
+  window.history.replaceState({ route: state.route }, '', buildUrlForRoute(state.route));
+  sound.tick(580, 0.035, 'triangle');
+  renderMainStage();
+}
+
+function startLiveSimulation() {
+  window.clearInterval(simTimer);
+  if (state.simRunning) {
+    state.simRunning = false;
+    const mount = document.getElementById('pipeline-sim-mount');
+    if (mount) mount.innerHTML = renderPipelineSimulatorWidget(state, state.route === '/');
+    return;
+  }
+
+  state.simRunning = true;
+  state.pipelineIdx = 0;
+  sound.tick(520, 0.04, 'triangle');
+
+  const refreshSimDom = () => {
+    const mount = document.getElementById('pipeline-sim-mount');
+    if (mount) mount.innerHTML = renderPipelineSimulatorWidget(state, state.route === '/');
+  };
+  refreshSimDom();
+
+  simTimer = window.setInterval(() => {
+    if (state.pipelineIdx < PIPELINE_STAGES.length - 1) {
+      state.pipelineIdx += 1;
+      sound.tick(540 + state.pipelineIdx * 75, 0.04, 'sine');
+      refreshSimDom();
+    } else {
+      window.clearInterval(simTimer);
+      state.simRunning = false;
+      sound.tick(880, 0.06, 'triangle');
+      refreshSimDom();
+    }
+  }, 1150);
+}
+
+async function copyText(text, toastMsg) {
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch {
+    // Ignore fallback
+  }
+  sound.tick(740, 0.04, 'sine');
+  showToast(toastMsg);
 }
 
 function getCommandItems() {
   const copy = UI_COPY[state.lang];
-  const items = [
-    ...VENTURES.map((v) => ({
-      id: `v:${v.id}`,
-      title: v.name[state.lang],
-      meta: v.role[state.lang],
-      run: () => openDossierModal(v.id),
-    })),
-    ...EXVORTA_WEB_SITES.map((s) => ({
-      id: `s:${s.id}`,
-      title: `${s.name} · ${s.url.replace('https://', '')}`,
-      meta: s.sector[state.lang],
-      run: () => openTradePreviewModal(s.id),
-    })),
+  const routeCmds = ROUTES_MANIFEST.map((r) => ({
+    id: `route:${r.path}`,
+    title: r.title[state.lang].split(' | ')[0],
+    meta: r.code,
+    run: () => navigateTo(r.path),
+  }));
+
+  const tradeCmds = EXVORTA_WEB_SITES.map((s) => ({
+    id: `ext:${s.id}`,
+    title: `${s.name} — ${s.url.replace('https://', '')} ↗`,
+    meta: s.sector[state.lang],
+    run: () => window.open(s.url, '_blank', 'noopener'),
+  }));
+
+  const utilCmds = [
     {
       id: 'act:lang',
-      title: copy.cmdLangTitle,
-      meta: copy.cmdLangMeta,
+      title: state.lang === 'en' ? 'Switch Language → فارسی (RTL)' : 'تغییر زبان به English (LTR)',
+      meta: 'LOCALE / RTL',
       run: () => setLanguage(state.lang === 'en' ? 'fa' : 'en'),
+    },
+    {
+      id: 'act:hud',
+      title: state.lang === 'en' ? 'Toggle Engineering Telemetry HUD (⌘I)' : 'نمایش/مخفی‌سازی پنل تله‌متری فنی (⌘I)',
+      meta: 'DEV HUD',
+      run: () => devHud.toggle(),
     },
     {
       id: 'act:email',
       title: copy.copyEmailBtn,
       meta: 'hamid@exvorta.com',
-      run: () => copyEmail(),
+      run: () => copyText('hamid@exvorta.com', copy.copiedToast),
     },
     {
       id: 'act:pdfA',
-      title: copy.downloadTrackA,
-      meta: copy.cmdPdfMeta,
+      title: 'Download Resume · Track A (AI Automation PDF)',
+      meta: 'PDF A4',
       run: () => window.open('/resumes/Hamid_Mehrani_AI_Automation_Engineer.pdf', '_blank'),
     },
     {
       id: 'act:pdfB',
-      title: copy.downloadTrackB,
-      meta: copy.cmdPdfMeta,
+      title: 'Download Resume · Track B (Web Developer PDF)',
+      meta: 'PDF A4',
       run: () => window.open('/resumes/Hamid_Mehrani_Web_Developer.pdf', '_blank'),
     },
   ];
+
+  const all = [...routeCmds, ...tradeCmds, ...utilCmds];
   const q = state.cmdQuery.trim().toLowerCase();
-  if (!q) return items;
-  return items.filter((i) => i.title.toLowerCase().includes(q) || i.meta.toLowerCase().includes(q));
+  if (!q) return all;
+  return all.filter((i) => i.title.toLowerCase().includes(q) || i.meta.toLowerCase().includes(q));
 }
 
 function renderCommandResults() {
@@ -502,28 +347,21 @@ function renderCommandResults() {
   resultsEl.innerHTML = matches
     .map(
       (m, i) => `
-    <button type="button" class="cmd-item ${i === 0 ? 'is-selected' : ''}" data-cmd-idx="${i}">
-      <span><strong>${m.title}</strong></span>
-      <span style="font-family:var(--font-mono);font-size:0.74rem;color:var(--ink-muted);">${m.meta}</span>
-    </button>
-  `,
+      <button type="button" class="cmd-item ${i === 0 ? 'is-selected' : ''}" data-cmd-idx="${i}">
+        <span><strong>${m.title}</strong></span>
+        <span class="cmd-item-meta" dir="ltr">${m.meta}</span>
+      </button>
+    `,
     )
     .join('');
 
   resultsEl.querySelectorAll('[data-cmd-idx]').forEach((btn) => {
     btn.addEventListener('click', () => {
       const idx = Number(btn.getAttribute('data-cmd-idx'));
-      closeModals();
+      closeCmdModal();
       matches[idx]?.run();
     });
   });
-}
-
-function closeModals() {
-  const dossier = document.getElementById('dossier-modal');
-  const cmd = document.getElementById('cmd-modal');
-  if (dossier) dossier.hidden = true;
-  if (cmd) cmd.hidden = true;
 }
 
 function openCmdModal() {
@@ -537,108 +375,229 @@ function openCmdModal() {
   input.focus();
 }
 
-async function copyEmail() {
-  const copy = UI_COPY[state.lang];
-  try {
-    await navigator.clipboard.writeText('hamid@exvorta.com');
-  } catch {
-    // Fallback if clipboard blocked
-  }
-  showToast(copy.copiedToast);
+function closeCmdModal() {
+  const cmd = document.getElementById('cmd-modal');
+  if (cmd) cmd.hidden = true;
 }
 
-function setLanguage(lang) {
-  state.lang = lang === 'fa' ? 'fa' : 'en';
-  try {
-    localStorage.setItem('hm_lang', state.lang);
-  } catch {
-    // Ignore storage error
-  }
-  renderAll();
-}
+function initDelegatedInteractions() {
+  // Global SPA route link interception
+  document.addEventListener('click', (e) => {
+    const routeLink = e.target.closest('a[data-route]');
+    if (
+      routeLink &&
+      e.button === 0 &&
+      !e.metaKey &&
+      !e.ctrlKey &&
+      !e.shiftKey &&
+      !e.altKey &&
+      !routeLink.hasAttribute('download') &&
+      routeLink.getAttribute('target') !== '_blank'
+    ) {
+      e.preventDefault();
+      const drawer = document.getElementById('mobile-drawer');
+      if (drawer && !drawer.hidden) {
+        drawer.hidden = true;
+        document.getElementById('mobile-menu-btn')?.setAttribute('aria-expanded', 'false');
+      }
+      const dest = routeLink.getAttribute('data-route');
+      if (dest === state.route) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        navigateTo(dest);
+      }
+      return;
+    }
 
-function renderAll() {
-  applyTranslations();
-  updateLiveClock();
-  renderHeroStats();
-  renderVenturesSection();
-  renderTradeHouses();
-  renderPipeline();
-  renderResumeFolio();
-}
+    // Venture category filter
+    const filterBtn = e.target.closest('[data-filter]');
+    if (filterBtn) {
+      state.filter = filterBtn.getAttribute('data-filter');
+      sound.tick(520, 0.03);
+      document.querySelectorAll('[data-filter]').forEach((b) => {
+        b.classList.toggle('is-active', b.getAttribute('data-filter') === state.filter);
+      });
+      const mount = document.getElementById('ventures-list-mount');
+      if (mount) {
+        mount.innerHTML = renderVenturesListWidget(state);
+        cleanupScroll();
+        cleanupScroll = refreshScrollChoreography();
+      }
+      return;
+    }
 
-function initEvents() {
+    // Editorial Spreads vs Interactive Ledger
+    const viewBtn = e.target.closest('[data-view]');
+    if (viewBtn) {
+      state.view = viewBtn.getAttribute('data-view');
+      sound.tick(560, 0.03);
+      document.querySelectorAll('[data-view]').forEach((b) => {
+        b.classList.toggle('is-active', b.getAttribute('data-view') === state.view);
+      });
+      const mount = document.getElementById('ventures-list-mount');
+      if (mount) {
+        mount.innerHTML = renderVenturesListWidget(state);
+        cleanupScroll();
+        cleanupScroll = refreshScrollChoreography();
+      }
+      return;
+    }
+
+    // Exvorta Web 6-Brand Cinema selector
+    const tradeBtn = e.target.closest('[data-trade-select]');
+    if (tradeBtn) {
+      state.activeTradeId = tradeBtn.getAttribute('data-trade-select');
+      sound.tick(620, 0.035, 'triangle');
+      const mount = document.getElementById('trade-cinema-mount');
+      if (mount) mount.innerHTML = renderTradeCinemaWidget(state);
+      return;
+    }
+
+    // Pipeline simulation mission switcher
+    const simBtn = e.target.closest('[data-sim-id]');
+    if (simBtn) {
+      window.clearInterval(simTimer);
+      state.simRunning = false;
+      state.simId = simBtn.getAttribute('data-sim-id');
+      state.pipelineIdx = 0;
+      sound.tick(600, 0.035);
+      const mount = document.getElementById('pipeline-sim-mount');
+      if (mount) mount.innerHTML = renderPipelineSimulatorWidget(state, state.route === '/');
+      return;
+    }
+
+    // Pipeline manual stage step
+    const stageBtn = e.target.closest('[data-stage-idx]');
+    if (stageBtn) {
+      window.clearInterval(simTimer);
+      state.simRunning = false;
+      state.pipelineIdx = Number(stageBtn.getAttribute('data-stage-idx'));
+      sound.tick(540 + state.pipelineIdx * 55, 0.03);
+      const mount = document.getElementById('pipeline-sim-mount');
+      if (mount) mount.innerHTML = renderPipelineSimulatorWidget(state, state.route === '/');
+      return;
+    }
+
+    // Run Live Mission button
+    if (e.target.closest('#run-sim-btn')) {
+      startLiveSimulation();
+      return;
+    }
+
+    // Executive Hiring Role selector
+    const roleBtn = e.target.closest('[data-hire-role]');
+    if (roleBtn) {
+      state.hireRole = roleBtn.getAttribute('data-hire-role');
+      sound.tick(640, 0.035, 'triangle');
+      const mount = document.getElementById('role-fit-mount');
+      if (mount) mount.innerHTML = renderRoleFitEngineWidget(state, state.route === '/');
+      const briefMount = document.getElementById('hire-brief-mount');
+      if (briefMount) briefMount.innerHTML = renderHireBriefGenerator(state);
+      return;
+    }
+
+    // Case Study viewport media switcher
+    const mediaBtn = e.target.closest('[data-case-media]');
+    if (mediaBtn) {
+      state.caseMediaMode = mediaBtn.getAttribute('data-case-media');
+      sound.tick(590, 0.03);
+      document.querySelectorAll('[data-case-media]').forEach((b) => {
+        b.classList.toggle('is-active', b.getAttribute('data-case-media') === state.caseMediaMode);
+      });
+      const slug = state.route.replace('/work/', '').replace(/\/$/, '');
+      const venture = VENTURES.find((v) => v.id === slug) || VENTURES[0];
+      const mount = document.getElementById('case-media-mount');
+      if (mount) {
+        mount.innerHTML = renderCaseStudyStageMedia(venture, state);
+        initSplitComparators(mount);
+      }
+      return;
+    }
+
+    // Interactive Topology Node click
+    const topoTrigger = e.target.closest('[data-topo-idx]');
+    if (topoTrigger) {
+      state.topoIdx = Number(topoTrigger.getAttribute('data-topo-idx'));
+      sound.tick(680, 0.035, 'triangle');
+      const mount = document.getElementById('case-topology-mount');
+      if (mount) {
+        const cid = mount.getAttribute('data-case-id') || 'exvorta';
+        mount.innerHTML = renderCaseTopologyInspector(MONOGRAPHS[cid] || MONOGRAPHS.exvorta, state);
+      }
+      return;
+    }
+
+    // Resume Lens switcher
+    const trackBtn = e.target.closest('[data-track]');
+    if (trackBtn) {
+      state.resumeTrack = trackBtn.getAttribute('data-track');
+      sound.tick(600, 0.03);
+      const mount = document.getElementById('resume-folio-mount');
+      if (mount) mount.innerHTML = renderResumeFolioInner(state);
+      return;
+    }
+
+    // Print Folio button
+    if (e.target.closest('#print-folio-btn')) {
+      window.print();
+      return;
+    }
+
+    // Engagement model selector on /hire
+    const engBtn = e.target.closest('[data-engagement]');
+    if (engBtn) {
+      state.hireEngagement = engBtn.getAttribute('data-engagement');
+      sound.tick(620, 0.03);
+      const briefMount = document.getElementById('hire-brief-mount');
+      if (briefMount) briefMount.innerHTML = renderHireBriefGenerator(state);
+      return;
+    }
+
+    if (e.target.closest('#copy-brief-btn')) {
+      copyText(buildExecutiveBriefText(state), UI_COPY[state.lang].briefCopiedToast);
+      return;
+    }
+
+    if (e.target.closest('#copy-raw-email-btn') || e.target.closest('#copy-email-btn')) {
+      copyText('hamid@exvorta.com', UI_COPY[state.lang].copiedToast);
+    }
+  });
+
+  document.addEventListener('input', (e) => {
+    if (e.target && e.target.id === 'hire-note-input') {
+      state.hireCustomNote = e.target.value;
+      const pre = document.getElementById('generated-brief-box');
+      const mailLink = document.getElementById('mailto-brief-link');
+      const brief = buildExecutiveBriefText(state);
+      if (pre) pre.textContent = brief;
+      if (mailLink) {
+        const subj = encodeURIComponent('Engineering Collaboration — Hamid Mehrani');
+        mailLink.setAttribute('href', `mailto:hamid@exvorta.com?subject=${subj}&body=${encodeURIComponent(brief)}`);
+      }
+    }
+  });
+
+  // Header controls
   document.getElementById('lang-en')?.addEventListener('click', () => setLanguage('en'));
   document.getElementById('lang-fa')?.addEventListener('click', () => setLanguage('fa'));
 
-  document.getElementById('venture-filters')?.addEventListener('click', (e) => {
-    const btn = e.target.closest('[data-filter]');
-    if (!btn) return;
-    state.filter = btn.getAttribute('data-filter');
-    renderVenturesSection();
+  document.getElementById('toggle-sound-btn')?.addEventListener('click', (e) => {
+    const on = sound.toggle();
+    e.currentTarget.setAttribute('aria-pressed', String(on));
+    e.currentTarget.classList.toggle('is-active', on);
+    syncDocumentMeta();
   });
 
-  document.getElementById('view-exhibition')?.addEventListener('click', () => {
-    state.view = 'exhibition';
-    renderVenturesSection();
-  });
-  document.getElementById('view-ledger')?.addEventListener('click', () => {
-    state.view = 'ledger';
-    renderVenturesSection();
+  document.getElementById('toggle-dev-btn')?.addEventListener('click', () => {
+    sound.tick(720, 0.035);
+    devHud.toggle();
   });
 
-  document.getElementById('ventures-container')?.addEventListener('click', (e) => {
-    const trigger = e.target.closest('[data-open-venture]');
-    if (!trigger || e.target.closest('a')) return;
-    openDossierModal(trigger.getAttribute('data-open-venture'));
-  });
-
-  document.getElementById('trade-houses-grid')?.addEventListener('click', (e) => {
-    const trigger = e.target.closest('[data-open-preview]');
-    if (!trigger) return;
-    openTradePreviewModal(trigger.getAttribute('data-open-preview'));
-  });
-
-  document.getElementById('pipeline-steps')?.addEventListener('click', (e) => {
-    const btn = e.target.closest('[data-stage-idx]');
-    if (!btn) return;
-    state.pipelineIdx = Number(btn.getAttribute('data-stage-idx'));
-    renderPipeline();
-  });
-
-  document.getElementById('pipeline-cycle-btn')?.addEventListener('click', () => {
-    state.autoCycle = !state.autoCycle;
-    window.clearInterval(cycleTimer);
-    if (state.autoCycle) {
-      cycleTimer = window.setInterval(() => {
-        state.pipelineIdx = (state.pipelineIdx + 1) % PIPELINE_STAGES.length;
-        renderPipeline();
-      }, 2800);
-    }
-    applyTranslations();
-  });
-
-  document.getElementById('resume-lens-tabs')?.addEventListener('click', (e) => {
-    const btn = e.target.closest('[data-track]');
-    if (!btn) return;
-    state.resumeTrack = btn.getAttribute('data-track');
-    renderResumeFolio();
-  });
-
-  document.getElementById('print-folio-btn')?.addEventListener('click', () => window.print());
-  document.getElementById('copy-email-btn')?.addEventListener('click', () => copyEmail());
-  document.getElementById('open-cmd-btn')?.addEventListener('click', () => openCmdModal());
-
-  document.getElementById('dossier-modal-close')?.addEventListener('click', closeModals);
-  document.getElementById('cmd-close')?.addEventListener('click', closeModals);
-
-  document.getElementById('dossier-modal')?.addEventListener('click', (e) => {
-    if (e.target.id === 'dossier-modal') closeModals();
-  });
+  document.getElementById('open-cmd-btn')?.addEventListener('click', openCmdModal);
+  document.getElementById('cmd-close')?.addEventListener('click', closeCmdModal);
   document.getElementById('cmd-modal')?.addEventListener('click', (e) => {
-    if (e.target.id === 'cmd-modal') closeModals();
+    if (e.target.id === 'cmd-modal') closeCmdModal();
   });
-
   document.getElementById('cmd-input')?.addEventListener('input', (e) => {
     state.cmdQuery = e.target.value;
     renderCommandResults();
@@ -648,8 +607,17 @@ function initEvents() {
     if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
       e.preventDefault();
       openCmdModal();
+    } else if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'i') {
+      e.preventDefault();
+      devHud.toggle();
     } else if (e.key === 'Escape') {
-      closeModals();
+      closeCmdModal();
+    } else if (e.key === 'Enter' && !document.getElementById('cmd-modal')?.hidden) {
+      const matches = getCommandItems();
+      if (matches[0]) {
+        closeCmdModal();
+        matches[0].run();
+      }
     }
   });
 
@@ -660,15 +628,16 @@ function initEvents() {
     drawer.hidden = !open;
     menuBtn.setAttribute('aria-expanded', String(open));
   });
-  drawer?.querySelectorAll('[data-mobile-link]').forEach((link) => {
-    link.addEventListener('click', () => {
-      drawer.hidden = true;
-      menuBtn?.setAttribute('aria-expanded', 'false');
-    });
+
+  window.addEventListener('popstate', () => {
+    state.route = normalizeRoute(window.location.pathname);
+    renderMainStage();
   });
 }
 
 function boot() {
+  state.route = normalizeRoute(window.location.pathname);
+
   const params = new URLSearchParams(window.location.search);
   const urlLang = params.get('lang');
   if (urlLang === 'fa' || urlLang === 'en') {
@@ -682,9 +651,22 @@ function boot() {
     }
   }
 
-  initConstellation(document.getElementById('constellation-canvas'));
-  initEvents();
-  renderAll();
+  // Preload mobile trade previews in idle time so cinema switching is instant
+  if ('requestIdleCallback' in window) {
+    window.requestIdleCallback(() => {
+      EXVORTA_WEB_SITES.forEach((s) => {
+        if (s.mobilePreviewImg) {
+          const img = new Image();
+          img.src = s.mobilePreviewImg;
+        }
+      });
+    });
+  }
+
+  devHud = initDevHud(() => state.route);
+  initMagneticCursor();
+  initDelegatedInteractions();
+  renderMainStage();
   window.setInterval(updateLiveClock, 15000);
 }
 

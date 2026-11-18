@@ -1,17 +1,55 @@
 import fs from 'node:fs';
+import http from 'node:http';
 import path from 'node:path';
 import { launchPlaywrightBrowser } from './browser-helper.mjs';
 
-const TARGET_URL = process.argv[2] || 'https://hamidmehrani.pages.dev';
-const QA_DIR = '/home/hamid/.gemini/antigravity/brain/0ddc6eac-bbd6-4e4f-9527-0e7e4fa8a172/scratch/qa';
+const RAW_TARGET = process.argv[2] || 'local';
+const QA_DIR = '/home/hamid/.gemini/antigravity/brain/0ddc6eac-bbd6-4e4f-9527-0e7e4fa8a172/scratch/qa-v2';
+const DIST_DIR = '/home/hamid/github/hamid-mehrani-site/dist';
+
+fs.rmSync(QA_DIR, { recursive: true, force: true });
 fs.mkdirSync(QA_DIR, { recursive: true });
 
-const CONFIGS = [
-  { id: 'desktop-en', url: `${TARGET_URL}/`, width: 1440, height: 900, expectedDir: 'ltr', expectedLang: 'en' },
-  { id: 'mobile-en', url: `${TARGET_URL}/`, width: 390, height: 844, expectedDir: 'ltr', expectedLang: 'en' },
-  { id: 'desktop-fa', url: `${TARGET_URL}/?lang=fa`, width: 1440, height: 900, expectedDir: 'rtl', expectedLang: 'fa' },
-  { id: 'mobile-fa', url: `${TARGET_URL}/?lang=fa`, width: 390, height: 844, expectedDir: 'rtl', expectedLang: 'fa' },
-];
+const MIME = {
+  '.html': 'text/html; charset=utf-8',
+  '.css': 'text/css; charset=utf-8',
+  '.mjs': 'text/javascript; charset=utf-8',
+  '.js': 'text/javascript; charset=utf-8',
+  '.svg': 'image/svg+xml',
+  '.webp': 'image/webp',
+  '.png': 'image/png',
+  '.pdf': 'application/pdf',
+  '.woff2': 'font/woff2',
+  '.xml': 'application/xml',
+  '.txt': 'text/plain; charset=utf-8',
+};
+
+function startLocalServer(rootDir) {
+  return new Promise((resolve) => {
+    const server = http.createServer((req, res) => {
+      const urlObj = new URL(req.url, 'http://127.0.0.1');
+      let rel = decodeURIComponent(urlObj.pathname);
+      if (rel.endsWith('/')) rel += 'index.html';
+      let diskPath = path.join(rootDir, rel);
+      if (!fs.existsSync(diskPath) || fs.statSync(diskPath).isDirectory()) {
+        const idxTry = path.join(rootDir, rel, 'index.html');
+        if (fs.existsSync(idxTry)) diskPath = idxTry;
+      }
+      if (!fs.existsSync(diskPath) || fs.statSync(diskPath).isDirectory()) {
+        res.writeHead(404);
+        res.end('Not found');
+        return;
+      }
+      const ext = path.extname(diskPath).toLowerCase();
+      res.writeHead(200, { 'Content-Type': MIME[ext] || 'application/octet-stream' });
+      fs.createReadStream(diskPath).pipe(res);
+    });
+    server.listen(0, '127.0.0.1', () => {
+      const { port } = server.address();
+      resolve({ server, baseUrl: `http://127.0.0.1:${port}` });
+    });
+  });
+}
 
 const HEADER_SWEEP_VIEWPORTS = [
   { width: 1440, height: 900 },
@@ -22,30 +60,101 @@ const HEADER_SWEEP_VIEWPORTS = [
   { width: 375, height: 812 },
 ];
 
-async function captureSections(page, prefix) {
-  await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
-  await page.waitForTimeout(250);
-  await page.screenshot({ path: path.join(QA_DIR, `${prefix}-01-hero.png`), fullPage: false });
+async function forceLoadImages(page) {
+  await page.evaluate(async () => {
+    for (const img of document.querySelectorAll('img[loading="lazy"]')) {
+      img.setAttribute('loading', 'eager');
+    }
+    await Promise.all(
+      Array.from(document.images).map((img) =>
+        img.complete
+          ? Promise.resolve()
+          : new Promise((res) => {
+              img.addEventListener('load', res, { once: true });
+              img.addEventListener('error', res, { once: true });
+            }),
+      ),
+    );
+  });
+}
 
-  for (const [slug, sel] of [
-    ['02-ventures', '#ventures'],
-    ['03-exvorta-web', '#exvorta-web'],
-    ['04-pipeline', '#pipeline'],
-    ['05-resume', '#resume'],
-    ['06-footer', '#contact'],
-  ]) {
-    await page.evaluate((selector) => {
-      const el = document.querySelector(selector);
-      if (el) window.scrollTo({ top: Math.max(0, el.offsetTop - 68), behavior: 'instant' });
-    }, sel);
-    await page.waitForTimeout(250);
-    await page.screenshot({ path: path.join(QA_DIR, `${prefix}-${slug}.png`), fullPage: false });
-  }
+async function measurePageHealth(page) {
+  return page.evaluate(() => {
+    const doc = document.documentElement;
+    const brokenImgs = Array.from(document.images)
+      .filter((img) => !img.complete || img.naturalWidth === 0)
+      .map((img) => img.getAttribute('src'));
 
-  // Capture page bottom so monumental wordmark is always checked on mobile & desktop
-  await page.evaluate(() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'instant' }));
-  await page.waitForTimeout(250);
-  await page.screenshot({ path: path.join(QA_DIR, `${prefix}-07-wordmark.png`), fullPage: false });
+    const offenders = [];
+    for (const el of document.querySelectorAll('*')) {
+      const st = getComputedStyle(el);
+      if (st.display === 'none' || st.visibility === 'hidden') continue;
+      // Ignore clipped elements inside overflow:hidden/auto/clip ancestors if document doesn't overflow
+      const r = el.getBoundingClientRect();
+      if (r.width > 0 && (r.right > window.innerWidth + 1.5 || r.left < -1.5)) {
+        let clippedByAncestor = false;
+        let p = el.parentElement;
+        while (p && p !== doc) {
+          const pst = getComputedStyle(p);
+          if (['hidden', 'clip', 'auto', 'scroll'].includes(pst.overflowX)) {
+            const pr = p.getBoundingClientRect();
+            if (pr.left >= -1.5 && pr.right <= window.innerWidth + 1.5) {
+              clippedByAncestor = true;
+              break;
+            }
+          }
+          p = p.parentElement;
+        }
+        if (!clippedByAncestor) {
+          offenders.push({
+            tag: el.tagName,
+            cls: (el.className && String(el.className).slice(0, 40)) || null,
+            left: Math.round(r.left),
+            right: Math.round(r.right),
+          });
+          if (offenders.length >= 10) break;
+        }
+      }
+    }
+
+    let minFaFontPx = 999;
+    const sub12Fa = [];
+    if (doc.lang === 'fa') {
+      for (const el of document.querySelectorAll('body *:not(script):not(style):not(svg *)')) {
+        const st = getComputedStyle(el);
+        if (st.display === 'none' || st.visibility === 'hidden') continue;
+        const r = el.getBoundingClientRect();
+        if (r.width === 0 || r.height === 0) continue;
+        const hasDirectText = Array.from(el.childNodes).some((n) => n.nodeType === 3 && n.textContent.trim().length > 0);
+        if (!hasDirectText) continue;
+        const px = parseFloat(st.fontSize);
+        if (px < minFaFontPx) minFaFontPx = px;
+        if (px < 11.9 && sub12Fa.length < 10) {
+          sub12Fa.push({ tag: el.tagName, cls: String(el.className).slice(0, 35), px, text: el.textContent.trim().slice(0, 28) });
+        }
+      }
+    }
+
+    const hasNextPortal = Boolean(document.querySelector('.next-portal-card'));
+    const quickDockItems = document.querySelectorAll('.quick-dock .dock-item').length;
+
+    return {
+      title: document.title,
+      lang: doc.lang,
+      dir: doc.dir,
+      innerWidth: window.innerWidth,
+      scrollWidth: doc.scrollWidth,
+      scrollHeight: doc.scrollHeight,
+      overflowPx: Math.max(0, doc.scrollWidth - window.innerWidth),
+      totalImages: document.images.length,
+      brokenImgs,
+      offenders,
+      minFaFontPx: doc.lang === 'fa' ? minFaFontPx : null,
+      sub12Fa,
+      hasNextPortal,
+      quickDockItems,
+    };
+  });
 }
 
 async function measureHeaderOverlaps(page) {
@@ -77,22 +186,53 @@ async function measureHeaderOverlaps(page) {
     for (let i = 0; i < els.length - 1; i++) {
       const gap = els[i + 1].left - els[i].right;
       if (gap < minGap) minGap = gap;
-      if (gap < 4) {
-        overlaps.push({ a: els[i].cls, b: els[i + 1].cls, gapPx: gap });
-      }
+      if (gap < 4) overlaps.push({ a: els[i].cls, b: els[i + 1].cls, gapPx: gap });
     }
     return { items: els, minGapPx: minGap === 9999 ? null : minGap, overlaps };
   });
 }
 
 async function main() {
-  const browser = await launchPlaywrightBrowser({ useProxy: true });
-  const report = { targetUrl: TARGET_URL, views: {}, headerSweep: {}, interactions: {} };
+  let localSrv = null;
+  let targetUrl = RAW_TARGET;
+  const isLocal = RAW_TARGET === 'local';
+
+  if (isLocal) {
+    localSrv = await startLocalServer(DIST_DIR);
+    targetUrl = localSrv.baseUrl;
+  }
+
+  const browser = await launchPlaywrightBrowser({ useProxy: !isLocal });
+  const report = {
+    targetUrl,
+    routesChecked: {},
+    headerSweep: {},
+    interactions: {},
+  };
+
+  const ROUTE_MATRIX = [
+    { slug: 'home', path: '/' },
+    { slug: 'case-exvorta', path: '/work/exvorta' },
+    { slug: 'case-firoza', path: '/work/firoza' },
+    { slug: 'case-leadgen', path: '/work/leadgen' },
+    { slug: 'case-daftaryar', path: '/work/daftaryar' },
+    { slug: 'studio-exvorta-web', path: '/exvorta-web' },
+    { slug: 'lab-pipeline', path: '/pipeline' },
+    { slug: 'folio-resume', path: '/resume' },
+    { slug: 'concierge-hire', path: '/hire' },
+  ];
+
+  const VIEWPORTS = [
+    { label: 'desktop-en', width: 1440, height: 900, query: '', expectedDir: 'ltr', expectedLang: 'en' },
+    { label: 'mobile-en', width: 390, height: 844, query: '', expectedDir: 'ltr', expectedLang: 'en' },
+    { label: 'desktop-fa', width: 1440, height: 900, query: '?lang=fa', expectedDir: 'rtl', expectedLang: 'fa' },
+    { label: 'mobile-fa', width: 390, height: 844, query: '?lang=fa', expectedDir: 'rtl', expectedLang: 'fa' },
+  ];
 
   try {
-    for (const cfg of CONFIGS) {
+    for (const vp of VIEWPORTS) {
       const context = await browser.newContext({
-        viewport: { width: cfg.width, height: cfg.height },
+        viewport: { width: vp.width, height: vp.height },
         deviceScaleFactor: 1,
       });
       const page = await context.newPage();
@@ -103,165 +243,169 @@ async function main() {
       });
       page.on('pageerror', (err) => pageErrors.push(err.message));
 
-      const resp = await page.goto(cfg.url, { waitUntil: 'networkidle', timeout: 30000 });
-      await page.evaluate(() => document.fonts?.ready).catch(() => {});
-      await page.waitForTimeout(900);
+      for (const rt of ROUTE_MATRIX) {
+        consoleErrors.length = 0;
+        pageErrors.length = 0;
 
-      await page.evaluate(async () => {
-        for (const img of document.querySelectorAll('img[loading="lazy"]')) {
-          img.setAttribute('loading', 'eager');
-        }
-        await Promise.all(
-          Array.from(document.images).map((img) =>
-            img.complete
-              ? Promise.resolve()
-              : new Promise((res) => {
-                  img.addEventListener('load', res, { once: true });
-                  img.addEventListener('error', res, { once: true });
-                }),
-          ),
-        );
-      });
+        const fullUrl = `${targetUrl}${rt.path}${vp.query}`;
+        const resp = await page.goto(fullUrl, { waitUntil: 'networkidle', timeout: 30000 });
+        await page.evaluate(() => document.fonts?.ready).catch(() => {});
+        await page.waitForTimeout(350);
+        await forceLoadImages(page);
 
-      const metrics = await page.evaluate(() => {
-        const doc = document.documentElement;
-        const brokenImgs = Array.from(document.images)
-          .filter((img) => !img.complete || img.naturalWidth === 0)
-          .map((img) => img.getAttribute('src'));
+        // Reveal all sections so scrollHeight & screenshots capture complete visual state
+        await page.evaluate(() => {
+          document.querySelectorAll('[data-reveal]').forEach((el) => el.classList.add('is-revealed'));
+        });
 
-        const offenders = [];
-        for (const el of document.querySelectorAll('*')) {
-          const r = el.getBoundingClientRect();
-          if (r.width > 0 && (r.right > window.innerWidth + 1 || r.left < -1)) {
-            offenders.push({
-              tag: el.tagName,
-              id: el.id || null,
-              left: Math.round(r.left),
-              right: Math.round(r.right),
-            });
-            if (offenders.length >= 10) break;
-          }
-        }
-
-        let minFaFontPx = 999;
-        const sub12Fa = [];
-        if (doc.lang === 'fa') {
-          for (const el of document.querySelectorAll('body *:not(script):not(style):not(svg *)')) {
-            const st = getComputedStyle(el);
-            if (st.display === 'none' || st.visibility === 'hidden') continue;
-            const r = el.getBoundingClientRect();
-            if (r.width === 0 || r.height === 0) continue;
-            const hasDirectText = Array.from(el.childNodes).some((n) => n.nodeType === 3 && n.textContent.trim().length > 0);
-            if (!hasDirectText) continue;
-            const px = parseFloat(st.fontSize);
-            if (px < minFaFontPx) minFaFontPx = px;
-            if (px < 11.9 && sub12Fa.length < 10) {
-              sub12Fa.push({ tag: el.tagName, cls: el.className, px, text: el.textContent.trim().slice(0, 30) });
-            }
-          }
-        }
-
-        const headerRect = document.querySelector('.site-header')?.getBoundingClientRect();
-        return {
-          title: document.title,
-          lang: doc.lang,
-          dir: doc.dir,
-          innerWidth: window.innerWidth,
-          scrollWidth: doc.scrollWidth,
-          overflowPx: doc.scrollWidth - window.innerWidth,
-          totalImages: document.images.length,
-          brokenImgs,
-          offenders,
-          minFaFontPx: doc.lang === 'fa' ? minFaFontPx : null,
-          sub12Fa,
-          headerHeight: headerRect ? Math.round(headerRect.height) : 0,
+        const health = await measurePageHealth(page);
+        const key = `${rt.slug}__${vp.label}`;
+        report.routesChecked[key] = {
+          url: fullUrl,
+          httpStatus: resp ? resp.status() : 0,
+          consoleErrors: [...consoleErrors],
+          pageErrors: [...pageErrors],
+          ...health,
+          zeroOverflow: health.overflowPx === 0 && health.offenders.length === 0,
+          dirMatch: health.dir === vp.expectedDir,
+          langMatch: health.lang === vp.expectedLang,
         };
-      });
 
-      await captureSections(page, cfg.id);
+        // Capture screenshots of key pages across all 4 viewport/lang combos
+        if (['home', 'case-exvorta', 'studio-exvorta-web', 'lab-pipeline', 'folio-resume', 'concierge-hire'].includes(rt.slug)) {
+          await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
+          await page.waitForTimeout(180);
+          await page.screenshot({ path: path.join(QA_DIR, `${vp.label}-${rt.slug}-top.png`), fullPage: false });
 
-      if (cfg.id === 'desktop-en') {
-        await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
-        const initialCards = await page.locator('.venture-card').count();
-        await page.locator('[data-filter="ai"]').click();
-        const aiCards = await page.locator('.venture-card').count();
-        await page.locator('[data-filter="all"]').click();
-        await page.locator('#view-ledger').click();
-        const ledgerRows = await page.locator('.ledger-row').count();
-        await page.locator('#view-exhibition').click();
+          if (rt.slug === 'home') {
+            for (const [secName, sel] of [
+              ['ventures', '#ventures'],
+              ['cinema', '#exvorta-web'],
+              ['pipeline', '#pipeline'],
+              ['hire', '#hire-engine'],
+              ['footer', '#contact'],
+            ]) {
+              await page.evaluate((s) => {
+                const el = document.querySelector(s);
+                if (el) window.scrollTo({ top: Math.max(0, el.offsetTop - 70), behavior: 'instant' });
+              }, sel);
+              await page.waitForTimeout(180);
+              await page.screenshot({ path: path.join(QA_DIR, `${vp.label}-home-${secName}.png`), fullPage: false });
+            }
+          } else if (rt.slug === 'case-exvorta') {
+            await page.evaluate(() => {
+              const el = document.querySelector('#case-topology-mount');
+              if (el) window.scrollTo({ top: Math.max(0, el.getBoundingClientRect().top + window.scrollY - 110), behavior: 'instant' });
+            });
+            await page.waitForTimeout(180);
+            await page.screenshot({ path: path.join(QA_DIR, `${vp.label}-case-exvorta-topology.png`), fullPage: false });
+          }
+        }
+      }
 
-        await page.locator('[data-open-venture="exvorta"]').first().click();
-        await page.waitForTimeout(250);
-        const dossierVisible = await page.locator('#dossier-modal').isVisible();
-        await page.screenshot({ path: path.join(QA_DIR, 'modal-dossier.png'), fullPage: false });
-        await page.locator('#dossier-modal-close').click();
+      // Interactive E2E verification on desktop-en
+      if (vp.label === 'desktop-en') {
+        await page.goto(`${targetUrl}/`, { waitUntil: 'networkidle' });
+        await page.waitForTimeout(300);
 
-        await page.locator('[data-open-preview="spicevo"]').first().click();
-        await page.waitForFunction(() => {
-          const img = document.querySelector('#dossier-modal .preview-device-frame img');
-          return img && img.complete && img.naturalWidth > 0;
-        });
-        await page.locator('[data-preview-mode="mobile"]').click();
-        await page.waitForFunction(() => {
-          const img = document.querySelector('#dossier-modal .preview-device-frame.is-mobile img');
-          return img && img.complete && img.naturalWidth > 0 && img.getBoundingClientRect().height > 200;
-        });
-        const mobPreviewRect = await page.locator('.preview-device-frame.is-mobile img').boundingBox();
-        await page.screenshot({ path: path.join(QA_DIR, 'modal-preview.png'), fullPage: false });
-        await page.locator('#dossier-modal-close').click();
+        // 1. Switch Trade Cinema to Aurum
+        await page.locator('[data-trade-select="aurum"]').click();
+        const cinemaTitle = await page.locator('.cinema-title').textContent();
 
-        await page.locator('[data-stage-idx="3"]').click();
-        const pipelineCode = await page.locator('#pipeline-inspector code').textContent();
-        await page.locator('[data-track="ai"]').click();
-        const resumeHeadline = await page.locator('.resume-track-headline').textContent();
+        // 2. Toggle Interactive Ledger
+        await page.locator('[data-view="index"]').click();
+        const ledgerCount = await page.locator('.ledger-index-row').count();
+
+        // 3. Click SPA route link to /work/exvorta (no full reload)
+        await page.locator('.ledger-index-row[href="/work/exvorta"]').click();
+        await page.waitForTimeout(450);
+        const spaPathAfterClick = await page.evaluate(() => window.location.pathname);
+
+        // 4. Test Split Comparator & Topology Node click on /work/exvorta
+        await page.locator('[data-case-media="split"]').click();
+        const hasSplitSlider = (await page.locator('[data-split-range]').count()) === 1;
+        await page.locator('.topo-pill-btn[data-topo-idx="2"]').click();
+        const topoDetailHeading = await page.locator('.topo-detail-card h4').textContent();
+
+        // 5. Test Dev HUD (Ctrl+i) & Command Palette (Ctrl+k)
+        await page.keyboard.press('Control+i');
+        await page.waitForTimeout(180);
+        const devHudVisible = await page.locator('#dev-hud-panel').isVisible();
+        await page.screenshot({ path: path.join(QA_DIR, 'desktop-en-dev-hud.png'), fullPage: false });
+        await page.keyboard.press('Control+i');
 
         await page.keyboard.press('Control+k');
-        await page.waitForTimeout(200);
+        await page.waitForTimeout(180);
         const cmdVisible = await page.locator('#cmd-modal').isVisible();
-        await page.screenshot({ path: path.join(QA_DIR, 'modal-cmd.png'), fullPage: false });
+        const cmdCount = await page.locator('.cmd-item').count();
         await page.keyboard.press('Escape');
 
         report.interactions = {
-          initialCards,
-          aiFilteredCards: aiCards,
-          ledgerRows,
-          dossierVisible,
-          mobPreviewRect,
-          pipelineStep4Verified: pipelineCode.includes('verify-live.mjs'),
-          resumeTrackAHeadlineMatch: resumeHeadline.includes('AI AUTOMATION ENGINEER'),
-          cmdPaletteVisible: cmdVisible,
+          cinemaSwitchedToAurum: cinemaTitle?.trim() === 'Aurum',
+          ledgerRowCount: ledgerCount,
+          spaNavigatedPath: spaPathAfterClick,
+          hasSplitSlider,
+          topoNode3Heading: topoDetailHeading?.trim(),
+          devHudVisible,
+          cmdVisible,
+          cmdCount,
         };
       }
 
-      if (cfg.id === 'desktop-en' || cfg.id === 'desktop-fa') {
-        const sweepResults = [];
-        for (const vp of HEADER_SWEEP_VIEWPORTS) {
-          await page.setViewportSize(vp);
-          await page.waitForTimeout(120);
-          const check = await measureHeaderOverlaps(page);
-          sweepResults.push({ ...vp, ...check });
+      if (vp.label === 'desktop-en' || vp.label === 'desktop-fa') {
+        await page.goto(`${targetUrl}/${vp.query}`, { waitUntil: 'networkidle' });
+        const sweep = [];
+        for (const hvp of HEADER_SWEEP_VIEWPORTS) {
+          await page.setViewportSize(hvp);
+          await page.waitForTimeout(100);
+          const res = await measureHeaderOverlaps(page);
+          sweep.push({ ...hvp, ...res });
         }
-        report.headerSweep[cfg.expectedLang] = sweepResults;
+        report.headerSweep[vp.expectedLang] = sweep;
       }
-
-      report.views[cfg.id] = {
-        httpStatus: resp ? resp.status() : 0,
-        consoleErrors,
-        pageErrors,
-        ...metrics,
-        dirMatch: metrics.dir === cfg.expectedDir,
-        langMatch: metrics.lang === cfg.expectedLang,
-        zeroOverflow: metrics.scrollWidth <= metrics.innerWidth,
-      };
 
       await context.close();
     }
   } finally {
     await browser.close();
+    if (localSrv) localSrv.server.close();
   }
 
+  // Summarize overall pass/fail
+  const routeEntries = Object.entries(report.routesChecked);
+  const failures = routeEntries
+    .filter(
+      ([, v]) =>
+        v.httpStatus !== 200 ||
+        v.consoleErrors.length > 0 ||
+        v.pageErrors.length > 0 ||
+        !v.zeroOverflow ||
+        v.brokenImgs.length > 0 ||
+        v.sub12Fa.length > 0 ||
+        !v.hasNextPortal,
+    )
+    .map(([k, v]) => ({ key: k, status: v.httpStatus, overflowPx: v.overflowPx, offenders: v.offenders, brokenImgs: v.brokenImgs, sub12Fa: v.sub12Fa, consoleErrors: v.consoleErrors, pageErrors: v.pageErrors }));
+
+  const headerOverlaps = [
+    ...(report.headerSweep.en || []).filter((x) => x.overlaps.length > 0),
+    ...(report.headerSweep.fa || []).filter((x) => x.overlaps.length > 0),
+  ];
+
+  report.summary = {
+    totalChecks: routeEntries.length,
+    failureCount: failures.length,
+    failures,
+    headerOverlapCount: headerOverlaps.length,
+    headerOverlaps,
+  };
+
   fs.writeFileSync(path.join(QA_DIR, 'qa-report.json'), JSON.stringify(report, null, 2), 'utf8');
-  console.log(JSON.stringify(report, null, 2));
+  console.log(JSON.stringify(report.summary, null, 2));
+  console.log('Interactions:', JSON.stringify(report.interactions, null, 2));
+
+  if (failures.length > 0 || headerOverlaps.length > 0) {
+    process.exitCode = 1;
+  }
 }
 
 main().catch((err) => {
