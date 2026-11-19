@@ -98,6 +98,33 @@ async function measurePageHealth(page) {
       .filter((img) => !img.complete || img.naturalWidth === 0)
       .map((img) => img.getAttribute('src'));
 
+    // Round 2c regression guard: an <img width height> whose rendered box
+    // does not preserve its natural aspect ratio is being stretched
+    // (the old global `img { max-width: 100% }` without `height: auto`
+    // left the height attribute in force, so every preview rendered at
+    // natural height with a clamped width — up to 4.6x distortion on
+    // mobile). object-fit cover/contain images are intentionally cropped.
+    const distortedImgs = [];
+    for (const img of document.images) {
+      if (!img.complete || !img.naturalWidth || !img.naturalHeight) continue;
+      const ist = getComputedStyle(img);
+      if (ist.objectFit === 'cover' || ist.objectFit === 'contain') continue;
+      const r = img.getBoundingClientRect();
+      if (r.width < 2 || r.height < 2) continue;
+      const ratio = r.height / r.width / (img.naturalHeight / img.naturalWidth);
+      if (ratio > 1.1 || ratio < 0.9) {
+        distortedImgs.push({
+          src: img.getAttribute('src'),
+          cw: Math.round(r.width),
+          ch: Math.round(r.height),
+          nw: img.naturalWidth,
+          nh: img.naturalHeight,
+          distort: +ratio.toFixed(2),
+        });
+      }
+      if (distortedImgs.length >= 10) break;
+    }
+
     const offenders = [];
     for (const el of document.querySelectorAll('*')) {
       const st = getComputedStyle(el);
@@ -161,6 +188,7 @@ async function measurePageHealth(page) {
       overflowPx: Math.max(0, doc.scrollWidth - window.innerWidth),
       totalImages: document.images.length,
       brokenImgs,
+      distortedImgs,
       offenders,
       minFaFontPx: doc.lang === 'fa' ? minFaFontPx : null,
       sub12Fa,
@@ -316,6 +344,23 @@ async function main() {
             });
             await page.waitForTimeout(180);
             await page.screenshot({ path: path.join(QA_DIR, `${vp.label}-case-exvorta-topology.png`), fullPage: false });
+            // Round 2c: the preview stage (mode switcher + desktop frame)
+            // is the item-7 area — capture it scrolled into view as well.
+            await page.evaluate(() => {
+              const el = document.querySelector('.case-stage-wrapper');
+              if (el) window.scrollTo({ top: Math.max(0, el.getBoundingClientRect().top + window.scrollY - 110), behavior: 'instant' });
+            });
+            await page.waitForTimeout(180);
+            await page.screenshot({ path: path.join(QA_DIR, `${vp.label}-case-exvorta-stage.png`), fullPage: false });
+          } else if (rt.slug === 'studio-exvorta-web') {
+            // Round 2c: capture the first house's design samples (desktop +
+            // mobile shots) — the top screenshot alone never shows them.
+            await page.evaluate(() => {
+              const el = document.querySelector('#house-spicevo .studio-brand-visuals');
+              if (el) window.scrollTo({ top: Math.max(0, el.getBoundingClientRect().top + window.scrollY - 110), behavior: 'instant' });
+            });
+            await page.waitForTimeout(180);
+            await page.screenshot({ path: path.join(QA_DIR, `${vp.label}-studio-exvorta-web-house1-visuals.png`), fullPage: false });
           }
         }
       }
@@ -399,12 +444,13 @@ async function main() {
         v.pageErrors.length > 0 ||
         !v.zeroOverflow ||
         v.brokenImgs.length > 0 ||
+        v.distortedImgs.length > 0 ||
         v.sub12Fa.length > 0 ||
         !v.dirMatch ||
         !v.langMatch ||
         !v.hasNextPortal,
     )
-    .map(([k, v]) => ({ key: k, status: v.httpStatus, overflowPx: v.overflowPx, offenders: v.offenders, brokenImgs: v.brokenImgs, sub12Fa: v.sub12Fa, dirMatch: v.dirMatch, langMatch: v.langMatch, consoleErrors: v.consoleErrors, pageErrors: v.pageErrors }));
+    .map(([k, v]) => ({ key: k, status: v.httpStatus, overflowPx: v.overflowPx, offenders: v.offenders, brokenImgs: v.brokenImgs, distortedImgs: v.distortedImgs, sub12Fa: v.sub12Fa, dirMatch: v.dirMatch, langMatch: v.langMatch, consoleErrors: v.consoleErrors, pageErrors: v.pageErrors }));
 
   const headerOverlaps = [
     ...(report.headerSweep.en || []).filter((x) => x.overlaps.length > 0),

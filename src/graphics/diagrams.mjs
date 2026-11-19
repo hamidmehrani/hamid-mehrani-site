@@ -314,6 +314,33 @@ export function getVentureSchematicSvg(type) {
   </svg>`;
 }
 
+// Round 2c: wrap node titles onto up to two lines instead of truncating
+// them at 26 chars ("Trade File & Copilot Engi…"). Titles run to 49 chars
+// in the data, and truncation made the diagram useless on mobile, where
+// it renders smallest. Node inner width fits ~22 chars/line at 11.5px.
+function wrapNodeTitle(title, maxChars = 22) {
+  const words = String(title).split(/\s+/).filter(Boolean);
+  const lines = [];
+  let cur = '';
+  for (const w of words) {
+    const word = w.length > maxChars ? `${w.slice(0, maxChars - 1)}…` : w;
+    const next = cur ? `${cur} ${word}` : word;
+    if (next.length <= maxChars) {
+      cur = next;
+    } else {
+      if (cur) lines.push(cur);
+      cur = word;
+    }
+  }
+  if (cur) lines.push(cur);
+  if (lines.length > 2) {
+    const second = lines[1];
+    lines[1] = second.endsWith('…') ? second : `${second.slice(0, maxChars - 1)}…`;
+    return lines.slice(0, 2);
+  }
+  return lines;
+}
+
 export function renderInteractiveTopologySvg(nodes, activeIdx = 0, accent = '#0EC49A', lang = 'en') {
   const coords = [
     { x: 40, y: 124 },
@@ -366,15 +393,22 @@ export function renderInteractiveTopologySvg(nodes, activeIdx = 0, accent = '#0E
       const border = isAct ? accent : 'rgba(226, 234, 244, 0.18)';
       const bg = isAct ? '#131E2E' : '#0B1018';
       const title = n.title[lang] || n.title.en;
-      const shortTitle = title.length > 26 ? `${title.slice(0, 25)}…` : title;
+      const titleLines = wrapNodeTitle(title);
+      const titleText = titleLines
+        .map((line, li) => {
+          const y = titleLines.length > 1 ? c.y + 47 + li * 16 : c.y + 52;
+          return `<text x="${c.x + 12}" y="${y}" fill="#F3F6FA" font-family="Plus Jakarta Sans, YekanBakh, sans-serif" font-size="11.5" font-weight="700">${line}</text>`;
+        })
+        .join('');
+      const techY = titleLines.length > 1 ? c.y + 80 : c.y + 74;
       return `
         <g class="${isAct ? 'is-active' : ''}" data-topo-idx="${idx}" tabindex="0" role="button" aria-label="${title}" style="cursor:pointer;">
           <rect x="${c.x}" y="${c.y}" width="${w}" height="${h}" rx="10" fill="${bg}" stroke="${border}" stroke-width="${isAct ? '2.2' : '1.2'}"/>
           <rect x="${c.x - 3}" y="${c.y - 3}" width="6" height="6" fill="${isAct ? accent : '#334155'}"/>
           <rect x="${c.x + w - 3}" y="${c.y + h - 3}" width="6" height="6" fill="${isAct ? accent : '#334155'}"/>
           <text x="${c.x + 12}" y="${c.y + 26}" fill="${isAct ? accent : '#94A3B8'}" font-family="JetBrains Mono, monospace" font-size="10" font-weight="700">${n.code}</text>
-          <text x="${c.x + 12}" y="${c.y + 52}" fill="#F3F6FA" font-family="Plus Jakarta Sans, YekanBakh, sans-serif" font-size="11.5" font-weight="700">${shortTitle}</text>
-          <text x="${c.x + 12}" y="${c.y + 74}" fill="#94A3B8" font-family="JetBrains Mono, monospace" font-size="9.5">${n.tech.slice(0, 28)}</text>
+          ${titleText}
+          <text x="${c.x + 12}" y="${techY}" fill="#94A3B8" font-family="JetBrains Mono, monospace" font-size="10">${n.tech.slice(0, 26)}</text>
         </g>
       `;
     })

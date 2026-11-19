@@ -200,6 +200,10 @@ html[lang="fa"] .case-big-num {
   height: 100%;
   opacity: 0;
   cursor: ew-resize;
+  /* Round 2c: vertical swipes must keep scrolling the page on touch;
+     horizontal drags still drive the slider. Without this the invisible
+     full-area input swallows the page scroll that starts on it. */
+  touch-action: pan-y;
   z-index: 4;
   margin: 0;
 }
@@ -642,8 +646,37 @@ html[lang="fa"] .concierge-label {
     grid-template-columns: 1fr;
   }
   .studio-mobile-shot {
-    max-width: 210px;
+    max-width: 240px;
     margin-inline: auto;
+  }
+  /* Round 2c: the 700-unit topology diagram scaled to ~0.43× on a 390px
+     screen, so node titles rendered at ~5px. Keep the diagram at a
+     legible scale and let it swipe horizontally inside its frame instead
+     of shrinking to fit. Document overflow is unaffected (inner scroll). */
+  .topo-canvas-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .interactive-topology-svg {
+    min-width: 620px;
+  }
+  /* Round 2c: 44px touch target for the split handle (was 36px). */
+  .split-handle {
+    width: 44px;
+    height: 44px;
+  }
+  /* Round 2c: 44px touch targets for topology pills (were ~37px). */
+  .topo-pill-btn {
+    min-height: 44px;
+    padding: 10px 14px;
+  }
+  /* Round 2c: lift the smallest EN mono labels to the 12px floor on
+     mobile (were 11.5–11.8px). */
+  .subnav-counter,
+  .meta-label,
+  .studio-house-idx,
+  .dna-cell span {
+    font-size: 0.78rem;
   }
   .matched-proof-pill {
     grid-template-columns: 28px minmax(0, 1fr);

@@ -1735,6 +1735,48 @@ html[lang="fa"] .footer-bottom-meta {
   .cinema-tabs-rail {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+  /* Round 2c: the sector subtitle is wider than a 2-col tab, so it was
+     ellipsized on every house ("Spices, Saffr…"). Hide it on mobile —
+     logo + house name carry the tab; the full sector line lives in the
+     specs panel directly below. */
+  .cinema-brand-meta small {
+    display: none;
+  }
+  /* Round 2c: once images keep their aspect, the phone float (272px tall)
+     is taller than the desktop frame (240px), so its top covered the
+     browser-chrome row and hid the "1440×900 EDGE" tag. On mobile the
+     overlap composition fails — stack the phone below the frame instead. */
+  .cinema-mobile-float {
+    position: static;
+    width: 150px;
+    margin: 14px auto 0;
+  }
+  /* Round 2c: touch targets. The case/home view switcher was 33px tall;
+     make it a full-width 2×2 grid of 44px buttons. */
+  .view-switcher {
+    display: flex;
+    width: 100%;
+  }
+  .view-btn {
+    flex: 1 1 40%;
+    min-height: 44px;
+    padding: 10px 14px;
+  }
+  .sig-label {
+    font-size: 0.78rem;
+  }
+  /* Round 2c: keep the browser-chrome row inside 375px — the URL
+     truncates with an ellipsis instead of pushing the tag out. */
+  .browser-chrome {
+    gap: 8px;
+    padding: 9px 12px;
+  }
+  .chrome-url {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
   .footer-links-col {
     grid-template-columns: 1fr;
   }
