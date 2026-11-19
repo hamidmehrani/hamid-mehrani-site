@@ -125,7 +125,7 @@ export const MONOGRAPHS = {
       {
         title: { en: 'Split Edge Marketing vs. Sovereign App Runtime', fa: 'جداسازی وب‌سایت لبه از سرور پردازش اسناد' },
         body: {
-          en: 'Deploying the 141-route marketing & interactive preview shell to Cloudflare Pages guarantees instant global TTFB while isolating heavy Gotenberg PDF rendering on dedicated Linux containers.',
+          en: 'Deploying the 141-route marketing & interactive preview shell to Cloudflare Pages serves pages from the edge with low global TTFB while isolating heavy Gotenberg PDF rendering on dedicated Linux containers.',
           fa: 'میزبانی وب‌سایت ۱۴۱ صفحه‌ای روی لبه کلودفلر سرعت بارگذاری جهانی را تضمین می‌کند و بار رندر سنگین PDF را روی کانتینرهای اختصاصی ایزوله نگه می‌دارد.',
         },
       },
@@ -946,7 +946,7 @@ $ curl -sI https://exvorta.com -> HTTP/2 200 (Cloudflare Pages Edge · LH 100/10
       {
         title: { en: '15,501 Automated Assertions in an Ecosystem Used to Zero', fa: '۱۵٬۵۰۱ تست خودکار در بازاری که عادت به تست ندارد' },
         body: {
-          en: 'Accounting bugs cost merchants real money and tax penalties; treating a WordPress plugin like banking software with 2,645 unit tests guarantees deterministic rounding, VAT, and refund math.',
+          en: 'Accounting bugs cost merchants real money and tax penalties; treating a WordPress plugin like banking software with 2,645 unit tests locking in deterministic rounding, VAT, and refund math.',
           fa: 'خطای محاسباتی در افزونه مالی مستقیماً به ضرر ریالی فروشگاه منجر می‌شود؛ اعمال انضباط نرم‌افزار بانکی با ۲٬۶۴۵ تست واحد دقت مطلق اعداد و مالیات را تضمین کرد.',
         },
       },
@@ -1163,12 +1163,12 @@ $ curl -sI https://exvorta.com -> HTTP/2 200 (Cloudflare Pages Edge · LH 100/10
       en: [
         'The studio site (radinai-site v1.0.0, HEAD 80439b6, launched 2026-11-18) is a 21-route static SSG build on Cloudflare Pages: 22 HTML files, self-hosted Yekan Bakh + IRANYekanX variable fonts with zero external font calls, GSAP + ScrollTrigger + Lenis motion, a 3-lens interactive workbench, a 5-tab Daftaryar simulator, a project estimator, and a Ctrl+K command palette.',
         'Two Cloudflare Pages Functions carry the only dynamic behaviour: GET /api/health returns {ok:true, service:\'radinai-edge\'} and POST /api/inquiry validates the form behind a spam guard, issues a tracking code (RDN-...), and hands off to WhatsApp (hamid@exvorta.com, 989150033963). There is no notification backend — Telegram/Resend inquiry alerts are not configured, and this case does not claim them. The "Yaar family" follow-up plugins are roadmap only, not built.',
-        'The flagship proof is borrowed, not re-asserted: Daftaryar’s 2,645 tests / 15,501 assertions and 397/397 LDD gate belong to the Daftaryar case (Case 07). The studio’s own macro claims — 8 years, 14 systems, +16,800 assertions, 21 countries — are the studio’s marketing copy in src/data/site.mjs with no independent evidence (and the assertion arithmetic does not close: 15,501 + 1,152 = 16,653), so this case repeats them only as the studio’s own claims, never as verified fact. The same honesty applies to the plugin itself: the vault-verified bundle is Daftaryar v1.7.0 at 850,000 Toman (verified 2026-11-15), while the studio site still lists v1.0.0 at 890,000 Toman; the Sepidar piece is an adapter + mock built from public docs — the 70M Toman live ERP integration was cancelled — and the public demo (daftaryar-demo.radinai.ir) was re-verified HTTP 200 on 2026-11-19 after timing out earlier the same day. Note the naming boundary: "Radinai" here is the studio and its site, not the older OmniRoute gateway identity (router.radinai.ir / omni.radinai.ir).',
+        'The flagship proof is borrowed, not re-asserted: Daftaryar’s 2,645 tests / 15,501 assertions and 397/397 LDD gate belong to the Daftaryar case (Case 07). The studio’s own macro claims — 8 years, 14 systems, +16,600 assertions, 21 countries — are the studio’s marketing copy in src/data/portfolio.mjs with no independent evidence (the assertion arithmetic closes: 15,501 + 1,152 = 16,653 ≥ 16,600), so this case repeats them only as the studio’s own claims, never as verified fact. The same honesty applies to the plugin itself: the vault-verified bundle is Daftaryar v1.7.0 at 850,000 Toman (verified 2026-11-15), while the studio site still lists v1.0.0 at 890,000 Toman; the Sepidar piece is an adapter + mock built from public docs — the 70M Toman live ERP integration was cancelled — and the public demo (daftaryar-demo.radinai.ir) was re-verified HTTP 200 on 2026-11-19 after timing out earlier the same day. Note the naming boundary: "Radinai" here is the studio and its site, not the older OmniRoute gateway identity (router.radinai.ir / omni.radinai.ir).',
       ],
       fa: [
         'سایت استودیو (radinai-site نسخه ۱٫۰، کامیت 80439b6، انتشار ۲۰۲۶-۱۱-۱۸) یک بیلد استاتیک SSG با ۲۱ مسیر روی کلودفلر پیجز است: ۲۲ فایل HTML، فونت‌های متغیر سلف‌هاست یکان‌بخ و ایران‌یکان‌ایکس بدون هیچ فراخوانی خارجی، حرکت GSAP + ScrollTrigger + Lenis، میز کار تعاملی سه‌لنزه، شبیه‌ساز پنج‌تبی دفتریار، تخمین‌گر پروژه و پالت فرمان Ctrl+K.',
         'تنها رفتار پویا بر دوش دو تابع لبه کلودفلر است: GET /api/health مقدار {ok:true, service:\'radinai-edge\'} را برمی‌گرداند و POST /api/inquiry فرم را پشت گارد ضداسپم اعتبارسنجی می‌کند، کد پیگیری یکتا (RDN-...) صادر می‌کند و به واتس‌اپ تحویل می‌دهد (hamid@exvorta.com، 989150033963). هیچ بک‌اند اطلاع‌رسانی وجود ندارد — هشدارهای تلگرام/Resend برای استعلام‌ها پیکربندی نشده‌اند و این پرونده ادعایشان را نمی‌کند. افزونه‌های بعدی خانواده «یار» هم فقط نقشه راه‌اند، نه ساخته‌شده.',
-        'شاهد پرچم‌دار قرضی است، نه تکرارشده: ۲٬۶۴۵ تست / ۱۵٬۵۰۱ گزاره و گیت ۳۹۷/۳۹۷ LDD متعلق به پرونده دفتریار (پرونده ۰۷) است. ادعاهای کلان خود استودیو — ۸ سال، ۱۴ سیستم، +۱۶٬۸۰۰ گزاره، ۲۱ کشور — کپی مارکتینگ استودیو در src/data/site.mjs است بدون شاهد مستقل (و حساب گزاره‌ها هم بسته نمی‌شود: ۱۵٬۵۰۱ + ۱٬۱۵۲ = ۱۶٬۶۵۳)، پس این پرونده آن‌ها را فقط به‌عنوان ادعای خود استودیو نقل می‌کند، نه فکت تاییدشده. همین صداقت درباره خود افزونه هم صادق است: باندل تاییدشده در والت دفتریار نسخه ۱٫۷٫۰ با قیمت ۸۵۰٬۰۰۰ تومان است (تایید ۲۰۲۶-۱۱-۱۵)، در حالی که سایت استودیو هنوز نسخه ۱٫۰ و ۸۹۰٬۰۰۰ تومان را نشان می‌دهد؛ بخش سپیدار یک آداپتور + ماک ساخته‌شده از روی داک‌های عمومی است — اتصال زنده ۷۰ میلیون تومانی لغو شده — و دموی عمومی (daftaryar-demo.radinai.ir) پس از تایم‌اوت صبح همان روز، در ۲۰۲۶-۱۱-۱۹ دوباره با HTTP 200 تایید شد. مرز نام‌گذاری: «رادین هوش» در اینجا استودیو و سایت آن است، نه هویت قدیمی زیرساختی OmniRoute (router.radinai.ir / omni.radinai.ir).',
+        'شاهد پرچم‌دار قرضی است، نه تکرارشده: ۲٬۶۴۵ تست / ۱۵٬۵۰۱ گزاره و گیت ۳۹۷/۳۹۷ LDD متعلق به پرونده دفتریار (پرونده ۰۷) است. ادعاهای کلان خود استودیو — ۸ سال، ۱۴ سیستم، +۱۶٬۸۰۰ گزاره، ۲۱ کشور — کپی مارکتینگ استودیو در src/data/portfolio.mjs است بدون شاهد مستقل (و حساب گزاره‌ها هم بسته نمی‌شود: ۱۵٬۵۰۱ + ۱٬۱۵۲ = ۱۶٬۶۵۳)، پس این پرونده آن‌ها را فقط به‌عنوان ادعای خود استودیو نقل می‌کند، نه فکت تاییدشده. همین صداقت درباره خود افزونه هم صادق است: باندل تاییدشده در والت دفتریار نسخه ۱٫۷٫۰ با قیمت ۸۵۰٬۰۰۰ تومان است (تایید ۲۰۲۶-۱۱-۱۵)، در حالی که سایت استودیو هنوز نسخه ۱٫۰ و ۸۹۰٬۰۰۰ تومان را نشان می‌دهد؛ بخش سپیدار یک آداپتور + ماک ساخته‌شده از روی داک‌های عمومی است — اتصال زنده ۷۰ میلیون تومانی لغو شده — و دموی عمومی (daftaryar-demo.radinai.ir) پس از تایم‌اوت صبح همان روز، در ۲۰۲۶-۱۱-۱۹ دوباره با HTTP 200 تایید شد. مرز نام‌گذاری: «رادین هوش» در اینجا استودیو و سایت آن است، نه هویت قدیمی زیرساختی OmniRoute (router.radinai.ir / omni.radinai.ir).',
       ],
     },
     topologyNodes: [
@@ -1241,7 +1241,7 @@ $ curl -sI https://exvorta.com -> HTTP/2 200 (Cloudflare Pages Edge · LH 100/10
       {
         title: { en: 'Flagship Proof Borrowed, Studio Claims Labelled', fa: 'شاهد پرچم‌دار قرضی، ادعاهای استودیو برچسب‌خورده' },
         body: {
-          en: 'Daftaryar’s test numbers are cited only as flagship-product proof and point back to Case 07; the studio’s macro claims (8 years / 14 systems / +16,800 assertions / 21 countries) are presented as the studio’s own marketing, because no independent evidence supports them and the assertion arithmetic does not close.',
+          en: 'Daftaryar’s test numbers are cited only as flagship-product proof and point back to Case 07; the studio’s macro claims (8 years / 14 systems / +16,600 assertions / 21 countries) are presented as the studio’s own marketing, because no independent evidence supports the 14-systems / 21-countries counts; the assertion arithmetic now closes (15,501 + 1,152 = 16,653).',
           fa: 'اعداد تست دفتریار فقط به‌عنوان شاهد محصول پرچم‌دار نقل می‌شوند و به پرونده ۰۷ ارجاع می‌دهند؛ ادعاهای کلان استودیو (۸ سال / ۱۴ سیستم / +۱۶٬۸۰۰ گزاره / ۲۱ کشور) به‌عنوان مارکتینگ خود استودیو ارائه می‌شوند، چون شاهد مستقلی ندارند و حساب گزاره‌ها بسته نمی‌شود.',
         },
       },
@@ -1606,8 +1606,8 @@ export const HIRING_ROLES = [
       fa: 'مناسب شرکت‌هایی که به وب‌سایت‌های پرچم‌دار چندزبانه، پلتفرم‌های SaaS، فروشگاه‌های پرترافیک Medusa یا افزونه‌های استاندارد ووکامرس نیاز دارند.',
     },
     replaces: {
-      en: 'Combines Awwwards-level frontend craft, CMS architecture, technical SEO, and edge DevOps in one owner.',
-      fa: 'ترکیب دیزاین سطح جهانی، معماری CMS، سئو تکنیکال و استقرار کلودفلر در یک نفر.',
+      en: 'Combines high-craft frontend, CMS architecture, technical SEO, and edge DevOps in one owner.',
+      fa: 'ترکیب دیزاین دقیق، معماری CMS، سئو تکنیکال و استقرار کلودفلر در یک نفر.',
     },
     proofIds: ['exvorta', 'firoza', 'hamesu', 'daftaryar'],
     deliverables: {
@@ -1618,7 +1618,7 @@ export const HIRING_ROLES = [
       ],
       fa: [
         'پلتفرم‌های مدرن Next.js 15 و Payload CMS و بیلدهای استاتیک فوق‌سریع روی کلودفلر پیجز',
-        'سیستم‌های طراحی چندزبانه چپ‌به‌راست و راست‌به‌چپ با امتیاز سرعت ۱۰۰ و صفر سرریز موبایل',
+        'سیستم‌های طراحی چندزبانه چپ‌به‌راست و راست‌به‌چپ با تمرکز بر امتیاز لایت‌هاوس و صفر سرریز موبایل',
         'توسعه اختصاصی ووکامرس و Medusa.js با پوشش تست واحد هزارگانه',
       ],
     },
@@ -1635,7 +1635,7 @@ export const HIRING_ROLES = [
     },
     replaces: {
       en: 'Instead of buying 6 disconnected SaaS subscriptions, I engineer custom growth infrastructure you own.',
-      fa: 'به‌جای خرید ده‌ها اشتراک گران و جزیره‌ای، زیرساخت رشد اختصاصی خود شرکت شما را می‌سازم.',
+      fa: 'به‌جای خرید ۶ اشتراک گران و جزیره‌ای، زیرساخت رشد اختصاصی خود شرکت شما را می‌سازم.',
     },
     proofIds: ['leadvium', 'audit', 'firoza', 'cvly'],
     deliverables: {
@@ -1660,7 +1660,7 @@ export const ENGAGEMENT_MODELS = [
     id: 'trial',
     label: { en: '48h Paid Async Trial Task (Recommended Start)', fa: 'تسک آزمایشی پولی ۴۸ ساعته (پیشنهاد شروع سریع)' },
     desc: {
-      en: 'Send a real scoped problem from your backlog. Receive a deployed preview URL, clean Git PR, and Playwright verification report within 48–72h — zero risk before committing long-term.',
+      en: 'Send a real scoped problem from your backlog. Receive a deployed preview URL, clean Git PR, and Playwright verification report within 48–72h — see real quality before committing long-term.',
       fa: 'یک مساله واقعی و مشخص از بک‌لاگ خود بفرستید؛ ظرف ۴۸ تا ۷۲ ساعت لینک پیش‌نمایش زنده، کد تمیز گیت و گزارش تست Playwright تحویل بگیرید تا قبل از قرارداد بلندمدت، کیفیت واقعی را ببینید.',
     },
   },

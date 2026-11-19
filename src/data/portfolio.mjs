@@ -219,15 +219,15 @@ export const UI_COPY = {
       'RADINAI STUDIO · 21 STATIC ROUTES · DAFTARYAR FLAGSHIP',
     ],
     stats: [
-      { value: '8 Years', label: 'End-to-End Web & Systems Craft', sub: '5y Freelance · 2y In-House · Founder' },
+      { value: '8 Years', label: 'End-to-End Web & Systems Craft', sub: '5y Freelance · 2y+ In-House · Founder' },
       { value: '15', label: 'Production Systems & Brand Worlds', sub: '9 Core Engines + 6 B2B Trade Sites' },
       { value: '48,000+', label: 'B2B Leads Processed Across 21 Countries', sub: '30+ Python Modules · 85 Query Matrices' },
-      { value: '16,800+', label: 'Automated Test Assertions Passing', sub: '1,152 Vitest · 15,501 PHPUnit · 193 Python tests' },
+      { value: '16,600+', label: 'Automated Test Assertions Passing', sub: '1,152 Vitest · 15,501 PHPUnit · 193 Python tests' },
     ],
     thesisKicker: '01 // THE EXECUTIVE LEVERAGE THESIS',
     thesisHeadline: 'Most engineers ship tickets. I engineer the factory that ships whole products.',
     thesisBody1:
-      'Over eight years — five years delivering revenue e-commerce builds freelance, two years owning in-house catalog & SEO infrastructure, and now founding Exvorta — I replaced manual line-by-line bottlenecks with a deterministic multi-agent pipeline.',
+      'Over eight years — five years delivering revenue e-commerce builds freelance, two-plus years owning in-house catalog & SEO infrastructure, and now founding Exvorta — I replaced manual line-by-line bottlenecks with a deterministic multi-agent pipeline.',
     thesisBody2:
       'Every slice moves from real Mobbin product references to typed data contracts, isolated git-worktree builders, and an independent headless Chromium critic verifying Desktop 1440px and Mobile 390px before a single byte hits Cloudflare Edge.',
     worksKicker: '02 // SELECTED MONOGRAPHS',
@@ -259,9 +259,9 @@ export const UI_COPY = {
     runningSimBtn: '● Executing Pipeline...',
     openFullLabBtn: 'Explore Deep Pipeline Architecture →',
     hireKicker: '04 // EXECUTIVE DECISION ENGINE',
-    hireTitle: 'Configure Your Role & See Why Hiring Me Is Unfair Leverage',
+    hireTitle: 'Configure Your Role & See the Real Leverage of Hiring Me',
     hireLead:
-      'Select the exact seat you are hiring for. Inspect matched proof systems, compare output velocity against a traditional 4-person chain, or launch a zero-risk 48-hour paid async trial.',
+      'Select the exact seat you are hiring for. Inspect matched proof systems, compare output velocity against a traditional 4-person chain, or launch a commitment-free 48-hour paid async trial.',
     openHireConciergeBtn: 'Open Full Hiring & Trial Concierge →',
     trajectoryKicker: '05 // 2018 ———— 2026 TRAJECTORY',
     trajectoryTitle: 'Eight Years of Compounding Ownership',
@@ -337,7 +337,7 @@ export const UI_COPY = {
     heroThesis:
       'پلتفرم‌های SaaS، موتورهای اتوماسیون در ۲۱ کشور و وب‌سایت‌های تجاری چندزبانه را با هدایت تیم‌های ایجنت متخصص و گیت‌های خودکار کنترل کیفیت، از صفر تا پروداکشن می‌سازم.',
     heroPrimaryCta: 'مطالعه ۹ پرونده عمیق مهندسی',
-    heroSecondaryCta: 'چرا مدیران من را انتخاب می‌کنند؟',
+    heroSecondaryCta: 'چرا مدیران من را انتخاب می‌کنند؟ (تست ۴۸ ساعته)',
     heroTertiaryCta: '۶ وب‌سایت زنده Exvorta Web',
     orbitalHint: 'مدار سه‌بعدی تعاملی · نشانگر را روی هر سیاره ببرید و برای ورود به پرونده کامل کلیک کنید',
     marqueeItems: [
@@ -351,15 +351,15 @@ export const UI_COPY = {
       'استودیو رادین هوش · ۲۱ مسیر استاتیک · پرچم‌دار دفتریار',
     ],
     stats: [
-      { value: '۸ سال', label: 'مهندسی سرتاسری وب و محصول', sub: '۵ سال فریلنس · ۲ سال شرکتی · اکنون بنیان‌گذار' },
+      { value: '۸ سال', label: 'مهندسی سرتاسری وب و محصول', sub: '۵ سال فریلنس · +۲ سال شرکتی · اکنون بنیان‌گذار' },
       { value: '۱۵', label: 'سیستم پروداکشن و وب‌سایت زنده', sub: '۹ موتور نرم‌افزاری + ۶ خانه تجارت جهانی' },
       { value: '+۴۸٬۰۰۰', label: 'لید B2B پردازش‌شده در ۲۱ کشور', sub: '+۳۰ ماژول پایتون · ۸۵ ماتریس جستجو' },
-      { value: '+۱۶٬۸۰۰', label: 'گزاره تست خودکار پاس‌شده', sub: '۱٬۱۵۲ Vitest · ۱۵٬۵۰۱ PHPUnit · ۱۹۳ تست پایتون' },
+      { value: '+۱۶٬۶۰۰', label: 'گزاره تست خودکار پاس‌شده', sub: '۱٬۱۵۲ Vitest · ۱۵٬۵۰۱ PHPUnit · ۱۹۳ تست پایتون' },
     ],
     thesisKicker: '۰۱ // تز اهرم مدیریتی',
     thesisHeadline: 'بیشتر برنامه‌نویس‌ها تیکت می‌بندند؛ من کارخانه‌ای را مهندسی می‌کنم که محصول کامل تحویل می‌دهد.',
     thesisBody1:
-      'در طول هشت سال — پنج سال تحویل فروشگاه و پروژه‌های تجاری، دو سال مالکیت فنی سئو و کاتالوگ درون‌سازمانی و اکنون بنیان‌گذاری Exvorta — کدنویسی خط‌به‌خط سنتی را به یک خط تولید منظم چند-ایجنتی ارتقا دادم.',
+      'در طول هشت سال — پنج سال تحویل فروشگاه و پروژه‌های تجاری، بیش از دو سال مالکیت فنی سئو و کاتالوگ درون‌سازمانی و اکنون بنیان‌گذاری Exvorta — کدنویسی خط‌به‌خط سنتی را به یک خط تولید منظم چند-ایجنتی ارتقا دادم.',
     thesisBody2:
       'هر بخش ابتدا از مراجع واقعی Mobbin تغذیه می‌شود، سپس قراردادهای داده تایپ‌شده می‌گیرد، در شاخه‌های موازی ساخته می‌شود و پیش از استقرار روی لبه کلودفلر، توسط یک بازبین مستقل در دسکتاپ ۱۴۴۰px و موبایل ۳۹۰px تایید می‌گردد.',
     worksKicker: '۰۲ // مونوگراف سیستم‌های ساخته‌شده',
@@ -393,7 +393,7 @@ export const UI_COPY = {
     hireKicker: '۰۴ // موتور تصمیم‌گیری مدیران و استخدام',
     hireTitle: 'نقش موردنیازتان را انتخاب کنید و اهرم واقعی همکاری را بسنجید',
     hireLead:
-      'جایگاه شغلی مدنظرتان را انتخاب کنید تا پروژه‌های مرتبط، مقایسه بهره‌وری با تیم ۴ نفره سنتی و نحوه شروع بدون ریسک با تسک آزمایشی ۴۸ ساعته را ببینید.',
+      'جایگاه شغلی مدنظرتان را انتخاب کنید تا پروژه‌های مرتبط، مقایسه بهره‌وری با تیم ۴ نفره سنتی و نحوه شروع بدون تعهد بلندمدت با تسک آزمایشی پولی ۴۸ ساعته را ببینید.',
     openHireConciergeBtn: 'ورود به میز کامل همکاری و تسک آزمایشی ←',
     trajectoryKicker: '۰۵ // مسیر رشد ۲۰۱۸ ———— ۲۰۲۶',
     trajectoryTitle: 'هشت سال انباشت تجربه واقعی در وب و هوش مصنوعی',
@@ -417,7 +417,7 @@ export const UI_COPY = {
       split: 'مقایسه کشویی',
       blueprint: 'بلوپرینت معماری',
     },
-    footerKicker: 'همکاری ریموت جهانی · ارتباط دقیق مکتوب · آماده تسک آزمایشی ۴۸ ساعته',
+    footerKicker: 'همکاری ریموت جهانی · ارتباط دقیق مکتوب · آماده تسک آزمایشی پولی ۴۸ ساعته',
     footerHeading: 'آماده ساخت سیستم‌هایی که معمولاً یک تیم کامل مهندسی می‌خواهند.',
     footerNote:
       'تمام هماهنگی‌ها به‌صورت مکتوب، مستند و شفاف (چت، گیت‌هاب، ایمیل) همراه با لینک پیش‌نمایش روزانه و گزارش تست خودکار انجام می‌شود — بدون جلسات فرسایشی.',
@@ -954,8 +954,8 @@ export const RESUME_TRACKS = {
       fa: 'معمار سیستم‌های AI · بنیان‌گذار Exvorta · سازنده سرتاسری وب و اتوماسیون',
     },
     summary: {
-      en: '8 years in web — 5 years freelance (e-commerce, WordPress, SEO), 2 years in-house, now Founder at Exvorta. I ship production platforms, B2B automation engines, and high-craft multilingual web properties by directing specialized AI agent teams behind deterministic quality gates. Remote-first and async-native across time zones (all communication in clear written chat/email & documented work samples).',
-      fa: '۸ سال سابقه مستمر در وب — ۵ سال فریلنسری (فروشگاه اینترنتی، وردپرس، سئو)، ۲ سال درون‌سازمانی و اکنون بنیان‌گذار Exvorta. پلتفرم‌های SaaS، موتورهای اتوماسیون B2B و وب‌سایت‌های چندزبانه تراز جهانی را با هدایت تیم‌های ایجنت هوشمند و گیت‌های کنترل کیفیت تولید می‌کنم. همکاری ریموت و Async با مستندسازی مکتوب دقیق و تحویل نمونه کار عملی.',
+      en: '8 years in web — 5 years freelance (e-commerce, WordPress, SEO), 2+ years in-house, now Founder at Exvorta. I ship production platforms, B2B automation engines, and high-craft multilingual web properties by directing specialized AI agent teams behind deterministic quality gates. Remote-first and async-native across time zones (all communication in clear written chat/email & documented work samples).',
+      fa: '۸ سال سابقه مستمر در وب — ۵ سال فریلنسری (فروشگاه اینترنتی، وردپرس، سئو)، بیش از ۲ سال درون‌سازمانی و اکنون بنیان‌گذار Exvorta. پلتفرم‌های SaaS، موتورهای اتوماسیون B2B و وب‌سایت‌های چندزبانه تراز جهانی را با هدایت تیم‌های ایجنت هوشمند و گیت‌های کنترل کیفیت تولید می‌کنم. همکاری ریموت و Async با مستندسازی مکتوب دقیق و تحویل نمونه کار عملی.',
     },
     highlightRoles: ['exvorta', 'audit', 'leadvium', 'firoozehland', 'samiansoft'],
   },

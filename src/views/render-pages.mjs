@@ -205,7 +205,7 @@ export function renderRoleFitEngineWidget(state, compact = false) {
             </div>
             <div class="leverage-row is-hamid">
               <span>${lang === 'fa' ? 'حمید مهرآنی + خط تولید ایجنت و گیت Playwright' : 'Hamid + Autonomous Agent Pipeline'}</span>
-              <strong>${lang === 'fa' ? '۴۸ تا ۹۶ ساعت' : '48 – 96 Hours'}</strong>
+              <strong>${lang === 'fa' ? '۴۸ تا ۷۲ ساعت' : '48 – 72 Hours'}</strong>
             </div>
           </div>
 
@@ -1177,6 +1177,10 @@ export function renderResumeFolioInner(state) {
               <span>${lang === 'fa' ? 'مسیر B · توسعه‌دهنده ارشد وب (PDF)' : 'Track B · Web Developer Next.js / WP (PDF)'}</span>
               <span>↓</span>
             </a>
+            <a href="/resumes/Hamid_Mehrani_Growth_SEO.pdf" download class="folio-btn is-outline">
+              <span>${lang === 'fa' ? 'مسیر C · رشد و سئو (PDF)' : 'Track C · Growth & SEO (PDF)'}</span>
+              <span>↓</span>
+            </a>
             <button type="button" id="print-folio-btn" class="folio-btn is-outline">
               <span>${lang === 'fa' ? 'چاپ نسخه کاغذی تمیز (A4)' : 'Print Clean Folio (A4)'}</span>
               <span>⎙</span>
@@ -1359,7 +1363,7 @@ export function renderHireView(state) {
     },
     {
       num: '03',
-      title: { en: 'De-Risked 48h Paid Work-Sample Trial', fa: 'شروع بدون ریسک با تسک آزمایشی ۴۸ ساعته' },
+      title: { en: 'De-Risked 48h Paid Work-Sample Trial', fa: 'شروع کم‌ریسک با تسک آزمایشی ۴۸ ساعته' },
       body: {
         en: 'Evaluate real production code on a real ticket from your backlog before making any long-term commitment.',
         fa: 'پیش از هر قرارداد بلندمدت، کیفیت کدنویسی و سرعت تحویل را روی یک تیکت واقعی از پروژه خودتان بسنجید.',
