@@ -78,8 +78,12 @@ async function main() {
         console.log(`Capturing ${target.url} ...`);
         const resp = await page.goto(target.url, { waitUntil: 'domcontentloaded', timeout: 22000 });
         const status = resp ? resp.status() : 0;
-        await page.waitForTimeout(2200);
+        // Settle first: let reveal animations / lazy images finish. A fixed
+        // 2.2s wait caught Spicevo mid-reveal in Nov 2026 (sliced hero line).
+        await page.waitForLoadState('networkidle', { timeout: 15000 }).catch(() => {});
+        await page.waitForTimeout(3000);
         await page.evaluate(() => document.fonts?.ready).catch(() => {});
+        await page.waitForTimeout(1000);
         await page.screenshot({ path: pngPath, fullPage: false });
         const bytes = encodeWebp(pngPath, webpPath, false, 1440);
         console.log(`  OK ${target.name}.webp (${status}) -> ${(bytes / 1024).toFixed(1)} KB`);
@@ -116,8 +120,11 @@ async function main() {
         console.log(`Capturing mobile ${target.url} ...`);
         const resp = await page.goto(target.url, { waitUntil: 'domcontentloaded', timeout: 22000 });
         const status = resp ? resp.status() : 0;
-        await page.waitForTimeout(2000);
+        // Same settle as desktop: reveal animations / lazy images first.
+        await page.waitForLoadState('networkidle', { timeout: 12000 }).catch(() => {});
+        await page.waitForTimeout(2500);
         await page.evaluate(() => document.fonts?.ready).catch(() => {});
+        await page.waitForTimeout(1000);
         await page.screenshot({ path: pngPath, fullPage: false });
         const bytes = encodeWebp(pngPath, webpPath, false, 390);
         console.log(`  OK ${target.name}.webp (${status}) -> ${(bytes / 1024).toFixed(1)} KB`);
