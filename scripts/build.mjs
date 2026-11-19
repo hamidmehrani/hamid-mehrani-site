@@ -111,7 +111,7 @@ function main() {
     if (rewritten !== code) fs.writeFileSync(f, rewritten, 'utf8');
   }
 
-  // Pre-render all 13 routes into static HTML files
+  // Pre-render all 14 routes into static HTML files
   const defaultSsrState = {
     route: '/',
     lang: 'en',

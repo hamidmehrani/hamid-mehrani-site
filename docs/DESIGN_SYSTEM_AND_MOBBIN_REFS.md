@@ -6,7 +6,7 @@
 ## 1. Creative Direction: "The Sovereign Systems Monograph & Live Orchestration Theatre"
 Designed to win an Awwwards Site of the Day / Developer Award and make hiring Hamid Mehrani an undeniable executive decision for any CTO, Founder, or Hiring Director:
 
-- **13 Interconnected Long-Form Routes:**
+- **14 Interconnected Long-Form Routes:**
   1. `/` — **Flagship Exhibition & 3D Orbital Observatory** (7-act scroll-choreographed showcase)
   2. `/work/exvorta` — **Case 01: Exvorta · Sovereign Trade Business OS** (`exvorta.com`)
   3. `/work/firoza` — **Case 02: Firoza · Nishapur Turquoise Atelier** (`firoza.ir`)
@@ -14,12 +14,13 @@ Designed to win an Awwwards Site of the Day / Developer Award and make hiring Ha
   5. `/work/cvly` — **Case 04: Cvly · AI Career & Salary Intelligence** (`cvly.ir`)
   6. `/work/leadvium` — **Case 05: Leadvium, Pishro AI & Outreach Studio** (`48,000+` leads · Frozen `2026-11-06`)
   7. `/work/audit` — **Case 06: 7-Stage Website Audit Engine** (`14-page` automated proposal PDF)
-  8. `/work/daftaryar` — **Case 07: Daftaryar · WooCommerce Finance & Sepidar ERP Bridge** (`397/397` LDD gate · `15,501` assertions)
-  9. `/work/jobhunt` — **Case 08: Autonomous JobHunt Pipeline & Real-Time FA⇄EN AI Interpreter**
-  10. `/exvorta-web` — **Exvorta Web B2B Studio Monograph** (6 full-bleed chapters: `Spicevo`, `Nutave`, `Stonvi`, `Aurum`, `Meridian`, `Vestra`)
-  11. `/pipeline` — **Autonomous Multi-Agent Engineering Lab** (Playable 4-mission DAG simulator + quality gates)
-  12. `/resume` — **Daylight Architectural Career Folio (`2018 — 2026`)** (4-lens switcher + 7 expandable roles + 1-page A4 PDFs)
-  13. `/hire` — **Executive Hiring & Async Paid-Trial Concierge** (Interactive role-fit engine + leverage calculator + instant brief builder)
+  8. `/work/daftaryar` — **Case 07: Daftaryar · WooCommerce Finance & Sepidar Adapter** (`397/397` LDD gate · `15,501` assertions)
+  9. `/work/jobhunt` — **Case 08: Autonomous JobHunt Pipeline & Live Audio Interpreter (R&D prototype, unverified)**
+  10. `/work/radinai` — **Case 09: Radinai · Software Studio & WordPress Flagship** (`radinai.ir` · `42/42` Playwright at launch)
+  11. `/exvorta-web` — **Exvorta Web B2B Studio Monograph** (6 full-bleed chapters: `Spicevo`, `Nutave`, `Stonvi`, `Aurum`, `Meridian`, `Vestra`)
+  12. `/pipeline` — **Autonomous Multi-Agent Engineering Lab** (Playable 8-mission DAG simulator + quality gates)
+  13. `/resume` — **Daylight Architectural Career Folio (`2018 — 2026`)** (4-lens switcher + 7 expandable roles + 1-page A4 PDFs)
+  14. `/hire` — **Executive Hiring & Async Paid-Trial Concierge** (Interactive role-fit engine + leverage calculator + instant brief builder)
 
 ## 2. Named Token System & Anti-Cliché Decisions
 - **Base Palette:**
@@ -58,7 +59,7 @@ Designed to win an Awwwards Site of the Day / Developer Award and make hiring Ha
 | 20 | Screen | Subframe | [`3343e3b4-7217-4c52-86c8-46a1cdd9ee60`](https://mobbin.com/screens/3343e3b4-7217-4c52-86c8-46a1cdd9ee60) | Tactile segmented lens switcher for multi-track resume & role-fit views |
 
 ## 13. Language & Rendering Notes (V2 fixes, 2026-11-18)
-- **SSR is English-only (accepted decision):** `build.mjs` pre-renders all 13 routes in English. Persian (`?lang=fa`, persisted in `localStorage` as `hm_lang`) is applied client-side after load. Full Persian pre-rendering would need a second route tree + `hreflang` — recorded as remaining work.
+- **SSR is English-only (accepted decision):** `build.mjs` pre-renders all 14 routes in English. Persian (`?lang=fa`, persisted in `localStorage` as `hm_lang`) is applied client-side after load. Full Persian pre-rendering would need a second route tree + `hreflang` — recorded as remaining work.
 - **Language-neutral engineering output:** terminal transcripts (`codeArtifact`, `PIPELINE_STAGES[].terminal`) and simulation agent codes are shown as-is in both languages; gates and simulation narratives are fully localised (`{en,fa}`).
 - **Deliberate English design codes:** route codes (`00 // OBSERVATORY`), chrome tags (`1440×900 VERIFIED`), Dev HUD telemetry labels (`FRAME RATE`, `FPS`), and the `Async` clock suffix stay in English by design in both languages.
 - **Dead-end policy:** unknown routes render a real 404 page with onward links; Repo buttons render only for public repositories (`repoPrivate`); cases without a visitable product use an `internal` badge instead of a `live` one; cases without a live URL keep the schematic SVG fallback instead of a faked screenshot.

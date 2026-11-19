@@ -7,6 +7,7 @@ export const CASE_ORDER = [
   'audit',
   'daftaryar',
   'jobhunt',
+  'radinai',
 ];
 
 export const MONOGRAPHS = {
@@ -881,11 +882,11 @@ $ curl -sI https://exvorta.com -> HTTP/2 200 (Cloudflare Pages Edge · LH 100/10
     },
     solutionNarrative: {
       en: [
-        'Daftaryar (`daftaryar-1.0.0-rtltheme-ready.zip`, built inside Hamid’s 28-plugin monorepo architecture) delivers all 10 accounting and fulfillment modules unlocked in one clean package: a 5-step RTL setup wizard, native WooCommerce Checkout Blocks integration, HMAC-signed guest PDF invoice downloads, Post/Tipax shipment tracking, 4 Elementor widgets, 1-click demo data import, JSON backup/restore, and a deterministic Sepidar accounting adapter.',
+        'Daftaryar (`daftaryar-1.0.0-rtltheme-ready.zip`, built inside Hamid’s 28-plugin monorepo architecture) delivers all 10 accounting and fulfillment modules unlocked in one clean package: a 5-step RTL setup wizard, native WooCommerce Checkout Blocks integration, HMAC-signed guest PDF invoice downloads, Post/Tipax shipment tracking, 4 Elementor widgets, 1-click demo data import, JSON backup/restore, and a Sepidar accounting adapter (mock + adapter built from public docs — the 70M Toman live ERP integration was cancelled, so no live sync is claimed).',
         'Before packaging, Daftaryar passed 2,645 unit tests (15,501 assertions), full end-to-end verification on live WordPress + WooCommerce (`0` entries in `debug.log`), and 397/397 LDD release gate checks.',
       ],
       fa: [
-        'افزونه **دفتریار (Daftaryar)** تمام ۱۰ ماژول مالی و عملیاتی را یکجا و بدون قفل‌های مصنوعی ارائه می‌دهد: جادوگر راه‌اندازی ۵ مرحله‌ای راست‌به‌چپ، سازگاری بومی با <bdi dir="ltr">WooCommerce Checkout Blocks</bdi>، دانلود امن فاکتور مهمان با امضای رمزنگاری <bdi dir="ltr">HMAC</bdi>، رهگیری پست و تیپاکس، ۴ ویجت المنتور، ایمپورت داده دمو با یک کلیک، پشتیبان‌گیری <bdi dir="ltr">JSON</bdi> و آداپتور اتصال به نرم‌افزار حسابداری سپیدار.',
+        'افزونه **دفتریار (Daftaryar)** تمام ۱۰ ماژول مالی و عملیاتی را یکجا و بدون قفل‌های مصنوعی ارائه می‌دهد: جادوگر راه‌اندازی ۵ مرحله‌ای راست‌به‌چپ، سازگاری بومی با <bdi dir="ltr">WooCommerce Checkout Blocks</bdi>، دانلود امن فاکتور مهمان با امضای رمزنگاری <bdi dir="ltr">HMAC</bdi>، رهگیری پست و تیپاکس، ۴ ویجت المنتور، ایمپورت داده دمو با یک کلیک، پشتیبان‌گیری <bdi dir="ltr">JSON</bdi> و آداپتور سپیدار (ماک + آداپتور از روی داک‌های عمومی — اتصال زنده ۷۰ میلیون تومانی لغو شده و همگام‌سازی زنده‌ای ادعا نمی‌شود).',
         'پیش از بسته‌بندی نهایی، دفتریار ۲٬۶۴۵ تست واحد (۱۵٬۵۰۱ گزاره)، تست سرتاسری واقعی روی وردپرس و ووکامرس با **صفر خطا در `debug.log`** و هر ۳۹۷ شرط گیت کنترل کیفیت را با موفقیت پشت سر گذاشت.',
       ],
     },
@@ -913,11 +914,11 @@ $ curl -sI https://exvorta.com -> HTTP/2 200 (Cloudflare Pages Edge · LH 100/10
       {
         id: 'sepidar',
         code: 'ERP · ADAPTER',
-        title: { en: 'Deterministic Sepidar ERP Bridge', fa: 'پل ارتباطی استاندارد با حسابداری سپیدار' },
+        title: { en: 'Sepidar ERP Adapter (Mock + Public-Docs Contract)', fa: 'آداپتور سپیدار (ماک + قرارداد داک‌های عمومی)' },
         tech: 'Idempotent Sync · Mock + Live ERP Contract',
         detail: {
-          en: 'Maps orders, SKU tax lines, shipping fees, and refunds into Sepidar voucher schemas without duplicate ledger entries.',
-          fa: 'نگاشت دقیق سفارش‌ها، مالیات، هزینه ارسال و مرجوعی‌ها به ساختار سند سپیدار بدون ثبت تکراری.',
+          en: 'Adapter + mock built from Sepidar public docs; maps orders, tax lines, shipping, and refunds into voucher schemas. The 70M Toman live ERP integration was cancelled (2026-11-15) — no live sync is claimed.',
+          fa: 'آداپتور + ماک ساخته‌شده از روی داک‌های عمومی سپیدار؛ نگاشت سفارش‌ها، مالیات، هزینه ارسال و مرجوعی‌ها به ساختار سند. اتصال زنده ۷۰ میلیون تومانی لغو شده (۲۰۲۶-۱۱-۱۵) — همگام‌سازی زنده‌ای ادعا نمی‌شود.',
         },
       },
       {
@@ -1020,12 +1021,12 @@ $ curl -sI https://exvorta.com -> HTTP/2 200 (Cloudflare Pages Edge · LH 100/10
     },
     solutionNarrative: {
       en: [
-        'The JobHunt Engineering Kit combines Python crawlers across 10 remote job boards (routed cleanly via a Cloudflare Worker relay) with an AST/regex truth-bank validator anchored to `80-owner-resume.md`: any LLM-tailored bullet that introduces an unverified employer, date, or metric is rejected automatically before PDF compilation.',
-        'Alongside the async written workflow sits an experimental real-time audio R&D rig wiring virtual PulseAudio/PipeWire sinks to Gemini multimodal streaming audio for low-latency Persian-to-English speech translation.',
+        'The JobHunt Engineering Kit combines Python crawlers across 10 remote job boards (routed cleanly via a Cloudflare Worker relay) with an AST/regex truth-bank validator anchored to `80-owner-resume.md`: any LLM-tailored bullet that introduces an unverified employer, date, or metric is rejected automatically before PDF compilation. Measured v2 state (2026-10-28, jobhunt-v2-changelog.md): 684 jobs indexed, 211 scored above 45, 66 tier-1, 24 pack-ready, 18 sent, 1 reply; 10 mailboxes × 28/day = 280/day send capacity, with the real bottleneck being machine-readable contact channels, not capacity; day-4/day-10 follow-ups run on a daily 08:35 cron.',
+        'Alongside the async written workflow sits an experimental real-time audio R&D rig wiring virtual PulseAudio/PipeWire sinks to Gemini multimodal streaming audio for low-latency Persian-to-English speech translation. It is a prototype: `~/interpreter/rig.py` exists with `setup` / `test` / `practice` / `live` commands, but no verified test run or latency measurement is on record, so the case scores it as unverified rather than passing.',
       ],
       fa: [
-        'کیت مهندسی **JobHunt** خزنده‌های پایتونی ۱۰ مرجع شغلی بین‌المللی (به همراه رله Cloudflare Worker) را با یک اعتبارسنج سخت‌گیرانه ترکیب می‌کند: هر تغییر پیشنهادی مدل زبانی پیش از تبدیل به PDF با بانک حقیقت مالک تطبیق داده می‌شود و در صورت مشاهده کوچک‌ترین عدد یا تاریخ خارج از فکت، رد می‌شود.',
-        'در کنار جریان اصلی همکاری مکتوب و Async، یک رگ تحقیق‌وتوسعه صوتی کم‌تاخیر نیز روی میکروفون مجازی لینوکس و <bdi dir="ltr">Gemini Audio</bdi> برای ترجمه هم‌زمان صوتی فارسی و انگلیسی مهندسی شده است.',
+        'کیت مهندسی **JobHunt** خزنده‌های پایتونی ۱۰ مرجع شغلی بین‌المللی (به همراه رله Cloudflare Worker) را با یک اعتبارسنج سخت‌گیرانه ترکیب می‌کند: هر تغییر پیشنهادی مدل زبانی پیش از تبدیل به PDF با بانک حقیقت مالک تطبیق داده می‌شود و در صورت مشاهده کوچک‌ترین عدد یا تاریخ خارج از فکت، رد می‌شود. وضعیت اندازه‌گیری‌شده نسخه ۲ (۲۰۲۶-۱۰-۲۸): ۶۸۴ آگهی ایندکس‌شده، ۲۱۱ آگهی بالای امتیاز ۴۵، ۶۶ تیر-۱، ۲۴ آماده پک، ۱۸ ارسال، ۱ جواب؛ ظرفیت ارسال ۱۰ باکس × ۲۸ در روز = ۲۸۰ ایمیل در روز، با این واقعیت که گلوگاه واقعی کانال تماس ماشینی است نه ظرفیت؛ پیگیری‌های روز ۴ و ۱۰ با کرون روزانه ۰۸:۳۵ اجرا می‌شوند.',
+        'در کنار جریان اصلی همکاری مکتوب و Async، یک رگ تحقیق‌وتوسعه صوتی کم‌تاخیر نیز روی میکروفون مجازی لینوکس و <bdi dir="ltr">Gemini Audio</bdi> برای ترجمه هم‌زمان صوتی فارسی و انگلیسی مهندسی شده است. این یک پروتوتایپ است: `~/interpreter/rig.py` با دستورات `setup` / `test` / `practice` / `live` وجود دارد، اما هیچ تست تاییدشده یا اندازه‌گیری تاخیری در سوابق نیست، پس پرونده آن را «تاییدنشده» می‌شمارد نه «پاس‌شده».',
       ],
     },
     topologyNodes: [
@@ -1065,8 +1066,8 @@ $ curl -sI https://exvorta.com -> HTTP/2 200 (Cloudflare Pages Edge · LH 100/10
         title: { en: 'Virtual-Mic FA⇄EN Stream Bridge', fa: 'پل صوتی بلادرنگ میکروفون مجازی' },
         tech: 'PipeWire / PulseAudio · Gemini Streaming Audio',
         detail: {
-          en: 'Routes local microphone input through streaming speech-to-speech translation onto a virtual Linux audio device.',
-          fa: 'هدایت جریان صدای میکروفون از مسیر پردازش بلادرنگ و تحویل خروجی روی کارت صدای مجازی سیستم‌عامل.',
+          en: 'Prototype rig (`~/interpreter/rig.py`): routes local microphone input through streaming speech-to-speech translation onto a virtual Linux audio device. No verified test run or latency measurement on record — scored unverified, not passing.',
+          fa: 'رگ پروتوتایپ (`~/interpreter/rig.py`): هدایت جریان صدای میکروفون از مسیر پردازش بلادرنگ و تحویل خروجی روی کارت صدای مجازی سیستم‌عامل. بدون تست تاییدشده یا اندازه‌گیری تاخیر در سوابق — «تاییدنشده» شمرده می‌شود، نه «پاس‌شده».',
         },
       },
       {
@@ -1113,14 +1114,158 @@ $ curl -sI https://exvorta.com -> HTTP/2 200 (Cloudflare Pages Edge · LH 100/10
     codeArtifact: `$ node scripts/render-resumes.mjs --portfolio-url https://hamidmehrani.pages.dev
  ✓ Track A (AI Automation Engineer): scrollHeight=644px <= 1040px -> 1 page A4 (38.7 KB)
  ✓ Track B (Web Developer Next.js/WP): scrollHeight=618px <= 1040px -> 1 page A4 (34.7 KB)
- ✓ Truth-bank consistency check against 80-owner-resume.md: PASS (0 unverified claims)`,
+ ✓ Truth-bank consistency check against 80-owner-resume.md: PASS (0 unverified claims)
+ ✓ JobHunt v2 measured snapshot (2026-10-28): 684 jobs · 211 scored >45 · 66 tier-1 · 24 pack-ready · 18 sent · 1 reply
+ ✓ Follow-up engine: followup.py day-4/day-10, daily 08:35 cron · send capacity 10 mailboxes × 28/day`,
     gates: [
       { metric: { en: 'ATS Board Connectors', fa: 'اتصال‌دهنده‌های ATS' }, status: { en: '10 Remote Engineering Boards Indexed', fa: '۱۰ برد مهندسی ریموت ایندکس‌شده' }, pass: true },
       { metric: { en: 'Truth-Bank Validator', fa: 'ولیدیتور بانک حقیقت' }, status: { en: '0 Unverified Employers, Dates, or Numbers', fa: 'بدون کارفرما، تاریخ یا عدد تاییدنشده' }, pass: true },
       { metric: { en: 'Track A & B Resume PDFs', fa: 'PDF رزومه مسیر A و B' }, status: { en: '1-Page A4 Verified · HTTP 200 Live', fa: 'یک‌صفحه A4 تاییدشده · زنده HTTP 200' }, pass: true },
-      { metric: { en: 'Audio R&D Prototype', fa: 'پروتوتایپ تحقیق صوتی' }, status: { en: 'Virtual-Mic FA⇄EN Stream Rig Engineered', fa: 'ریگ استریم میکروفون مجازی فارسی⇄انگلیسی' }, pass: true },
+      { metric: { en: 'Audio R&D Prototype', fa: 'پروتوتایپ تحقیق صوتی' }, status: { en: 'Built (~/interpreter/rig.py) — No Verified Test Run on Record', fa: 'ساخته‌شده (~/interpreter/rig.py) — بدون تست تاییدشده در سوابق' }, pass: false },
     ],
     relatedIds: ['cvly', 'audit', 'exvorta'],
+  },
+  radinai: {
+    id: 'radinai',
+    index: '09',
+    route: '/work/radinai',
+    accent: '#0EA5E9',
+    accentSecondary: '#D2A738',
+    heroMetrics: [
+      {
+        val: { en: '21 Routes', fa: '۲۱ مسیر' },
+        label: { en: 'Static SSG Routes + /404 & sitemap.xml on Cloudflare Pages', fa: 'مسیر استاتیک SSG به همراه ۴۰۴ و نقشه سایت روی کلودفلر پیجز' },
+      },
+      {
+        val: { en: '42/42', fa: '۴۲/۴۲' },
+        label: { en: 'Playwright QA Checks Passing at Launch', fa: 'چک خودکار Playwright پاس‌شده در زمان انتشار' },
+      },
+      {
+        val: { en: '98–100', fa: '۹۸ تا ۱۰۰' },
+        label: { en: 'Desktop Lighthouse at Launch (Mobile 75–82 Open)', fa: 'امتیاز لایت‌هاوس دسکتاپ در انتشار (موبایل ۷۵ تا ۸۲ باز است)' },
+      },
+    ],
+    tagline: {
+      en: 'Software-engineering studio home for three service lines — WordPress products, custom SaaS platforms, AI automation — with the Daftaryar WooCommerce plugin as flagship proof.',
+      fa: 'خانه استودیو مهندسی نرم‌افزار برای سه خط خدمت — محصولات وردپرس، پلتفرم‌های اختصاصی SaaS و اتوماسیون هوش مصنوعی — با افزونه ووکامرس دفتریار به‌عنوان شاهد پرچم‌دار.',
+    },
+    startingPoint: {
+      en: [
+        'Radinai (رادین هوش, radinai.ir) is the studio identity behind the systems in this portfolio: one studio, three service lines — WordPress products led by the Daftaryar WooCommerce plugin, custom software and SaaS platforms, and AI automation — with no single home that presented them together with verifiable proof.',
+        'The studio site had to do three jobs at once: sell the flagship plugin with its real test numbers, show the six production showcases (Hamesu, Cvly, Exvorta, Firoza, Daftaryar, Automation Engines) plus the six Exvorta Web export brands, and convert enterprise inquiries into a WhatsApp conversation — without a backend to operate or a CMS to patch.',
+      ],
+      fa: [
+        'رادین هوش (radinai.ir) هویت استودیویی پشت سیستم‌های این مونوگراف است: یک استودیو، سه خط خدمت — محصولات وردپرس با پرچم‌داری افزونه ووکامرس دفتریار، نرم‌افزار اختصاصی و پلتفرم‌های SaaS، و اتوماسیون هوش مصنوعی — بدون یک خانه واحد که آن‌ها را با شواهد قابل‌راستی‌آزمایی کنار هم نشان دهد.',
+        'سایت استودیو باید هم‌زمان سه کار انجام می‌داد: فروش افزونه پرچم‌دار با اعداد واقعی تست‌هایش، نمایش شش ویترین پروداکشن (همه‌سو، سی‌ولی، اگزورتا، فیروزه، دفتریار و موتورهای اتوماسیون) به‌همراه شش برند صادراتی Exvorta Web، و تبدیل استعلام‌های سازمانی به گفت‌وگوی واتس‌اپ — بدون بک‌اندی برای نگهداری یا CMSای برای پچ‌کردن.',
+      ],
+    },
+    solutionNarrative: {
+      en: [
+        'The studio site (radinai-site v1.0.0, HEAD 80439b6, launched 2026-11-18) is a 21-route static SSG build on Cloudflare Pages: 22 HTML files, self-hosted Yekan Bakh + IRANYekanX variable fonts with zero external font calls, GSAP + ScrollTrigger + Lenis motion, a 3-lens interactive workbench, a 5-tab Daftaryar simulator, a project estimator, and a Ctrl+K command palette.',
+        'Two Cloudflare Pages Functions carry the only dynamic behaviour: GET /api/health returns {ok:true, service:\'radinai-edge\'} and POST /api/inquiry validates the form behind a spam guard, issues a tracking code (RDN-...), and hands off to WhatsApp (hamid@exvorta.com, 989150033963). There is no notification backend — Telegram/Resend inquiry alerts are not configured, and this case does not claim them. The "Yaar family" follow-up plugins are roadmap only, not built.',
+        'The flagship proof is borrowed, not re-asserted: Daftaryar’s 2,645 tests / 15,501 assertions and 397/397 LDD gate belong to the Daftaryar case (Case 07). The studio’s own macro claims — 8 years, 14 systems, +16,800 assertions, 21 countries — are the studio’s marketing copy in src/data/site.mjs with no independent evidence (and the assertion arithmetic does not close: 15,501 + 1,152 = 16,653), so this case repeats them only as the studio’s own claims, never as verified fact. The same honesty applies to the plugin itself: the vault-verified bundle is Daftaryar v1.7.0 at 850,000 Toman (verified 2026-11-15), while the studio site still lists v1.0.0 at 890,000 Toman; the Sepidar piece is an adapter + mock built from public docs — the 70M Toman live ERP integration was cancelled — and the public demo (daftaryar-demo.radinai.ir) was re-verified HTTP 200 on 2026-11-19 after timing out earlier the same day. Note the naming boundary: "Radinai" here is the studio and its site, not the older OmniRoute gateway identity (router.radinai.ir / omni.radinai.ir).',
+      ],
+      fa: [
+        'سایت استودیو (radinai-site نسخه ۱٫۰، کامیت 80439b6، انتشار ۲۰۲۶-۱۱-۱۸) یک بیلد استاتیک SSG با ۲۱ مسیر روی کلودفلر پیجز است: ۲۲ فایل HTML، فونت‌های متغیر سلف‌هاست یکان‌بخ و ایران‌یکان‌ایکس بدون هیچ فراخوانی خارجی، حرکت GSAP + ScrollTrigger + Lenis، میز کار تعاملی سه‌لنزه، شبیه‌ساز پنج‌تبی دفتریار، تخمین‌گر پروژه و پالت فرمان Ctrl+K.',
+        'تنها رفتار پویا بر دوش دو تابع لبه کلودفلر است: GET /api/health مقدار {ok:true, service:\'radinai-edge\'} را برمی‌گرداند و POST /api/inquiry فرم را پشت گارد ضداسپم اعتبارسنجی می‌کند، کد پیگیری یکتا (RDN-...) صادر می‌کند و به واتس‌اپ تحویل می‌دهد (hamid@exvorta.com، 989150033963). هیچ بک‌اند اطلاع‌رسانی وجود ندارد — هشدارهای تلگرام/Resend برای استعلام‌ها پیکربندی نشده‌اند و این پرونده ادعایشان را نمی‌کند. افزونه‌های بعدی خانواده «یار» هم فقط نقشه راه‌اند، نه ساخته‌شده.',
+        'شاهد پرچم‌دار قرضی است، نه تکرارشده: ۲٬۶۴۵ تست / ۱۵٬۵۰۱ گزاره و گیت ۳۹۷/۳۹۷ LDD متعلق به پرونده دفتریار (پرونده ۰۷) است. ادعاهای کلان خود استودیو — ۸ سال، ۱۴ سیستم، +۱۶٬۸۰۰ گزاره، ۲۱ کشور — کپی مارکتینگ استودیو در src/data/site.mjs است بدون شاهد مستقل (و حساب گزاره‌ها هم بسته نمی‌شود: ۱۵٬۵۰۱ + ۱٬۱۵۲ = ۱۶٬۶۵۳)، پس این پرونده آن‌ها را فقط به‌عنوان ادعای خود استودیو نقل می‌کند، نه فکت تاییدشده. همین صداقت درباره خود افزونه هم صادق است: باندل تاییدشده در والت دفتریار نسخه ۱٫۷٫۰ با قیمت ۸۵۰٬۰۰۰ تومان است (تایید ۲۰۲۶-۱۱-۱۵)، در حالی که سایت استودیو هنوز نسخه ۱٫۰ و ۸۹۰٬۰۰۰ تومان را نشان می‌دهد؛ بخش سپیدار یک آداپتور + ماک ساخته‌شده از روی داک‌های عمومی است — اتصال زنده ۷۰ میلیون تومانی لغو شده — و دموی عمومی (daftaryar-demo.radinai.ir) پس از تایم‌اوت صبح همان روز، در ۲۰۲۶-۱۱-۱۹ دوباره با HTTP 200 تایید شد. مرز نام‌گذاری: «رادین هوش» در اینجا استودیو و سایت آن است، نه هویت قدیمی زیرساختی OmniRoute (router.radinai.ir / omni.radinai.ir).',
+      ],
+    },
+    topologyNodes: [
+      {
+        id: 'wp',
+        code: 'PRODUCTS · DAFTARYAR',
+        title: { en: 'WordPress Products · Daftaryar Flagship', fa: 'محصولات وردپرس · پرچم‌دار دفتریار' },
+        tech: 'WooCommerce · 10 Modules · 2,645 Tests',
+        detail: {
+          en: 'Flagship plugin proof with a 5-tab simulator on the site (official invoice, anti-fraud card rotation, Torob profit guard, postal labels, SMS ping test).',
+          fa: 'شاهد افزونه پرچم‌دار با شبیه‌ساز پنج‌تبی در سایت (فاکتور رسمی، چرخش کارت ضدتقلب، گارد سود ترب، برچسب پستی و تست پینگ پیامک).',
+        },
+      },
+      {
+        id: 'saas',
+        code: 'PLATFORMS · CUSTOM SaaS',
+        title: { en: 'Custom Software & SaaS Platforms', fa: 'نرم‌افزار اختصاصی و پلتفرم‌های SaaS' },
+        tech: 'Multi-Tenant · Medusa / Next.js · RLS',
+        detail: {
+          en: 'Hamesu, Cvly, and Exvorta showcases: multi-tenant commerce, career AI, and trade documentation, all live in production.',
+          fa: 'ویترین‌های همه‌سو، سی‌ولی و اگزورتا: فروشگاه‌ساز چندمستاجره، کاریابی هوشمند و اسناد تجاری — همه زنده در پروداکشن.',
+        },
+      },
+      {
+        id: 'ai',
+        code: 'AUTOMATION · AI PIPELINES',
+        title: { en: 'AI Automation Pipelines', fa: 'پایپ‌لاین‌های اتوماسیون هوش مصنوعی' },
+        tech: 'Truth-Bank Validators · 7-Stage Audit',
+        detail: {
+          en: 'Automation Engines showcase: bulk data pipelines and the 7-stage website audit behind deterministic anti-hallucination guards.',
+          fa: 'ویترین موتورهای اتوماسیون: پایپ‌لاین‌های پردازش انبوه داده و ممیزی ۷ مرحله‌ای وب پشت گاردهای قطعی ضدتوهم.',
+        },
+      },
+      {
+        id: 'edge',
+        code: 'EDGE · FUNCTIONS',
+        title: { en: 'Pages Functions · Health & Inquiry', fa: 'توابع لبه · سلامت و استعلام' },
+        tech: 'GET /api/health · POST /api/inquiry · RDN-...',
+        detail: {
+          en: 'Health probe plus spam-guarded inquiry form issuing a tracking code and handing off to WhatsApp. No Telegram/Resend notification backend is configured.',
+          fa: 'پراب سلامت به‌همراه فرم استعلام با گارد ضداسپم، صدور کد پیگیری و تحویل به واتس‌اپ. هیچ بک‌اند اطلاع‌رسانی تلگرام/Resend پیکربندی نشده است.',
+        },
+      },
+      {
+        id: 'gate',
+        code: 'QA · 42/42 PLAYWRIGHT',
+        title: { en: 'Launch QA · Verify + Playwright + Lighthouse', fa: 'کیفیت انتشار · وریفای + Playwright + لایت‌هاوس' },
+        tech: 'Links · JSON-LD · Persian Digits · LH 98–100',
+        detail: {
+          en: 'Build-time verify (links, JSON-LD, Persian digits, no English leak) plus Playwright 42/42 at launch; desktop Lighthouse 98–100, mobile 75–82 still open.',
+          fa: 'وریفای زمان بیلد (لینک‌ها، JSON-LD، ارقام فارسی، بدون نشت انگلیسی) به‌همراه Playwright با ۴۲/۴۲ در انتشار؛ لایت‌هاوس دسکتاپ ۹۸ تا ۱۰۰، موبایل ۷۵ تا ۸۲ هنوز باز است.',
+        },
+      },
+    ],
+    decisions: [
+      {
+        title: { en: 'Static SSG + Edge Functions Instead of a CMS', fa: 'SSG استاتیک + توابع لبه به‌جای CMS' },
+        body: {
+          en: 'A studio brochure site does not need a database, an admin login, or a patch treadmill: 22 pre-rendered HTML files serve instantly from the edge, and the only dynamic surface is two tiny Functions. Design rationale as implemented — no decision log survives for this build.',
+          fa: 'سایت معرفی استودیو به دیتابیس، لاگین ادمین یا چرخه پچ نیاز ندارد: ۲۲ فایل HTML پیش‌رندرشده از لبه سرو می‌شوند و تنها سطح پویا دو تابع کوچک است. این منطق طراحیِ پیاده‌شده است — لاگ تصمیمی از این بیلد باقی نمانده است.',
+        },
+      },
+      {
+        title: { en: 'One Studio Home, Three Lenses', fa: 'یک خانه استودیو، سه لنز' },
+        body: {
+          en: 'Instead of three separate sites, the hero workbench switches between WordPress products, custom platforms, and AI automation lenses on one page, so a visitor sees the full range before choosing a path. Framed as design rationale, not a documented decision — no decision log exists for the Radinai site.',
+          fa: 'به‌جای سه سایت جدا، میز کار بخش اول صفحه بین سه لنز محصولات وردپرس، پلتفرم اختصاصی و اتوماسیون هوش مصنوعی جابه‌جا می‌شود تا بازدیدکننده پیش از انتخاب مسیر، کل دامنه را ببیند. این منطق طراحی است، نه تصمیم مستند — لاگ تصمیمی برای سایت رادین هوش وجود ندارد.',
+        },
+      },
+      {
+        title: { en: 'Flagship Proof Borrowed, Studio Claims Labelled', fa: 'شاهد پرچم‌دار قرضی، ادعاهای استودیو برچسب‌خورده' },
+        body: {
+          en: 'Daftaryar’s test numbers are cited only as flagship-product proof and point back to Case 07; the studio’s macro claims (8 years / 14 systems / +16,800 assertions / 21 countries) are presented as the studio’s own marketing, because no independent evidence supports them and the assertion arithmetic does not close.',
+          fa: 'اعداد تست دفتریار فقط به‌عنوان شاهد محصول پرچم‌دار نقل می‌شوند و به پرونده ۰۷ ارجاع می‌دهند؛ ادعاهای کلان استودیو (۸ سال / ۱۴ سیستم / +۱۶٬۸۰۰ گزاره / ۲۱ کشور) به‌عنوان مارکتینگ خود استودیو ارائه می‌شوند، چون شاهد مستقلی ندارند و حساب گزاره‌ها بسته نمی‌شود.',
+        },
+      },
+      {
+        title: { en: 'Inquiry to WhatsApp, No Notification Backend', fa: 'استعلام به واتس‌اپ، بدون بک‌اند اطلاع‌رسانی' },
+        body: {
+          en: 'The inquiry form ends in a WhatsApp handoff with a tracking code instead of a mailbox, a CRM, or a Telegram bot — a deliberate scope cut for a brochure site. Telegram/Resend alerts are not configured and are not claimed; the "Yaar family" follow-up plugins are roadmap only.',
+          fa: 'فرم استعلام به‌جای صندوق ایمیل، CRM یا بات تلگرام، با یک کد پیگیری به واتس‌اپ ختم می‌شود — یک برش عمدی دامنه برای سایت معرفی. هشدارهای تلگرام/Resend پیکربندی نشده‌اند و ادعا نمی‌شوند؛ افزونه‌های بعدی خانواده «یار» فقط نقشه راه‌اند.',
+        },
+      },
+    ],
+    codeArtifact: `$ npm run build (radinai-site @ 80439b6)
+ ✓ 22 HTML files emitted to dist/ (21 routes + /404)
+$ curl -s https://radinai.ir/api/health
+ {"ok":true,"status":"healthy","service":"radinai-edge"}
+ ✓ radinai.ir/ 200 · www 200 · /products/daftaryar/ 200 · /sitemap.xml 200 (verified 2026-11-19)
+ ✓ Playwright QA at launch: 42/42 PASS · Lighthouse desktop 98–100 (mobile 75–82 open)`,
+    gates: [
+      { metric: { en: 'Live Site Endpoints', fa: 'اندپوینت‌های زنده سایت' }, status: { en: 'radinai.ir / www / /api/health / /products/daftaryar/ /sitemap.xml — HTTP 200 (2026-11-19)', fa: 'radinai.ir / www / /api/health / /products/daftaryar/ /sitemap.xml — HTTP 200 (۲۰۲۶-۱۱-۱۹)' }, pass: true },
+      { metric: { en: 'Launch QA Suite', fa: 'سوئیت QA انتشار' }, status: { en: 'Playwright 42/42 PASS at Launch', fa: 'Playwright با ۴۲/۴۲ پاس‌شده در انتشار' }, pass: true },
+      { metric: { en: 'Desktop Performance', fa: 'عملکرد دسکتاپ' }, status: { en: 'Lighthouse Desktop 98–100', fa: 'لایت‌هاوس دسکتاپ ۹۸ تا ۱۰۰' }, pass: true },
+      { metric: { en: 'Mobile Performance', fa: 'عملکرد موبایل' }, status: { en: '75–82 · TBT 734–1294ms — Open, Non-Blocking', fa: '۷۵ تا ۸۲ · TBT ‏۷۳۴ تا ۱۲۹۴ میلی‌ثانیه — باز، غیرمسدودکننده' }, pass: false },
+    ],
+    relatedIds: ['daftaryar', 'exvorta', 'firoza'],
   },
 };
 
@@ -1270,6 +1415,154 @@ export const LIVE_SIMULATIONS = [
         agent: 'REPO LAND',
         msg: { en: 'Merged cleanly to main @ 53ed7920 while preserving production outbound freeze (0 sends).', fa: 'به‌صورت تمیز در main با کامیت 53ed7920 مرج شد و فریز ارسال پروداکشن (۰ ارسال) حفظ شد.' },
         metric: { en: 'GATE OK · Freeze intact', fa: 'GATE OK · فریز برقرار است' },
+      },
+    ],
+  },
+  {
+    id: 'sim-hamesu',
+    label: { en: 'Mission 05 · Hamesu Multi-Tenant Commerce OS', fa: 'ماموریت ۰۵ · سیستم‌عامل فروشگاه‌ساز چندمستاجره همه‌سو' },
+    duration: { en: '5m 40s simulated · 73 routes', fa: '۵ دقیقه و ۴۰ ثانیه شبیه‌سازی‌شده · ۷۳ مسیر' },
+    steps: [
+      {
+        stageIdx: 0,
+        agent: 'CURATOR',
+        msg: { en: 'Scoped a 73-route multi-tenant commerce OS (30 storefront + 43 console) behind Postgres row-level security.', fa: 'دامنه سیستم‌عامل فروشگاه‌ساز چندمستاجره با ۷۳ مسیر (۳۰ ویترین + ۴۳ کنسول) پشت امنیت سطری Postgres تعیین شد.' },
+        metric: { en: '73 routes scoped', fa: '۷۳ مسیر تعیین‌شده' },
+      },
+      {
+        stageIdx: 1,
+        agent: 'ARCHITECT',
+        msg: { en: 'Defined Medusa 2.22 backend + Next.js 16 storefront + merchant console with tenant-isolated data model and 2× Redis.', fa: 'بک‌اند Medusa 2.22 + ویترین Next.js 16 + کنسول فروشنده با مدل داده ایزوله مستاجری و ۲ کانتینر Redis تعریف شد.' },
+        metric: { en: 'RLS + Redis design', fa: 'طراحی RLS + Redis' },
+      },
+      {
+        stageIdx: 2,
+        agent: 'BUILDERS (×3)',
+        msg: { en: 'Compiled .medusa/server, storefront 30 routes, console 43 routes — 0 stub pages — behind load-average safety gates.', fa: 'سرور Medusa، ویترین ۳۰ مسیره و کنسول ۴۳ مسیره کامپایل شد — بدون صفحه موقت — پشت گیت‌های ایمنی لود سرور.' },
+        metric: { en: '73/73 routes compiled', fa: '۷۳/۷۳ مسیر کامپایل‌شده' },
+      },
+      {
+        stageIdx: 3,
+        agent: 'VISUAL CRITIC',
+        msg: { en: 'Ran 26 Playwright RTL slices @ 1440px & 390px -> overflowPx: 0, consoleErrors: 0, zero external fonts.', fa: '۲۶ اسلایس Playwright با چیدمان RTL در ۱۴۴۰px و ۳۹۰px اجرا شد؛ بدون سرریز، بدون خطای کنسول و بدون فونت خارجی.' },
+        metric: { en: '26 slices · 0px overflow', fa: '۲۶ اسلایس · بدون سرریز' },
+      },
+      {
+        stageIdx: 4,
+        agent: 'EDGE LAND',
+        msg: { en: 'Live systemd services active (backend, storefront, console); https://hamesu.ir -> 200, verified 2026-11-18 @ 05fa3e17.', fa: 'سرویس‌های زنده systemd فعال شدند؛ https://hamesu.ir با 200 تایید شد (۲۰۲۶-۱۱-۱۸، کامیت 05fa3e17).' },
+        metric: { en: 'HTTP 200 · hamesu.ir', fa: 'HTTP 200 · hamesu.ir' },
+      },
+    ],
+  },
+  {
+    id: 'sim-cvly',
+    label: { en: 'Mission 06 · Cvly Career AI Index', fa: 'ماموریت ۰۶ · ایندکس کاریابی هوشمند سی‌ولی' },
+    duration: { en: '4m 02s simulated · 6,577 listings', fa: '۴ دقیقه و ۲ ثانیه شبیه‌سازی‌شده · ۶٬۵۷۷ آگهی' },
+    steps: [
+      {
+        stageIdx: 0,
+        agent: 'CURATOR',
+        msg: { en: 'Scoped one SQLite WAL career index across 7 Iranian job boards plus a verified salary-signal explorer.', fa: 'دامنه یک ایندکس کاریابی SQLite WAL روی ۷ مرجع شغلی ایران به‌همراه کاوشگر سیگنال‌های تاییدشده حقوق تعیین شد.' },
+        metric: { en: '7 boards scoped', fa: '۷ مرجع تعیین‌شده' },
+      },
+      {
+        stageIdx: 1,
+        agent: 'ARCHITECT',
+        msg: { en: 'Designed FastAPI + SQLite WAL schema with strict source-fact resume validation (no invented employers or dates).', fa: 'اسکیمای FastAPI + SQLite WAL با اعتبارسنج سخت‌گیرانه فکت‌های رزومه طراحی شد (بدون کارفرما یا تاریخ ساختگی).' },
+        metric: { en: 'Truth-bank schema', fa: 'اسکیمای بانک حقیقت' },
+      },
+      {
+        stageIdx: 2,
+        agent: 'BUILDERS (×2)',
+        msg: { en: 'Built live job index (6,577 listings, 0 mock rows) and /salaries explorer with 832 verified compensation signals.', fa: 'ایندکس زنده آگهی‌ها (۶٬۵۷۷ آگهی، بدون ردیف ساختگی) و کاوشگر حقوق با ۸۳۲ سیگنال تاییدشده ساخته شد.' },
+        metric: { en: '6,577 live · 832 signals', fa: '۶٬۵۷۷ زنده · ۸۳۲ سیگنال' },
+      },
+      {
+        stageIdx: 3,
+        agent: 'VISUAL CRITIC',
+        msg: { en: 'Verified cvly.ir endpoints live: / 200 in 1.18s, /score 0.98s, /login 0.97s warm — zero mock data served.', fa: 'اندپوینت‌های زنده cvly.ir تایید شد: صفحه اصلی ۱٫۱۸ ثانیه، /score و /login زیر یک ثانیه — بدون داده ساختگی.' },
+        metric: { en: '<1.2s warm TTFB', fa: 'TTFB گرم زیر ۱٫۲ ثانیه' },
+      },
+      {
+        stageIdx: 4,
+        agent: 'EDGE LAND',
+        msg: { en: 'cvly-web.service active; 331+ registered users on the live salary explorer (Nov 2026 snapshot).', fa: 'سرویس cvly-web فعال شد؛ بیش از ۳۳۱ کاربر ثبت‌نامی در کاوشگر زنده حقوق (اسنپ‌شات نوامبر ۲۰۲۶).' },
+        metric: { en: 'HTTP 200 · cvly.ir', fa: 'HTTP 200 · cvly.ir' },
+      },
+    ],
+  },
+  {
+    id: 'sim-audit',
+    label: { en: 'Mission 07 · Audit Engine 83/83 Pipeline', fa: 'ماموریت ۰۷ · موتور ممیزی با پایپ‌لاین ۸۳/۸۳' },
+    duration: { en: '3m 26s simulated · 83 tests', fa: '۳ دقیقه و ۲۶ ثانیه شبیه‌سازی‌شده · ۸۳ تست' },
+    steps: [
+      {
+        stageIdx: 0,
+        agent: 'CURATOR',
+        msg: { en: 'Scoped a 7-stage inspection (perf, a11y, security, SEO, vision) that ends in one branded 14-page executive PDF.', fa: 'دامنه ممیزی ۷ مرحله‌ای (سرعت، دسترس‌پذیری، امنیت، سئو، ویژن) با خروجی یک PDF برنددار ۱۴ صفحه‌ای تعیین شد.' },
+        metric: { en: '7 stages scoped', fa: '۷ مرحله تعیین‌شده' },
+      },
+      {
+        stageIdx: 1,
+        agent: 'ARCHITECT',
+        msg: { en: 'Designed Puppeteer + Lighthouse + axe-core + AI-vision pipeline with an inter-process lock for concurrency safety.', fa: 'پایپ‌لاین Puppeteer + Lighthouse + axe-core + ویژن AI با قفل بین‌فرایندی برای ایمنی همروندی طراحی شد.' },
+        metric: { en: 'Lock-safe pipeline', fa: 'پایپ‌لاین قفل‌ایمن' },
+      },
+      {
+        stageIdx: 2,
+        agent: 'BUILDERS (×2)',
+        msg: { en: 'Built the 14-page A4 proposal PDF generator with annotated desktop + mobile captures and brand metadata stamps.', fa: 'ژنراتور پروپوزال PDF چهارده‌صفحه‌ای A4 با کپچرهای حاشیه‌نویسی‌شده دسکتاپ و موبایل و مهر متادیتای برند ساخته شد.' },
+        metric: { en: '14-page PDF built', fa: 'PDF چهارده‌صفحه‌ای ساخته‌شده' },
+      },
+      {
+        stageIdx: 3,
+        agent: 'VISUAL CRITIC',
+        msg: { en: 'Ran pytest suite 83/83 PASS (incl. partial Lighthouse network fallback) + page-break check: 0 clipped tables, 0 orphan headings.', fa: 'سوئیت pytest با ۸۳/۸۳ پاس شد (شامل fallback شبکه لایت‌هاوس) و بررسی شکست صفحه: بدون جدول بریده‌شده و بدون تیتر یتیم.' },
+        metric: { en: '83/83 PASS · 0 clips', fa: '۸۳/۸۳ پاس‌شده · بدون بریدگی' },
+      },
+      {
+        stageIdx: 4,
+        agent: 'RELEASE PACK',
+        msg: { en: 'Shipped the audit engine with its regression suite green and the 14-page PDF verified end to end.', fa: 'موتور ممیزی با سوئیت رگرسیون سبز و PDF چهارده‌صفحه‌ای تاییدشده سرتاسری تحویل داده شد.' },
+        metric: { en: 'GATE OK · PDF verified', fa: 'GATE OK · PDF تاییدشده' },
+      },
+    ],
+  },
+  {
+    id: 'sim-jobhunt',
+    label: { en: 'Mission 08 · JobHunt v2 Tailoring Pipeline', fa: 'ماموریت ۰۸ · پایپ‌لاین تخصیصی‌سازی رزومه JobHunt نسخه ۲' },
+    duration: { en: '4m 51s simulated · 684 jobs', fa: '۴ دقیقه و ۵۱ ثانیه شبیه‌سازی‌شده · ۶۸۴ آگهی' },
+    steps: [
+      {
+        stageIdx: 0,
+        agent: 'CURATOR',
+        msg: { en: 'Audited the 681-job corpus: one-sentence tailoring, template letters, 19 sends lifetime, Telegram cards unreadable.', fa: 'کورپوس ۶۸۱ آگهی ممیزی شد: تخصیصی‌سازی تک‌جمله‌ای، نامه‌های قالبی، ۱۹ ارسال در کل عمر سیستم و کارت‌های تلگرام ناخوانا.' },
+        metric: { en: '681 jobs audited', fa: '۶۸۱ آگهی ممیزی‌شده' },
+      },
+      {
+        stageIdx: 1,
+        agent: 'ARCHITECT',
+        msg: { en: 'Designed LLM tailor + fact validator on master_resume.md with per-URL cache; job text fenced as untrusted data (prompt-injection guard).', fa: 'تیلور LLM + ولیدیتور فکت روی master_resume.md با کش بر اساس URL طراحی شد؛ متن آگهی به‌عنوان داده غیرقابل‌اعتماد حصاربندی شد (محافظ prompt injection).' },
+        metric: { en: 'Validator + cache design', fa: 'طراحی ولیدیتور + کش' },
+      },
+      {
+        stageIdx: 2,
+        agent: 'BUILDERS (×2)',
+        msg: { en: 'Shipped tailor.py, per-job letters, Telegram cards, and followup.py day-4/day-10 on a daily 08:35 cron; fixed the ATS link bug (5/6 links recovered).', fa: 'tailor.py، نامه‌های per-job، کارت‌های تلگرام و followup.py روز ۴/۱۰ با کرون روزانه ۰۸:۳۵ تحویل شد؛ باگ لینک ATS رفع شد (۵ از ۶ لینک برگشت).' },
+        metric: { en: 'tailor + followup live', fa: 'تیلور + پیگیری زنده' },
+      },
+      {
+        stageIdx: 3,
+        agent: 'VISUAL CRITIC',
+        msg: { en: 'Verified Track A/B resume PDFs render exactly 1 page A4 (scrollHeight 644px / 618px <= 1040px gate) with 0 unverified claims.', fa: 'رزومه‌های مسیر A و B دقیقاً یک صفحه A4 رندر می‌شوند (ارتفاع ۶۴۴/۶۱۸ پیکسل زیر گیت ۱۰۴۰) و بدون ادعای تاییدنشده تایید شدند.' },
+        metric: { en: '1-page A4 · 0 drift', fa: 'یک صفحه A4 · بدون انحراف' },
+      },
+      {
+        stageIdx: 4,
+        agent: 'REPO LAND',
+        msg: { en: 'Landed the v2 kit: 684 jobs · 211 scored >45 · 66 tier-1 · 24 pack-ready · 18 sent · 1 reply (2026-10-28 snapshot).', fa: 'کیت نسخه ۲ لند شد: ۶۸۴ آگهی · ۲۱۱ بالای ۴۵ · ۶۶ تیر-۱ · ۲۴ آماده پک · ۱۸ ارسال · ۱ جواب (اسنپ‌شات ۲۰۲۶-۱۰-۲۸).' },
+        metric: { en: 'GATE OK · 684 jobs', fa: 'GATE OK · ۶۸۴ آگهی' },
       },
     ],
   },

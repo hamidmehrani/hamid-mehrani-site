@@ -275,7 +275,7 @@ export function renderVenturesListWidget(state) {
                 <div class="venture-visual">
                   ${visualHtml}
                   <span class="venture-badge-float ${statusCls}">${item.status[lang]}</span>
-                  <span class="venture-index-stamp" dir="ltr">${item.index} / 08</span>
+                  <span class="venture-index-stamp" dir="ltr">${item.index} / 09</span>
                 </div>
               </a>
               <div class="venture-body">
@@ -497,7 +497,7 @@ export function renderHomeView(state) {
       </div>
     </section>
 
-    <!-- ACT 03: 8 SYSTEM MONOGRAPHS -->
+    <!-- ACT 03: 9 SYSTEM MONOGRAPHS -->
     <section id="ventures" class="section">
       <div class="container">
         <div class="section-header" data-reveal>
@@ -577,7 +577,7 @@ export function renderHomeView(state) {
     <!-- ACT 07: ZERO-DEAD-END PORTAL INTO CASE 01 -->
     ${renderNextPortal({
       kicker: copy.nextPortalLabel,
-      code: 'CASE 01 / 08 · DEEP MONOGRAPH',
+      code: 'CASE 01 / 09 · DEEP MONOGRAPH',
       title: VENTURES[0].name[lang],
       sub: MONOGRAPHS.exvorta.tagline[lang],
       route: '/work/exvorta',
@@ -716,7 +716,7 @@ export function renderCaseStudyView(ventureId, state) {
       <div class="case-subnav-bar">
         <div class="container case-subnav-inner">
           <a href="/" data-route="/" class="subnav-back">${copy.backToHome}</a>
-          <span class="subnav-counter">${lang === 'fa' ? `پرونده ${formatValue(mono.index, 'fa')} از ۰۸` : `CASE ${mono.index} // 08`}</span>
+          <span class="subnav-counter">${lang === 'fa' ? `پرونده ${formatValue(mono.index, 'fa')} از ۰۹` : `CASE ${mono.index} // 09`}</span>
           <div class="subnav-prev-next">
             <a href="${prevVenture.route}" data-route="${prevVenture.route}" class="subnav-step-link">${copy.prevCase}</a>
             <a href="${nextVenture.route}" data-route="${nextVenture.route}" class="subnav-step-link">${copy.nextCase}</a>
@@ -895,7 +895,7 @@ export function renderCaseStudyView(ventureId, state) {
             })
           : renderNextPortal({
               kicker: copy.nextPortalLabel,
-              code: `CASE ${MONOGRAPHS[nextId].index} / 08 · NEXT MONOGRAPH`,
+              code: `CASE ${MONOGRAPHS[nextId].index} / 09 · NEXT MONOGRAPH`,
               title: nextVenture.name[lang],
               sub: MONOGRAPHS[nextId].tagline[lang],
               route: nextVenture.route,

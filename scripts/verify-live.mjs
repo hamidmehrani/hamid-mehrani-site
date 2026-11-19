@@ -233,6 +233,7 @@ async function main() {
     { slug: 'case-audit', path: '/work/audit' },
     { slug: 'case-daftaryar', path: '/work/daftaryar' },
     { slug: 'case-jobhunt', path: '/work/jobhunt' },
+    { slug: 'case-radinai', path: '/work/radinai' },
     { slug: 'studio-exvorta-web', path: '/exvorta-web' },
     { slug: 'lab-pipeline', path: '/pipeline' },
     { slug: 'folio-resume', path: '/resume' },

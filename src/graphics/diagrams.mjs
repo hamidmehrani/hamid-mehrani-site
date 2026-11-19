@@ -240,7 +240,7 @@ export function getVentureSchematicSvg(type) {
         <text x="68" y="96" fill="#0EC49A" font-weight="700">DAFTARYAR · 10 MODULES</text>
         <text x="68" y="130" fill="#F3F6FA">WooCommerce Blocks + Classic</text>
         <text x="68" y="158" fill="#CBD5E1">HMAC-SHA256 Guest Invoices</text>
-        <text x="68" y="186" fill="#CBD5E1">Sepidar ERP Sync Bridge</text>
+        <text x="68" y="186" fill="#CBD5E1">Sepidar Adapter · Mock + Docs</text>
         <text x="68" y="214" fill="#CBD5E1">Post &amp; Tipax Tracking</text>
         <text x="68" y="242" fill="#CBD5E1">4 Elementor RTL Widgets</text>
         <text x="68" y="298" fill="#D2A738">wp-content/debug.log: 0 lines</text>
@@ -253,6 +253,31 @@ export function getVentureSchematicSvg(type) {
         <text x="376" y="192" fill="#F3F6FA">PHPUnit Assertions (2,645 Tests)</text>
         <text x="376" y="238" fill="#D2A738" font-size="20" font-weight="700">397 / 397</text>
         <text x="376" y="264" fill="#CBD5E1">LDD Release Gate · 0 FAIL</text>
+      </g>
+    </svg>`;
+  }
+
+
+  if (type === 'radinai') {
+    return `<svg dir="ltr" viewBox="0 0 640 400" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <rect width="640" height="400" fill="#081018"/>
+      <g font-family="JetBrains Mono, monospace" font-size="11">
+        <rect x="46" y="60" width="254" height="280" rx="10" fill="#0C1622" stroke="#0EA5E9" stroke-opacity="0.65"/>
+        <text x="68" y="96" fill="#0EA5E9" font-weight="700">RADINAI · 3 SERVICE LINES</text>
+        <text x="68" y="130" fill="#F3F6FA">WordPress Products · Daftaryar</text>
+        <text x="68" y="158" fill="#CBD5E1">Custom SaaS Platforms</text>
+        <text x="68" y="186" fill="#CBD5E1">AI Automation Pipelines</text>
+        <text x="68" y="214" fill="#CBD5E1">6 Showcases + 6 Export Brands</text>
+        <text x="68" y="298" fill="#D2A738">radinai.ir · HTTP 200</text>
+
+        <path class="svg-flow-line" d="M 300 200 H 350" stroke="#0EA5E9" stroke-width="2"/>
+
+        <rect x="350" y="78" width="244" height="244" rx="12" fill="#0B1418" stroke="#0EA5E9" stroke-width="2"/>
+        <text x="376" y="116" fill="#94A3B8">STATIC SSG + EDGE</text>
+        <text x="376" y="164" fill="#0EA5E9" font-size="28" font-weight="700">21</text>
+        <text x="376" y="192" fill="#F3F6FA">Routes · 22 HTML Files</text>
+        <text x="376" y="238" fill="#D2A738" font-size="20" font-weight="700">42 / 42</text>
+        <text x="376" y="264" fill="#CBD5E1">Playwright at Launch · LH 98–100</text>
       </g>
     </svg>`;
   }
