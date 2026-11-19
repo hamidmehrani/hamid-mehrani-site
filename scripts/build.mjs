@@ -175,6 +175,13 @@ function main() {
 `;
   fs.writeFileSync(path.join(DIST, '_headers'), headers, 'utf8');
 
+  // Cloudflare Pages redirects: Leadvium rename (old /work/leadgen slug -> /work/leadvium)
+  fs.writeFileSync(
+    path.join(DIST, '_redirects'),
+    '/work/leadgen /work/leadvium 301\n/work/leadgen/ /work/leadvium/ 301\n',
+    'utf8',
+  );
+
   fs.writeFileSync(
     path.join(DIST, 'robots.txt'),
     `User-agent: *\nAllow: /\nSitemap: ${CANONICAL_URL}/sitemap.xml\n`,
@@ -202,7 +209,7 @@ function main() {
     'work/firoza/index.html',
     'work/hamesu/index.html',
     'work/cvly/index.html',
-    'work/leadgen/index.html',
+    'work/leadvium/index.html',
     'work/audit/index.html',
     'work/daftaryar/index.html',
     'work/jobhunt/index.html',

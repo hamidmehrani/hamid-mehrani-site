@@ -229,7 +229,7 @@ async function main() {
     { slug: 'case-firoza', path: '/work/firoza' },
     { slug: 'case-hamesu', path: '/work/hamesu' },
     { slug: 'case-cvly', path: '/work/cvly' },
-    { slug: 'case-leadgen', path: '/work/leadgen' },
+    { slug: 'case-leadvium', path: '/work/leadvium' },
     { slug: 'case-audit', path: '/work/audit' },
     { slug: 'case-daftaryar', path: '/work/daftaryar' },
     { slug: 'case-jobhunt', path: '/work/jobhunt' },
@@ -298,7 +298,6 @@ async function main() {
             for (const [secName, sel] of [
               ['ventures', '#ventures'],
               ['cinema', '#exvorta-web'],
-              ['pipeline', '#pipeline'],
               ['hire', '#hire-engine'],
               ['footer', '#contact'],
             ]) {

@@ -3,7 +3,7 @@ export const CASE_ORDER = [
   'firoza',
   'hamesu',
   'cvly',
-  'leadgen',
+  'leadvium',
   'audit',
   'daftaryar',
   'jobhunt',
@@ -147,7 +147,7 @@ $ curl -sI https://exvorta.com -> HTTP/2 200 (Cloudflare Pages Edge · LH 100/10
       { metric: { en: 'Playwright Visual Gate', fa: 'گیت بصری Playwright' }, status: { en: '1440×900 & 390×844 · 0px Overflow', fa: '۱۴۴۰×۹۰۰ و ۳۹۰×۸۴۴ · بدون سرریز' }, pass: true },
       { metric: { en: 'Public Source Proof', fa: 'اثبات منبع عمومی' }, status: { en: 'github.com/hamidmehrani/exvorta-main (Nov 2026 snapshot)', fa: 'github.com/hamidmehrani/exvorta-main (اسنپ‌شات نوامبر ۲۰۲۶)' }, pass: true },
     ],
-    relatedIds: ['firoza', 'leadgen', 'audit'],
+    relatedIds: ['firoza', 'leadvium', 'audit'],
   },
 
   firoza: {
@@ -564,13 +564,13 @@ $ curl -sI https://exvorta.com -> HTTP/2 200 (Cloudflare Pages Edge · LH 100/10
       { metric: { en: 'Anti-Fabrication Engine', fa: 'موتور ضدجعل' }, status: { en: 'Strict Source-Fact Resume Validator', fa: 'ولیدیتور سخت‌گیرانه منع جعل رزومه' }, pass: true },
       { metric: { en: 'Edge & Service Health', fa: 'سلامت سرویس و لبه' }, status: { en: 'cvly-web.service Active · <1.2s Warm TTFB', fa: 'cvly-web.service فعال · TTFB گرم زیر ۱٫۲ ثانیه' }, pass: true },
     ],
-    relatedIds: ['jobhunt', 'hamesu', 'leadgen'],
+    relatedIds: ['jobhunt', 'hamesu', 'leadvium'],
   },
 
-  leadgen: {
-    id: 'leadgen',
+  leadvium: {
+    id: 'leadvium',
     index: '05',
-    route: '/work/leadgen',
+    route: '/work/leadvium',
     accent: '#D2A738',
     accentSecondary: '#0EC49A',
     heroMetrics: [
@@ -603,7 +603,7 @@ $ curl -sI https://exvorta.com -> HTTP/2 200 (Cloudflare Pages Edge · LH 100/10
     },
     solutionNarrative: {
       en: [
-        'The LeadGen repository (`hamidmehrani/leadgen-machine`, 492-module test discipline) now encompasses three verified engineering pillars while keeping live production sending strictly locked at `0`: (1) the 30+ module discovery & 85-query-matrix qualification core, (2) **Pishro AI (`LG-PISHRO-IRAN-V1`)** featuring Iranian 11-digit national ID checksum validation, 31 provincial area codes, 12 industrial sector scorers, and a 12-page read-only insights cockpit (`p95 = 12.64ms`), and (3) **Exvorta Outreach Studio (`LG-OUTREACH-STUDIO-V1`)**.',
+        'The Leadvium repository (`hamidmehrani/leadgen-machine`, 492-module test discipline) now encompasses three verified engineering pillars while keeping live production sending strictly locked at `0`: (1) the 30+ module discovery & 85-query-matrix qualification core, (2) **Pishro AI (`LG-PISHRO-IRAN-V1`)** featuring Iranian 11-digit national ID checksum validation, 31 provincial area codes, 12 industrial sector scorers, and a 12-page read-only insights cockpit (`p95 = 12.64ms`), and (3) **Exvorta Outreach Studio (`LG-OUTREACH-STUDIO-V1`)**.',
         'Exvorta Outreach Studio is a pure-white internal Instantly.ai replacement featuring a 9-signal Website Redesign Scanner (`Redesign Need 0–100`), sister-domain DNS doctor (`SPF/DKIM/DMARC`), stepped warmup engine, `NEVER-CLAIM` fact validator reading each tenant’s `FACTS.md`, 3-pane Unibox, and a hard `SenderFreezeError` lock ensuring zero accidental live dispatches.',
       ],
       fa: [
@@ -742,11 +742,11 @@ $ curl -sI https://exvorta.com -> HTTP/2 200 (Cloudflare Pages Edge · LH 100/10
     },
     solutionNarrative: {
       en: [
-        'The Website Audit Engine & `pdfscript` orchestrates a 7-stage headless Chromium pipeline: (1) DOM & network reachability capture, (2) Lighthouse Core Web Vitals (`LCP`, `CLS`, `INP`, `TTFB`), (3) `axe-core` WCAG accessibility tree audit, (4) HTTP security header & TLS posture inspection, (5) Technical SEO, canonical, schema, and locale tag analysis, (6) multi-viewport screenshot capture + AI vision UI critique, and (7) deterministic HTML/CSS print compilation into a 14-page branded PDF.',
+        'The Website Audit Engine orchestrates a 7-stage headless Chromium pipeline: (1) DOM & network reachability capture, (2) Lighthouse Core Web Vitals (`LCP`, `CLS`, `INP`, `TTFB`), (3) `axe-core` WCAG accessibility tree audit, (4) HTTP security header & TLS posture inspection, (5) Technical SEO, canonical, schema, and locale tag analysis, (6) multi-viewport screenshot capture + AI vision UI critique, and (7) deterministic HTML/CSS print compilation into a 14-page branded PDF.',
         'Hardened error handling ensures missing upstream network telemetry never crashes deep PDF page generation (verified across 83/83 pipeline tests and visual PDF page audits).',
       ],
       fa: [
-        'موتور ممیزی سایت و <bdi dir="ltr">pdfscript</bdi> یک زنجیره ۷ مرحله‌ای روی مرورگر هدلس اجرا می‌کند: (۱) واکشی شبکه و DOM واقعی، (۲) اندازه‌گیری شاخص‌های <bdi dir="ltr">Core Web Vitals</bdi> با Lighthouse، (۳) ممیزی دسترس‌پذیری با <bdi dir="ltr">axe-core</bdi>، (۴) بررسی هدرهای امنیتی و گواهی SSL، (۵) تحلیل تگ‌های سئو تکنیکال و چندزبانگی، (۶) ثبت اسکرین‌شات دسکتاپ/موبایل و نقد بصری با هوش مصنوعی بینایی، و (۷) رندر چاپی دقیق در قالب یک فایل PDF چهارده صفحه‌ای.',
+        'موتور ممیزی سایت یک زنجیره ۷ مرحله‌ای روی مرورگر هدلس اجرا می‌کند: (۱) واکشی شبکه و DOM واقعی، (۲) اندازه‌گیری شاخص‌های <bdi dir="ltr">Core Web Vitals</bdi> با Lighthouse، (۳) ممیزی دسترس‌پذیری با <bdi dir="ltr">axe-core</bdi>، (۴) بررسی هدرهای امنیتی و گواهی SSL، (۵) تحلیل تگ‌های سئو تکنیکال و چندزبانگی، (۶) ثبت اسکرین‌شات دسکتاپ/موبایل و نقد بصری با هوش مصنوعی بینایی، و (۷) رندر چاپی دقیق در قالب یک فایل PDF چهارده صفحه‌ای.',
         'پایداری خط تولید در برابر سایت‌های کند یا داده‌های ناقص شبکه در ۸۳ تست خودکار تایید شده است تا هیچ صفحه‌ای هنگام تولید PDF دچار خطا نشود.',
       ],
     },
@@ -793,7 +793,7 @@ $ curl -sI https://exvorta.com -> HTTP/2 200 (Cloudflare Pages Edge · LH 100/10
       },
       {
         id: 'pdf',
-        code: 'STAGE 07 · PDFSCRIPT',
+        code: 'STAGE 07 · A4 PDF',
         title: { en: '14-Page Branded Proposal Compiler', fa: 'کامپایلر پروپوزال PDF چهارده صفحه‌ای' },
         tech: 'Print CSS · Inter-Process Lock · 83/83 Tests',
         detail: {
@@ -842,7 +842,7 @@ $ curl -sI https://exvorta.com -> HTTP/2 200 (Cloudflare Pages Edge · LH 100/10
       { metric: { en: 'Regression Test Suite', fa: 'سوئیت تست رگرسیون' }, status: { en: '83/83 Pipeline Tests Passing', fa: '۸۳/۸۳ تست پایپ‌لاین پاس‌شده' }, pass: true },
       { metric: { en: 'Concurrency Safety', fa: 'ایمنی همروندی' }, status: { en: 'Inter-Process Lock Verified', fa: 'قفل بین‌فرایندی تاییدشده' }, pass: true },
     ],
-    relatedIds: ['exvorta', 'leadgen', 'jobhunt'],
+    relatedIds: ['exvorta', 'leadvium', 'jobhunt'],
   },
 
   daftaryar: {
@@ -1288,7 +1288,7 @@ export const HIRING_ROLES = [
       en: 'Replaces slow handoffs across separate prompt, backend, QA, and DevOps contractors.',
       fa: 'حذف ناهماهنگی و اتلاف وقت بین چندین نیروی جداگانه بک‌اند، پرامپت، تست و دواپس.',
     },
-    proofIds: ['exvorta', 'leadgen', 'audit', 'jobhunt'],
+    proofIds: ['exvorta', 'leadvium', 'audit', 'jobhunt'],
     deliverables: {
       en: [
         'Production Python / Node / TypeScript agent pipelines with deterministic fallback & schema validation',
@@ -1344,7 +1344,7 @@ export const HIRING_ROLES = [
       en: 'Instead of buying 6 disconnected SaaS subscriptions, I engineer custom growth infrastructure you own.',
       fa: 'به‌جای خرید ده‌ها اشتراک گران و جزیره‌ای، زیرساخت رشد اختصاصی خود شرکت شما را می‌سازم.',
     },
-    proofIds: ['leadgen', 'audit', 'firoza', 'cvly'],
+    proofIds: ['leadvium', 'audit', 'firoza', 'cvly'],
     deliverables: {
       en: [
         'Technical SEO architecture, Core Web Vitals optimization, JSON-LD schema, and 10-locale static indexing',

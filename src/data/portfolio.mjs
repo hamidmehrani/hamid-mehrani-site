@@ -74,11 +74,11 @@ export const ROUTES_MANIFEST = [
     },
   },
   {
-    path: '/work/leadgen',
-    code: 'CASE 05 // LEADGEN',
+    path: '/work/leadvium',
+    code: 'CASE 05 // LEADVIUM',
     title: {
-      en: 'LeadGen Machine & Outreach Studio — Case Study | Hamid Mehrani',
-      fa: 'پرونده مهندسی LeadGen Machine و Outreach Studio | حمید مهرآنی',
+      en: 'Leadvium & Outreach Studio — Case Study | Hamid Mehrani',
+      fa: 'پرونده مهندسی Leadvium و Outreach Studio | حمید مهرآنی',
     },
     desc: {
       en: '30+ Python modules processing 48,000+ B2B leads across 21 countries, paired with Pishro AI and Exvorta Outreach Studio behind hard sender-freeze safety.',
@@ -89,8 +89,8 @@ export const ROUTES_MANIFEST = [
     path: '/work/audit',
     code: 'CASE 06 // AUDIT ENGINE',
     title: {
-      en: '7-Stage Website Audit Engine & pdfscript — Case Study | Hamid Mehrani',
-      fa: 'پرونده مهندسی موتور ممیزی ۷ مرحله‌ای سایت و pdfscript | حمید مهرآنی',
+      en: '7-Stage Website Audit Engine — Case Study | Hamid Mehrani',
+      fa: 'پرونده مهندسی موتور ممیزی ۷ مرحله‌ای سایت | حمید مهرآنی',
     },
     desc: {
       en: 'Automated Puppeteer, Lighthouse, axe-core, and AI-vision inspection suite generating 14-page branded client proposal PDFs.',
@@ -199,7 +199,7 @@ export const UI_COPY = {
     marqueeItems: [
       'EXVORTA TRADE OS · 1,152 VITEST PASS',
       'FIROZA ATELIER · 239 STATIC ROUTES · 10 LOCALES',
-      'LEADGEN ENGINE · 48,000+ B2B LEADS · 21 COUNTRIES',
+      'LEADVIUM ENGINE · 48,000+ B2B LEADS · 21 COUNTRIES',
       'DAFTARYAR · 15,501 PHPUNIT ASSERTIONS · 397/397 GATE',
       'HAMESU COMMERCE · 73 COMPILED ROUTES · POSTGRES RLS',
       'CVLY CAREER AI · 6,577 LIVE LISTINGS · 832 SALARY SIGNALS',
@@ -238,19 +238,19 @@ export const UI_COPY = {
     studioLead:
       'Select any commodity house below to morph the live stage — inspecting synchronized Desktop 1440px and Mobile 390px builds powered by one reusable multilingual Next.js + Payload exporter engine.',
     openFullStudioBtn: 'Open Full 6-Brand Studio Exhibition →',
-    labKicker: '04 // LIVE ORCHESTRATION SANDBOX',
+    labKicker: 'LIVE ORCHESTRATION SANDBOX',
     labTitle: 'Run the Autonomous Agent Pipeline',
     labLead:
       'Pick one of 4 real shipped missions and execute the 5-stage DAG right in your browser — watching how Curator, Architect, Parallel Builders, and Independent Playwright QA ship production code.',
     runSimBtn: '▶ Run Live Mission',
     runningSimBtn: '● Executing Pipeline...',
     openFullLabBtn: 'Explore Deep Pipeline Architecture →',
-    hireKicker: '05 // EXECUTIVE DECISION ENGINE',
+    hireKicker: '04 // EXECUTIVE DECISION ENGINE',
     hireTitle: 'Configure Your Role & See Why Hiring Me Is Unfair Leverage',
     hireLead:
       'Select the exact seat you are hiring for. Inspect matched proof systems, compare output velocity against a traditional 4-person chain, or launch a zero-risk 48-hour paid async trial.',
     openHireConciergeBtn: 'Open Full Hiring & Trial Concierge →',
-    trajectoryKicker: '06 // 2018 ———— 2026 TRAJECTORY',
+    trajectoryKicker: '05 // 2018 ———— 2026 TRAJECTORY',
     trajectoryTitle: 'Eight Years of Compounding Ownership',
     openFullResumeBtn: 'Open Full 8-Year Folio & Download A4 PDFs →',
     nextPortalLabel: 'CONTINUE THE EXHIBITION',
@@ -330,7 +330,7 @@ export const UI_COPY = {
     marqueeItems: [
       'سیستم‌عامل EXVORTA · ۱٬۱۵۲ تست خودکار VITEST',
       'آتلیه FIROZA · ۲۳۹ مسیر استاتیک در ۱۰ زبان زنده',
-      'موتور LEADGEN · پردازش +۴۸٬۰۰۰ لید در ۲۱ کشور',
+      'موتور LEADVIUM · پردازش +۴۸٬۰۰۰ لید در ۲۱ کشور',
       'افزونه دفتریار · ۱۵٬۵۰۱ گزاره تست واحد · گیت ۳۹۷/۳۹۷',
       'پلتفرم همه‌سو · ۷۳ مسیر ویترین و کنسول · POSTGRES RLS',
       'کاریابی سی‌ولی · ۶٬۵۷۷ آگهی زنده · ۸۳۲ سیگنال حقوق',
@@ -369,19 +369,19 @@ export const UI_COPY = {
     studioLead:
       'روی هر برند کلیک کنید تا صحنه زنده تغییر رنگ دهد و پیش‌نمایش هم‌زمان دسکتاپ ۱۴۴۰px و موبایل ۳۹۰px را روی موتور چندزبانه Next.js + Payload مشاهده کنید.',
     openFullStudioBtn: 'ورود به برگه کامل استودیو ۶ برند صادراتی ←',
-    labKicker: '۰۴ // شبیه‌ساز زنده خط تولید ایجنت‌ها',
+    labKicker: 'شبیه‌ساز زنده خط تولید ایجنت‌ها',
     labTitle: 'خط تولید چند-ایجنتی را زنده اجرا کنید',
     labLead:
       'یکی از ۴ ماموریت واقعی انجام‌شده را انتخاب و اجرا کنید تا ببینید ایجنت‌های محقق، معمار، سازندگان موازی و بازبین Playwright چگونه محصول را بدون خطا تحویل می‌دهند.',
     runSimBtn: '▶ اجرای زنده ماموریت',
     runningSimBtn: '● در حال اجرای پایپ‌لاین...',
     openFullLabBtn: 'مطالعه کامل معماری خط تولید ایجنت‌ها ←',
-    hireKicker: '۰۵ // موتور تصمیم‌گیری مدیران و استخدام',
+    hireKicker: '۰۴ // موتور تصمیم‌گیری مدیران و استخدام',
     hireTitle: 'نقش موردنیازتان را انتخاب کنید و اهرم واقعی همکاری را بسنجید',
     hireLead:
       'جایگاه شغلی مدنظرتان را انتخاب کنید تا پروژه‌های مرتبط، مقایسه بهره‌وری با تیم ۴ نفره سنتی و نحوه شروع بدون ریسک با تسک آزمایشی ۴۸ ساعته را ببینید.',
     openHireConciergeBtn: 'ورود به میز کامل همکاری و تسک آزمایشی ←',
-    trajectoryKicker: '۰۶ // مسیر رشد ۲۰۱۸ ———— ۲۰۲۶',
+    trajectoryKicker: '۰۵ // مسیر رشد ۲۰۱۸ ———— ۲۰۲۶',
     trajectoryTitle: 'هشت سال انباشت تجربه واقعی در وب و هوش مصنوعی',
     openFullResumeBtn: 'مشاهده کارنامه کامل ۸ ساله و دانلود PDF یک‌صفحه‌ای ←',
     nextPortalLabel: 'ادامه مسیر در برگه بعدی',
@@ -551,18 +551,18 @@ export const VENTURES = [
     },
   },
   {
-    id: 'leadgen',
+    id: 'leadvium',
     index: '05',
-    route: '/work/leadgen',
+    route: '/work/leadvium',
     category: 'ai',
     year: '2026',
     statusType: 'frozen',
     status: { en: 'ENGINEERED · FROZEN', fa: 'مهندسی‌شده · فریز ارسال' },
-    name: { en: 'LeadGen Machine & Outreach Studio', fa: 'موتور لیدجن، پیشرو و Outreach Studio' },
+    name: { en: 'Leadvium & Outreach Studio', fa: 'لیدویوم، پیشرو و Outreach Studio' },
     role: { en: 'System Creator & AI Architect', fa: 'طراح و معمار سیستم AI' },
     previewImg: null,
     mobilePreviewImg: null,
-    schematicType: 'leadgen',
+    schematicType: 'leadvium',
     liveUrl: null,
     repoUrl: null,
     stack: ['Python (30+ Modules)', 'SQLite', '9-Signal Web Scanner', 'Unibox CRM', 'Domain Shield'],
@@ -585,7 +585,7 @@ export const VENTURES = [
     year: '2026 — Present',
     statusType: 'internal',
     status: { en: 'ACTIVE PIPELINE', fa: 'پایپ‌لاین فعال' },
-    name: { en: '7-Stage Website Audit Engine & pdfscript', fa: 'موتور ممیزی ۷ مرحله‌ای سایت و pdfscript' },
+    name: { en: '7-Stage Website Audit Engine', fa: 'موتور ممیزی ۷ مرحله‌ای سایت' },
     role: { en: 'Creator', fa: 'طراح و سازنده' },
     previewImg: null,
     mobilePreviewImg: null,
@@ -916,7 +916,7 @@ export const RESUME_TRACKS = {
       en: '8 years in web — 5 years freelance (e-commerce, WordPress, SEO), 2 years in-house, now Founder at Exvorta. I ship production platforms, B2B automation engines, and high-craft multilingual web properties by directing specialized AI agent teams behind deterministic quality gates. Remote-first and async-native across time zones (all communication in clear written chat/email & documented work samples).',
       fa: '۸ سال سابقه مستمر در وب — ۵ سال فریلنسری (فروشگاه اینترنتی، وردپرس، سئو)، ۲ سال درون‌سازمانی و اکنون بنیان‌گذار Exvorta. پلتفرم‌های SaaS، موتورهای اتوماسیون B2B و وب‌سایت‌های چندزبانه تراز جهانی را با هدایت تیم‌های ایجنت هوشمند و گیت‌های کنترل کیفیت تولید می‌کنم. همکاری ریموت و Async با مستندسازی مکتوب دقیق و تحویل نمونه کار عملی.',
     },
-    highlightRoles: ['exvorta', 'audit', 'leadgen', 'firoozehland', 'samiansoft'],
+    highlightRoles: ['exvorta', 'audit', 'leadvium', 'firoozehland', 'samiansoft'],
   },
   ai: {
     id: 'ai',
@@ -929,7 +929,7 @@ export const RESUME_TRACKS = {
       en: 'I run an agent-driven engineering pipeline (architect → builder → QA → reviewer, automated quality gates, one-command production deploys) instead of typing every line. It has shipped a live SaaS platform (exvorta.com), a 48,000+ B2B lead engine across 21 countries, and a 7-stage automated website audit tool. Remote-first, strong async writer (chat/email/specs).',
       fa: 'به‌جای کدنویسی خط‌به‌خط دستی، خط تولید چند-ایجنتی (معمار ← سازنده ← QA ← بازبین) را با گیت‌های تست خودکار راهبری می‌کنم. خروجی این معماری: پلتفرم زنده SaaS، موتور پردازش +۴۸٬۰۰۰ لید در ۲۱ کشور و ابزار ۷ مرحله‌ای ممیزی خودکار وب‌سایت است.',
     },
-    highlightRoles: ['exvorta', 'audit', 'leadgen', 'builder'],
+    highlightRoles: ['exvorta', 'audit', 'leadvium', 'builder'],
   },
   web: {
     id: 'web',
@@ -955,7 +955,7 @@ export const RESUME_TRACKS = {
       en: 'Combining technical SEO, multilingual search architecture, and conversion diagnostics with custom engineering: I build the growth machines directly — processing 48,000+ B2B leads across 21 countries and compiling automated 14-page Lighthouse/UX proposal PDFs.',
       fa: 'ترکیب عمیق سئو تکنیکال چندزبانه با توان ساخت ابزارهای اختصاصی رشد: از طراحی موتور پردازش +۴۸٬۰۰۰ لید B2B در ۲۱ کشور تا ساخت کامپایلر خودکار پروپوزال‌های ۱۴ صفحه‌ای ممیزی سایت.',
     },
-    highlightRoles: ['leadgen', 'audit', 'firoozehland', 'samiansoft'],
+    highlightRoles: ['leadvium', 'audit', 'firoozehland', 'samiansoft'],
   },
 };
 
@@ -985,7 +985,7 @@ export const EXPERIENCE = [
     yearShort: '2026',
     linkedVenture: 'audit',
     role: { en: 'Creator', fa: 'طراح و سازنده' },
-    company: { en: 'Website Audit Engine & pdfscript', fa: 'Website Audit Engine & pdfscript' },
+    company: { en: 'Website Audit Engine', fa: 'Website Audit Engine' },
     period: { en: 'Aug 2026 – Present · Remote', fa: 'آگوست ۲۰۲۶ تا اکنون · ریموت' },
     bullets: {
       en: [
@@ -997,11 +997,11 @@ export const EXPERIENCE = [
     },
   },
   {
-    id: 'leadgen',
+    id: 'leadvium',
     yearShort: '2026',
-    linkedVenture: 'leadgen',
+    linkedVenture: 'leadvium',
     role: { en: 'Creator & AI Architect', fa: 'طراح و معمار سیستم AI' },
-    company: { en: 'LeadGen Machine & Outreach Studio', fa: 'LeadGen Machine & Outreach Studio' },
+    company: { en: 'Leadvium & Outreach Studio', fa: 'Leadvium & Outreach Studio' },
     period: { en: 'Jun 2026 – Present · Remote', fa: 'ژوئن ۲۰۲۶ تا اکنون · ریموت' },
     bullets: {
       en: [
@@ -1023,7 +1023,7 @@ export const EXPERIENCE = [
     period: { en: 'Nov 2025 – Jun 2026 · Remote', fa: 'نوامبر ۲۰۲۵ تا ژوئن ۲۰۲۶ · ریموت' },
     bullets: {
       en: [
-        'Prototyped the automation engines behind LeadGen Machine, Website Audit Tool, and Exvorta’s multi-agent orchestration workflow; initiated core architectures for Hamesu, Cvly, and the Yaar WordPress plugin suite.',
+        'Prototyped the automation engines behind Leadvium, Website Audit Tool, and Exvorta’s multi-agent orchestration workflow; initiated core architectures for Hamesu, Cvly, and the Yaar WordPress plugin suite.',
       ],
       fa: [
         'نمونه‌سازی هسته اولیه ابزارهای اتوماسیون، پی‌ریزی خط تولید چند-ایجنتی Exvorta و آغاز معماری پلتفرم‌های همه‌سو، سی‌ولی و خانواده افزونه‌های وردپرس.',

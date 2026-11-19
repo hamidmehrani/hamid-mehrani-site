@@ -6,7 +6,7 @@ const ORBIT_NODES = [
   { id: 'cvly', label: 'Cvly AI', ring: 0, angle: 5.0, route: '/work/cvly', color: '#38BDF8', primary: true, tag: '6,577 JOBS' },
 
   // Ring 1: Autonomous AI & Finance Engines
-  { id: 'leadgen', label: 'LeadGen 48k', ring: 1, angle: 0.8, route: '/work/leadgen', color: '#D2A738', primary: true, tag: '21 COUNTRIES' },
+  { id: 'leadvium', label: 'Leadvium 48k', ring: 1, angle: 0.8, route: '/work/leadvium', color: '#D2A738', primary: true, tag: '21 COUNTRIES' },
   { id: 'audit', label: 'Audit 14p PDF', ring: 1, angle: 2.35, route: '/work/audit', color: '#0EC49A', primary: false, tag: '7 STAGES' },
   { id: 'daftaryar', label: 'Daftaryar ERP', ring: 1, angle: 3.95, route: '/work/daftaryar', color: '#10B981', primary: true, tag: '397/397 GATE' },
   { id: 'jobhunt', label: 'JobHunt Rig', ring: 1, angle: 5.5, route: '/work/jobhunt', color: '#A78BFA', primary: false, tag: '10 BOARDS' },

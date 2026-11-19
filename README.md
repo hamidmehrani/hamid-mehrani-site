@@ -6,13 +6,13 @@ Multi-page creative portfolio, 3D orbital systems observatory, interactive multi
 - **Mobbin Design Collection:** `hamid-mehrani-observatory-v1` (20 verified section/screen references documented in [`docs/DESIGN_SYSTEM_AND_MOBBIN_REFS.md`](./docs/DESIGN_SYSTEM_AND_MOBBIN_REFS.md))
 
 ## 13 Pre-Rendered Routes
-1. `/` — **3D Orbital Observatory & 8-Act Exhibition**
+1. `/` — **3D Orbital Observatory & 7-Act Exhibition**
 2. `/work/exvorta` — **Case 01: Exvorta · Trade Business OS** (`exvorta.com`)
 3. `/work/firoza` — **Case 02: Firoza · Nishapur Turquoise Atelier** (`firoza.ir`)
 4. `/work/hamesu` — **Case 03: Hamesu · Multi-Tenant Commerce OS** (`hamesu.ir`)
 5. `/work/cvly` — **Case 04: Cvly · AI Career & Salary Intelligence** (`cvly.ir`)
-6. `/work/leadgen` — **Case 05: LeadGen Machine & Outreach Studio**
-7. `/work/audit` — **Case 06: 7-Stage Website Audit Engine & `pdfscript`**
+6. `/work/leadvium` — **Case 05: Leadvium & Outreach Studio**
+7. `/work/audit` — **Case 06: 7-Stage Website Audit Engine**
 8. `/work/daftaryar` — **Case 07: Daftaryar · WooCommerce Finance & Sepidar ERP**
 9. `/work/jobhunt` — **Case 08: Autonomous JobHunt Pipeline & Real-Time Audio Rig**
 10. `/exvorta-web` — **Exvorta Web Studio Monograph** (6 live B2B trade houses)

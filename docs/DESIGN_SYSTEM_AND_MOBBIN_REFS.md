@@ -7,13 +7,13 @@
 Designed to win an Awwwards Site of the Day / Developer Award and make hiring Hamid Mehrani an undeniable executive decision for any CTO, Founder, or Hiring Director:
 
 - **13 Interconnected Long-Form Routes:**
-  1. `/` — **Flagship Exhibition & 3D Orbital Observatory** (8-act scroll-choreographed showcase)
+  1. `/` — **Flagship Exhibition & 3D Orbital Observatory** (7-act scroll-choreographed showcase)
   2. `/work/exvorta` — **Case 01: Exvorta · Sovereign Trade Business OS** (`exvorta.com`)
   3. `/work/firoza` — **Case 02: Firoza · Nishapur Turquoise Atelier** (`firoza.ir`)
   4. `/work/hamesu` — **Case 03: Hamesu · Multi-Tenant Iranian Commerce OS** (`hamesu.ir`)
   5. `/work/cvly` — **Case 04: Cvly · AI Career & Salary Intelligence** (`cvly.ir`)
-  6. `/work/leadgen` — **Case 05: LeadGen Machine, Pishro AI & Outreach Studio** (`48,000+` leads · Frozen `2026-11-06`)
-  7. `/work/audit` — **Case 06: 7-Stage Website Audit Engine & `pdfscript`** (`14-page` automated proposal PDF)
+  6. `/work/leadvium` — **Case 05: Leadvium, Pishro AI & Outreach Studio** (`48,000+` leads · Frozen `2026-11-06`)
+  7. `/work/audit` — **Case 06: 7-Stage Website Audit Engine** (`14-page` automated proposal PDF)
   8. `/work/daftaryar` — **Case 07: Daftaryar · WooCommerce Finance & Sepidar ERP Bridge** (`397/397` LDD gate · `15,501` assertions)
   9. `/work/jobhunt` — **Case 08: Autonomous JobHunt Pipeline & Real-Time FA⇄EN AI Interpreter**
   10. `/exvorta-web` — **Exvorta Web B2B Studio Monograph** (6 full-bleed chapters: `Spicevo`, `Nutave`, `Stonvi`, `Aurum`, `Meridian`, `Vestra`)

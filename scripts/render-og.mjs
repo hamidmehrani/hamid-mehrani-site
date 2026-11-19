@@ -107,7 +107,7 @@ const html = `<!DOCTYPE html>
     <p>Shipping production SaaS platforms, multi-agent automation engines &amp; 6 Exvorta Web global trade houses.</p>
   </div>
   <div class="bottom">
-    <span>EXVORTA · FIROZA · HAMESU · CVLY · LEADGEN (48K+ LEADS)</span>
+    <span>EXVORTA · FIROZA · HAMESU · CVLY · LEADVIUM (48K+ LEADS)</span>
     <strong>${portfolioUrl}</strong>
   </div>
 </body>

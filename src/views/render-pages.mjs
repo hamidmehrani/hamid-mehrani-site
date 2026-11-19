@@ -537,22 +537,8 @@ export function renderHomeView(state) {
       </div>
     </section>
 
-    <!-- ACT 05: LIVE PLAYABLE AGENT PIPELINE SANDBOX -->
-    <section id="pipeline" class="section">
-      <div class="container">
-        <div class="section-header" data-reveal>
-          <div>
-            <div class="chapter-index">${copy.labKicker}</div>
-            <h2 class="section-title">${copy.labTitle}</h2>
-          </div>
-          <p class="section-lead">${copy.labLead}</p>
-        </div>
 
-        <div id="pipeline-sim-mount">${renderPipelineSimulatorWidget(state, true)}</div>
-      </div>
-    </section>
-
-    <!-- ACT 06: EXECUTIVE HIRING & ROLE-FIT DECISION ENGINE -->
+    <!-- ACT 05: EXECUTIVE HIRING & ROLE-FIT DECISION ENGINE -->
     <section id="hire-engine" class="section hire-engine-section">
       <div class="container">
         <div class="section-header" data-reveal>
@@ -567,7 +553,7 @@ export function renderHomeView(state) {
       </div>
     </section>
 
-    <!-- ACT 07: 2018 — 2026 CAREER TRAJECTORY -->
+    <!-- ACT 06: 2018 — 2026 CAREER TRAJECTORY -->
     <section class="section">
       <div class="container">
         <div class="trajectory-header-bar" data-reveal>
@@ -588,7 +574,7 @@ export function renderHomeView(state) {
       </div>
     </section>
 
-    <!-- ACT 08: ZERO-DEAD-END PORTAL INTO CASE 01 -->
+    <!-- ACT 07: ZERO-DEAD-END PORTAL INTO CASE 01 -->
     ${renderNextPortal({
       kicker: copy.nextPortalLabel,
       code: 'CASE 01 / 08 · DEEP MONOGRAPH',

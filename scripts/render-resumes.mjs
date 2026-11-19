@@ -105,7 +105,7 @@ li { margin-bottom: 1pt; }
 
 <div class="job">
   <div class="jt-row">
-    <div class="jt">Creator — <span class="co">Website Audit Tool &amp; pdfscript</span></div>
+    <div class="jt">Creator — <span class="co">Website Audit Tool</span></div>
     <div class="meta">Aug 2026 – Present · Remote</div>
   </div>
   <ul>
@@ -115,7 +115,7 @@ li { margin-bottom: 1pt; }
 
 <div class="job">
   <div class="jt-row">
-    <div class="jt">Creator — <span class="co">LeadGen Machine</span></div>
+    <div class="jt">Creator — <span class="co">Leadvium</span></div>
     <div class="meta">Jun 2026 – Present · Remote</div>
   </div>
   <ul>
@@ -130,7 +130,7 @@ li { margin-bottom: 1pt; }
     <div class="meta">Nov 2025 – Jun 2026 · Remote</div>
   </div>
   <ul>
-    <li>Prototyped the automation pipelines that became LeadGen Machine and the Website Audit Tool; architected Exvorta's technical foundation and multi-agent runner infrastructure.</li>
+    <li>Prototyped the automation pipelines that became Leadvium and the Website Audit Tool; architected Exvorta's technical foundation and multi-agent runner infrastructure.</li>
   </ul>
 </div>
 

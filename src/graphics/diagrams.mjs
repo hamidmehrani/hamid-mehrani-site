@@ -101,7 +101,7 @@ export function getVentureSchematicSvg(type) {
     </svg>`;
   }
 
-  if (type === 'leadgen') {
+  if (type === 'leadvium') {
     return `<svg dir="ltr" viewBox="0 0 640 400" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
       <defs>
         <radialGradient id="lg-glow" cx="50%" cy="50%" r="55%">
@@ -159,7 +159,7 @@ export function getVentureSchematicSvg(type) {
         <text x="64" y="206" fill="#CBD5E1">04 · TLS &amp; Headers Security</text>
         <text x="64" y="234" fill="#CBD5E1">05 · Technical SEO &amp; Schema</text>
         <text x="64" y="262" fill="#CBD5E1">06 · AI Vision UI Critique</text>
-        <text x="64" y="294" fill="#D2A738" font-weight="700">07 · pdfscript A4 Compiler</text>
+        <text x="64" y="294" fill="#D2A738" font-weight="700">07 · A4 Proposal Compiler</text>
         <text x="64" y="324" fill="#94A3B8">83/83 Regression Tests PASS</text>
 
         <path class="svg-flow-line" d="M 294 200 H 362" stroke="#0EC49A" stroke-width="2" stroke-dasharray="5 5"/>
