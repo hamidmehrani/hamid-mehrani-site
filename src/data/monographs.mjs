@@ -465,11 +465,11 @@ $ curl -sI https://exvorta.com -> HTTP/2 200 (Cloudflare Pages Edge · LH 100/10
     },
     solutionNarrative: {
       en: [
-        'Cvly (live on R23.2 @ `98a9ea0`, verified 2026-11-18) indexes 6,577 live listings (Nov 2026 snapshot) across 7 sources into a tuned SQLite WAL engine (`busy_timeout=30000`, shared inter-worker `PrivateTmp` caches, sub-second loopback response) behind FastAPI, RTL Jinja2, and HTMX/Alpine.',
+        'Cvly (live on the Atlas redesign r27 @ `5564c1e`, verified 2026-11-20, served from the Cloudflare Pages edge `cvly-atlas` with a worker proxying the FastAPI backend) indexes 6,577 live listings (Nov 2026 snapshot) across 7 sources into a tuned SQLite WAL engine (`busy_timeout=30000`, shared inter-worker `PrivateTmp` caches, sub-second loopback response) behind FastAPI, RTL Jinja2, and HTMX/Alpine.',
         'Users can run a zero-signup Instant Fit Check (`POST /api/instant-check`), explore 832 real salary benchmarks on `/salaries`, generate per-job tailored resumes guarded by a deterministic anti-fabrication validator ported from JobHunt, and export crisp Persian PDFs.',
       ],
       fa: [
-        'پلتفرم **سی‌ولی (Cvly)** در نسخه <bdi dir="ltr">R23.2</bdi> بیش از ۶٬۵۷۷ آگهی واقعی (اسنپ‌شات نوامبر ۲۰۲۶) را از ۷ منبع کاریابی در دیتابیس بهینه‌شده <bdi dir="ltr">SQLite WAL</bdi> با کش بین‌ورکری ایندکس می‌کند تا صفحات اصلی زیر ۱ ثانیه روی لوپ‌بک پاسخ دهند.',
+        'پلتفرم **سی‌ولی (Cvly)** در نسخهٔ بازطراحی‌شدهٔ <bdi dir="ltr">Atlas r27</bdi> بیش از ۶٬۵۷۷ آگهی واقعی (اسنپ‌شات نوامبر ۲۰۲۶) را از ۷ منبع کاریابی در دیتابیس بهینه‌شده <bdi dir="ltr">SQLite WAL</bdi> با کش بین‌ورکری ایندکس می‌کند تا صفحات اصلی زیر ۱ ثانیه روی لوپ‌بک پاسخ دهند؛ دامنهٔ cvly.ir از لبهٔ <bdi dir="ltr">Cloudflare Pages</bdi> سرو می‌شود.',
         'کارجو بدون نیاز به ثبت‌نام اولیه می‌تواند در صفحه خانه امتیاز تطابق رزومه خود را بسنجد، در بخش <bdi dir="ltr">/salaries</bdi> حقوق واقعی بازار را بر پایه ۸۳۲ سیگنال ببیند و رزومه شخصی‌سازی‌شده بدون هیچ‌گونه جعل فکت را در قالب PDF فارسی تحویل بگیرد.',
       ],
     },
