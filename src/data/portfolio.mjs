@@ -543,7 +543,7 @@ export const VENTURES = [
     category: 'saas',
     year: '2026 — Present',
     statusType: 'live',
-    status: { en: 'LIVE R23.2 · 6,577 JOBS', fa: 'زنده نسخه R23.2' },
+    status: { en: 'LIVE ATLAS R27 · 6,577 JOBS', fa: 'زنده نسخه Atlas r27' },
     name: { en: 'Cvly · AI Career & Salary Intelligence', fa: 'سی‌ولی (Cvly) · کاریابی هوشمند و حقوق' },
     role: { en: 'Product & Stack Owner', fa: 'مالک محصول و معماری' },
     previewImg: '/previews/cvly.webp',
